@@ -18,22 +18,17 @@ class GoodsSerializer(serializers.ModelSerializer):
         model = Goods
         fields = (
             'id',
-            'goods_type',
             'title',
             'description',
-            'workshop',
-            'diameter',
-            'article',
+            'compound',
+            'weight',
+            'calories',
             'price',
-            'play',
             'images',
             'count',
-            'composition',
-            'structure',
-            'weight',
             'type',
             'is_favorited',
-            'is_in_shopping_cart'
+            'is_in_shopping_cart',
         )
 
     def in_list(self, obj, model):
@@ -56,11 +51,15 @@ class ShortGoodsSerializer(serializers.ModelSerializer):
         model = Goods
         fields = (
             'id',
-            'goods_type',
             'title',
+            'description',
+            'compound',
+            'weight',
+            'calories',
+            'price',
             'images',
             'count',
-            'price'
+            'type',
         )
 
 
@@ -72,7 +71,7 @@ class ShoppingCartSerializer(serializers.ModelSerializer):
             'goods',
             'user',
             'count',
-            'price'
+            'price',
         )
 
 
@@ -82,7 +81,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
         model = Favorite
         fields = (
             'user',
-            'goods'
+            'goods',
         )
         validators = [
             validators.UniqueTogetherValidator(

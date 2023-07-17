@@ -9,5 +9,5 @@ router.register('goods', GoodsViewSet, basename='goods')
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('goods/<int:favorite_id>/favorite/', FavoriteView),
+    path('goods/<int:favorite_id>/favorite/', FavoriteView.as_view()),
 ]

@@ -16,8 +16,8 @@ if DEBUG:
     ]
 else:
     ALLOWED_HOSTS = [
-        'frantsuz.ru',
-        '37.140.195.3',
+        'tyteda.ru',
+        '',
     ]
 
 
@@ -84,10 +84,10 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'academy',
-            'USER': 'academy_user',
+            'NAME': 'tyteda',
+            'USER': 'tyteda_user',
             'PASSWORD': '20031956tAA',
-            'HOST': 'db',
+            'HOST': '',
             'PORT': '5432'
         }
     }

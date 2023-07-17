@@ -12,55 +12,49 @@ class Image(models.Model):
         "Goods",
         related_name='images',
         on_delete=models.CASCADE,
-
-
-        verbose_name='Товар'
+        verbose_name='Блюдо'
     )
 
     def __str__(self):
-        return f'Картинка #{self.pk} для товара {self.goods.title}'
+        return f'Картинка #{self.pk} для блюда {self.goods.title}'
 
 
 class Goods(models.Model):
-    CHOICES_GOODS = (
-        ('1', 'Кии'),
-        ('2', 'Шары'),
-        ('3', 'Аксессуары'),
-    )
-    CHOICES_TYPE = (
-        ('case', 'Чехол'),
-        ('sticker', 'Наклейка'),
-        ('chalk', 'Мел'),
-        ('glove', 'Перчатки')
-    )
-    goods_type = models.CharField(
-        verbose_name='Тип товара',
-        max_length=50,
-        choices=CHOICES_GOODS
+    DISH_TYPE = (
+        ('hot_dishes', 'Горячие блюда'),
+        ('soups', 'Супы'),
+        ('paste', 'Паста'),
+        ('snacks', 'Закуски'),
+        ('salads', 'Салаты'),
+        ('side_dishes', 'Гарниры'),
+        ('pizza', 'Пицца'),
+        ('burgers', 'Бургеры'),
+        ('dessert', 'Десерты'),
+        ('drinks', 'Напитки'),
+        ('khachapuri', 'Хачапури'),
+        ('ossetian_pies', 'Осетинские пироги'),
+        ('sauces', 'Соусы'),
+        ('dishes_grill', 'Блюда на мангале'),
+        ('rolls', 'Роллы'),
+        ('beer_snacks', 'Пивные закуски'),
+        ('bread', 'Хлеб'),
+        ('wok', 'Вок')
     )
     title = models.CharField(
-        max_length=150,
-        verbose_name='Название товара'
+        max_length=355,
+        verbose_name='Название блюда'
     )
     description = models.CharField(
-        max_length=255,
-        verbose_name='Описание товара'
+        max_length=355,
+        verbose_name='Описание блюда'
     )
-    workshop = models.CharField(
-        max_length=150,
-        verbose_name='Мастерская товара'
+    compound = models.CharField(
+        max_length=500,
+        verbose_name='Состав блюда'
     )
-    diameter = models.FloatField(
-        verbose_name='Диаметр товара',
-        blank=True,
-        null=True
-    )
-    article = models.IntegerField(verbose_name='Артикул товара')
-    price = models.FloatField(verbose_name='Цена товара')
-    play = models.CharField(
-        max_length=150,
-        verbose_name='Принадлежность к игре'
-    )
+    weight = models.IntegerField('Вес блюда')
+    calories = models.IntegerField('Калорийность')
+    price = models.IntegerField('Цена блюда')
     image = models.ManyToManyField(
         Image,
         blank=True,
@@ -68,39 +62,23 @@ class Goods(models.Model):
     )
     count = models.IntegerField(
         default=1,
-        verbose_name='Количество товара'
-    )
-    composition = models.IntegerField(
-        verbose_name='Составность товара',
-        blank=True,
-        null=True
-    )
-    structure = models.CharField(
-        max_length=150,
-        verbose_name='Состав товара',
-        blank=True,
-        null=True
-    )
-    weight = models.IntegerField(
-        verbose_name='Вес товара',
-        blank=True,
-        null=True
+        verbose_name='Количество блюда'
     )
     type = models.CharField(
-        verbose_name='Тип аксессуара',
-        max_length=150,
-        choices=CHOICES_TYPE,
+        'Тип блюда',
+        max_length=50,
+        choices=DISH_TYPE,
         blank=True,
         null=True
     )
 
     class Meta:
-        verbose_name = 'Товар'
-        verbose_name_plural = 'Товары'
+        verbose_name = 'Блюдо'
+        verbose_name_plural = 'Блюда'
         ordering = ['-title']
 
     def __str__(self):
-        return f'Товар {self.title}'
+        return f'Блюдо {self.title}'
 
 
 class Favorite(models.Model):
@@ -144,9 +122,9 @@ class ShoppingCart(models.Model):
     )
     count = models.IntegerField(
         default=1,
-        verbose_name='Количество товара'
+        verbose_name='Количество блюд'
     )
-    price = models.FloatField(verbose_name='Цена товара')
+    price = models.IntegerField('Цена блюда')
 
     class Meta:
         verbose_name = 'Покупка'

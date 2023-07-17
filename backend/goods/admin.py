@@ -7,27 +7,22 @@ class PostImageAdmin(admin.StackedInline):
     model = Image
 
 
+@admin.register(Goods)
 class GoodsAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
         'title',
-        'composition',
-        'structure',
-        'workshop',
+        'compound',
         'weight',
-        'article',
+        'calories',
         'price',
-        'play'
     )
     inlines = [PostImageAdmin]
     ordering = ('title', )
-    search_fields = ('title', 'price', 'article')
-    list_filter = ('title', 'price', 'article', 'composition')
+    search_fields = ('title', 'price', 'type',)
+    list_filter = ('price', 'type',)
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     pass
-
-
-admin.site.register(Goods, GoodsAdmin)

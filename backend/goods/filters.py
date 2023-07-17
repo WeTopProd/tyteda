@@ -5,54 +5,29 @@ from .models import Goods
 
 
 class GoodsFilter(FilterSet):
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        workshops = Goods.objects.values_list(
-            'workshop',
-            'workshop'
-        ).distinct()
-        self.filters['workshop'].extra['choices'] = workshops
-
-        plays = Goods.objects.values_list('play', 'play').distinct()
-        self.filters['play'].extra['choices'] = plays
-
-    goods_type = ChoiceFilter(
-        choices=Goods.CHOICES_GOODS,
-        field_name='goods_type'
-    )
     title = filters.CharFilter(
         lookup_expr='icontains',
         field_name='title'
     )
-    composition = filters.NumberFilter(
-        lookup_expr='exact',
-        field_name='composition'
-    )
-    workshop = MultipleChoiceFilter(
+    description = filters.CharFilter(
         lookup_expr='icontains',
-        field_name='workshop'
+        field_name='description'
     )
-    diameter = filters.NumberFilter(
-        lookup_expr='exact',
-        field_name='diameter'
+    compound = filters.CharFilter(
+        lookup_expr='icontains',
+        field_name='compound'
     )
     weight = filters.NumberFilter(
         lookup_expr='exact',
         field_name='weight'
     )
-    article = filters.NumberFilter(
+    calories = filters.NumberFilter(
         lookup_expr='exact',
-        field_name='article'
+        field_name='calories'
     )
     price = RangeFilter(field_name='price')
-
-    play = MultipleChoiceFilter(
-        lookup_expr='icontains',
-        field_name='play'
-    )
     type = ChoiceFilter(
-        choices=Goods.CHOICES_TYPE,
+        choices=Goods.DISH_TYPE,
         field_name='type'
     )
     is_favorited = filters.BooleanFilter(method='get_is_favorited')
@@ -63,15 +38,12 @@ class GoodsFilter(FilterSet):
     class Meta:
         model = Goods
         fields = (
-            'goods_type',
             'title',
-            'composition',
-            'workshop',
-            'diameter',
+            'description',
+            'compound',
             'weight',
-            'article',
+            'calories',
             'price',
-            'play',
             'type',
             'is_favorited',
             'is_in_shopping_cart'
