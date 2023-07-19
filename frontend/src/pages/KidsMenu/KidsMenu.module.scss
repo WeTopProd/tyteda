@@ -1,0 +1,79 @@
+
+.section__menu{
+    background-image: url('./img/kidsBG.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    margin: 90px 0px 0px 0px !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 850px ){
+        background-image: url('./img/kidsPl.png');
+    }
+
+    @media screen and (max-width: 500px ){
+        background-image: url('./img/kidsApp.png');
+    }
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 860px;
+
+    @media screen and (max-width: 850px ){
+       max-width: 500px;
+    }
+
+    @media screen and (max-width: 500px ){
+        margin-top: -100px !important;
+    }
+
+    &__title{
+        color: var(--white, #FFF);
+        font-size: 72px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 140%;
+        text-transform: uppercase;
+        margin-bottom: 40px !important;
+
+        @media screen and (max-width: 850px ){
+            font-size: 40px;
+        }
+
+        @media screen and (max-width: 500px ){
+            font-size: 30px;
+            margin-bottom: 20px !important;
+        }
+    }
+
+    &__subtitle{
+        color: var(--white, #FFF);
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 140%;
+
+        @media screen and (max-width: 770px ){
+            font-size: 20px;
+        }
+
+        @media screen and (max-width: 500px ){
+            font-size: 18px;
+        }
+    }
+}
+
+.section__mycard{
+
+    padding: 70px 0px;
+
+}
+
