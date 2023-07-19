@@ -15,8 +15,6 @@ import Filter from '../components/Filter/Filter';
 import Payment from '../components/payment/Payment';
 import Delivery from '../components/Delivery/Delivery';
 import Reviews from '../components/Reviews/Reviews';
-import { MenuJson } from '../components/Menu/MenuJSON';
-import MenuCard from '../components/Menu/MenuCard';
 import { Link } from 'react-router-dom';
 
 

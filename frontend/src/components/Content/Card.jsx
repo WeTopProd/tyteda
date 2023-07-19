@@ -7,7 +7,7 @@ export default function Card ({...info}) {
 
     return (
 
-        <Link to='/intercard' className={s.mycard__item}>
+        <div  className={s.mycard__item}>
 
             <div className={s.mycard__item__fon}>
 
@@ -17,9 +17,9 @@ export default function Card ({...info}) {
             
             <div className={s.mycard__item__info}>
 
-                <p className={s.mycard__item__info__title}>
+                <Link to='/intercard' className={s.mycard__item__info__title}>
                 {info.Dish_Name}
-                </p>
+                </Link>
 
                 <p className={s.mycard__item__info__subtitle}>
                 {info.Gram} г.
@@ -45,7 +45,7 @@ export default function Card ({...info}) {
 
             </div>
 
-        </Link>
+        </div>
 
     )
 }
