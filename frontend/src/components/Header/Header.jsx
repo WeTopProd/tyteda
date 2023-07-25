@@ -25,8 +25,9 @@ import { HashLink } from 'react-router-hash-link';
 import Tovar from '../Tovar/Tovar'
 import { TovarJson } from '../Tovar/TovarJson'
 import TovarKarzinka from '../Tovar/TovarKarzinka'
+import axios from 'axios'
 
-export default function Header ({isActive}) {
+export default function Header ({isActive, setIsActive, token}) {
 
 
 
@@ -38,6 +39,8 @@ export default function Header ({isActive}) {
 
     const [danniy , setDanniy] = useState(false)
 
+    const [danniyTwo , setDanniyTwo] = useState(false)
+
     const [address, setAddress] = useState(false)
 
     const [changes, setChanges] = useState(false)
@@ -45,6 +48,7 @@ export default function Header ({isActive}) {
     const [ zakaz, setZakaz ] = useState(false)
 
     const [ loveOn, setLovaOn ] = useState(false)
+    
 
 
 
@@ -61,6 +65,8 @@ export default function Header ({isActive}) {
         setAddress(false)
         setZakaz(false)
         setLovaOn(false)
+        
+        setDanniyTwo(false)
     }
 
     const adminkaActive = () => {
@@ -70,6 +76,7 @@ export default function Header ({isActive}) {
         setChanges(false)
         setAddress(false)
         setZakaz(false)
+        setDanniyTwo(false)
         setLovaOn(false)
 
     }
@@ -81,6 +88,7 @@ export default function Header ({isActive}) {
         setChanges(false)
         setAddress(false)
         setZakaz(false)
+        setDanniyTwo(false)
         setLovaOn(false)
 
       };
@@ -95,10 +103,16 @@ export default function Header ({isActive}) {
         setChanges(false)
         setAddress(false)
         setZakaz(false)
+        setDanniyTwo(false)
       }
 
       const handleDanniy = () => {
         setAdminka(false)
+        setDanniyTwo(true)
+      }
+
+      const handleDanniyPath = () => {
+        setDanniyTwo(false)
         setDanniy(true)
 
       }
@@ -125,6 +139,7 @@ export default function Header ({isActive}) {
         setChanges(false)
         setZakaz(false)
         setAdminka(true)
+        setDanniyTwo(false)
       }
 
 
@@ -161,6 +176,7 @@ export default function Header ({isActive}) {
           setDanniy(false)
           setZakaz(false)
           setLovaOn(false)
+          setDanniyTwo(false)
 
         }
       };
@@ -193,9 +209,103 @@ export default function Header ({isActive}) {
 
     }
 
-
       const locationn = useLocation ()
+
+      const signOut = () => {
+        setIsActive(false);
+        setAdminka(false);
+        localStorage.setItem('isAuthorized', 'false');
+        localStorage.setItem('token', '') // Сохраняем состояние в localStorage
     
+      };
+
+      const [meuser, setMeUser] = useState([])
+  
+      
+  
+      useEffect(() => {
+          axios.get('http://127.0.0.1:8000/api/users/me/', {
+  
+          
+          headers: {
+              'Content-Type': 'application/json',
+              'authorization': `Token ${tokenTwo}`
+          }
+      
+          })
+      
+          .then((res) => { setMeUser(res.data) })
+          .catch((err) => console.error(err))
+
+      }, [])
+
+      const [phoneTel, setPhoneTel] = useState('')
+
+      const [firstName, setFirstName] = useState('')
+
+      const [lastName, setLastName] = useState('')
+
+      const [emailPo, setEmailPo] = useState('')
+
+
+      const PreapUsers = () => {       
+    
+        axios.patch('http://127.0.0.1:8000/api/users/me/', {
+
+        email: emailPo,
+        first_name: firstName,
+        last_name: lastName,
+        phone: phoneTel,
+            
+        },
+        
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                'authorization': `Token ${tokenTwo}`
+            }  
+
+        }
+        
+        
+        )
+
+        .then(res => {   
+            window.location.reload()
+            setDanniyTwo(true)
+            // setDanniy(false)
+            
+        })
+
+        .catch(err => console.error(err))
+
+      }
+
+      const [tovarlive, setTovarLove] = useState([])
+
+       useEffect(() => {
+
+        axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+
+        headers: {
+          "content-type": "application/json",
+          authorization: `Token ${tokenTwo}`,
+        }
+  
+      })
+
+      .then((res) => {
+
+        setTovarLove(res.data.results)
+
+       })
+
+       }, [])
+
+       console.log(tovarlive);
+
+      const tokenTwo = localStorage.getItem('token')
+
 
     return (
 
@@ -243,7 +353,7 @@ export default function Header ({isActive}) {
     
                 <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>детское меню</Link>
     
-                {isActive ?
+                {!isActive ?
     
                    ''
                    
@@ -263,7 +373,7 @@ export default function Header ({isActive}) {
     
                </div>
     
-               { isActive ?
+               { !isActive ?
 
                <>
                
@@ -355,7 +465,7 @@ export default function Header ({isActive}) {
                 <p>Мои заказы</p>
             </div>
     
-            <div className={h.nav__user__nav}>
+            <div className={h.nav__user__nav} onClick={signOut}>
                 <img src={admin4} alt="" />
                 <p>Выйти</p>
             </div>           
@@ -376,7 +486,6 @@ export default function Header ({isActive}) {
                     
                 </div>
     
-                <img src={del} alt="delete" className={h.nav__kar__header__del} />
     
     
             </div>
@@ -385,7 +494,7 @@ export default function Header ({isActive}) {
     
             <div className={h.nav__kar__map}>
 
-            {TovarJson.map( (info , index) => {
+            {tovarlive.map( (info , index) => {
                 return <Tovar {...info} key={index} />
             } )}
     
@@ -445,8 +554,8 @@ export default function Header ({isActive}) {
             </button>
     
         </div>
-    
-        <div className= { danniy ? [h.nav__danniy , h.nav__danniy__active].join(' ') : [h.nav__danniy] }>
+
+        <div className= { danniyTwo ? [h.nav__danniyTwo , h.nav__danniyTwo__active].join(' ') : [h.nav__danniyTwo] }>
             
             <div className={h.nav__danniy__header}>
                 
@@ -464,9 +573,55 @@ export default function Header ({isActive}) {
                 <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
     
             </div>
+
+            <div className={h.nav__danniyTwo__info}>
+                
+                <p className={h.nav__danniyTwo__info__text}>
+                    Имя: {meuser.first_name}
+                </p>
+
+                <p className={h.nav__danniyTwo__info__text}>
+                    фамилия: {meuser.last_name}
+                </p>
+
+
+                <p className={h.nav__danniyTwo__info__text}>
+                    Телефон: {meuser.phone}
+                </p>
+
+                <p className={h.nav__danniyTwo__info__text}>
+                    Почта: {meuser.email}
+                </p>
+
+                <button onClick={handleDanniyPath} className={h.nav__danniy__btn}>
+                    Изменить
+                </button>
+
+            </div>
+    
+        </div>
+    
+        <div className= { danniy ? [h.nav__danniy , h.nav__danniy__active].join(' ') : [h.nav__danniy] }>
+            
+            <div className={h.nav__danniy__header}>
+                
+                <div className={h.nav__danniy__header__info}>
+    
+                    <img src={admin1} alt="" />
+    
+                    <p className={h.nav__danniy__header__info__title}>
+                    Изменения данных
+                    </p>
+    
+                    
+                </div>
+    
+                <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+    
+            </div>
     
     
-            <form className={h.nav__danniy__form}>
+            <form className={h.nav__danniy__form} onSubmit={PreapUsers}>
                 
                 <label className={h.nav__danniy__form__label}>
                     
@@ -475,7 +630,28 @@ export default function Header ({isActive}) {
                     </p>
     
                     <input type="text" className={h.nav__danniy__form__label__input}
-                    placeholder='Иванов Иван'
+                    placeholder='Иван'
+
+                    value={firstName}
+                    onChange={(event) => setFirstName(event.target.value)}
+
+                    />
+    
+                </label>
+
+
+                <label className={h.nav__danniy__form__label}>
+                    
+                    <p className={h.nav__danniy__form__label__text}>
+                    Фамилия
+                    </p>
+    
+                    <input type="text" className={h.nav__danniy__form__label__input}
+                    placeholder='Иванов'
+
+                    value={lastName}
+                    onChange={(event) => setLastName(event.target.value)}
+
                     />
     
                 </label>
@@ -486,14 +662,17 @@ export default function Header ({isActive}) {
                     Телефон
                     </p>
     
-                    <input type="number" className={h.nav__danniy__form__label__input}
+                    <input type="tel" className={h.nav__danniy__form__label__input}
                     placeholder='+7 (999) 123-45-67'
+
+                    value={phoneTel}
+                    onChange={(event) => setPhoneTel(event.target.value)}
                     
                     />
     
                 </label>
     
-                <label className={h.nav__danniy__form__label}>
+                {/* <label className={h.nav__danniy__form__label}>
                     
                     <p className={h.nav__danniy__form__label__text}>
                     Почта
@@ -501,15 +680,18 @@ export default function Header ({isActive}) {
     
                     <input type="text" className={h.nav__danniy__form__label__input}
                     placeholder='ivanov.ivan@mail.ru'
+
+                    value={emailPo}
+                    onChange={(event) => setEmailPo(event.target.value)}
                     
                     />
     
-                </label>
+                </label> */}
     
             </form>
     
-            <button className={h.nav__danniy__btn}>
-            Сохранить
+            <button onClick={PreapUsers} className={h.nav__danniy__btn}>
+            Изменить
             </button>
     
         </div>

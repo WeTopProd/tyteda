@@ -1,9 +1,77 @@
 import s from '../../pages/Home.module.scss'
 import CardKarzina from './img/cardKarzina.svg'
-import CardLove from '../Header/img/lovetwo.svg'
 import { Link } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Card ({...info}) {
+
+    const [imageUrls, setImageUrls] = useState([]);
+
+    useEffect(() => {
+  
+      axios.get('http://127.0.0.1:8000/api/goods/', {
+      
+      headers: {
+          'Content-Type': 'application/json , multipart/form-data',
+          'authorization': `Token ${tokenTwo}`
+      }
+  
+      })
+  
+      .then((res) => {
+
+        setImageUrls(res.data.results)
+
+       })
+
+      .catch((err) => console.error(err))
+  
+  }, [])
+
+  const [heart, setHeart] = useState(info.is_favorited)
+
+  async function favorites (id) {
+
+    setHeart(!heart);
+
+    await axios
+
+      .post(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, null, {
+
+        headers: {
+          "content-type": "application/json",
+          authorization: `Token ${tokenTwo}`,
+        },
+
+      })
+
+    .catch(err => console.error(err))
+
+}
+
+async function favoritesDelete(id) {
+
+    setHeart(!heart);
+
+    await axios
+
+      .delete(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, {
+
+        headers: {
+          "content-type": "application/json",
+          authorization: `Token ${tokenTwo}`,
+        },
+
+      })
+
+      .catch(err => console.error(err))
+
+  }
+
+
+
+  const tokenTwo = localStorage.getItem('token')
 
     return (
 
@@ -11,35 +79,52 @@ export default function Card ({...info}) {
 
             <div className={s.mycard__item__fon}>
 
-            <img src={info.Img} alt="eda" className={s.mycard__item__fon__img} />
+    <svg
+
+    id={info.id}
+    
+    onClick={ !heart  ? (event) => favorites(event.currentTarget.id) : (event) => favoritesDelete(event.currentTarget.id) }
+
+    width="25px" height="25px" className={s.mycard__item__fon__live} viewBox="0 0 24 24" fill="#00000000" xmlns="http://www.w3.org/2000/svg"><path d="M12.39 20.87a.696.696 0 0 1-.78 0C9.764 19.637 2 14.15 2 8.973c0-6.68 7.85-7.75 10-3.25 2.15-4.5 10-3.43 10 3.25 0 5.178-7.764 10.664-9.61 11.895z"
+    
+    fill={ heart ? 'rgb(223, 28, 28)' : '#000'}
+    
+    /></svg>
+
+
+    {imageUrls.map((item, index) => (
+
+          item.images.map((image, idx) => (
+            <img key={index + '-' + idx} src={image.images} alt={`Image ${index}-${idx}`} className={s.mycard__item__fon__img} />
+          ))
+
+        ))}
 
             </div>
             
             <div className={s.mycard__item__info}>
 
                 <Link to='/intercard' className={s.mycard__item__info__title}>
-                {info.Dish_Name}
+                {info.title}
                 </Link>
 
                 <p className={s.mycard__item__info__subtitle}>
-                {info.Gram} г.
+                {info.weight} г.
                 </p>
                 
             </div>
 
-            <button className={s.mycard__item__info__live}>
-                Добавить в избранное <img src={CardLove} alt="live" />
-            </button>
-
             <p className={s.mycard__item__subtitle}>
-            {info.Dish_Info}
+            {info.compound}
             </p>
+
 
             <div className={s.mycard__item__footer}>
                 
                 <p className={s.mycard__item__footer__sum}>
-                {info.Dish_price} руб.
+                {info.price} руб.
                 </p>
+
 
                 <img src={CardKarzina} alt="" />
 

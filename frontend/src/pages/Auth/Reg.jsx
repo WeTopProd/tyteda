@@ -1,7 +1,8 @@
 import r from './Reg.module.scss'
 import h from '../../components/Header/Header.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
 
 
@@ -21,14 +22,65 @@ export default function Reg () {
 
     const [Number , setNumber ] = useState('')
 
+    const [modal, setmodal] = useState(false)
+
+    const hanClickReg =  () => {
+
+        // e.preventDefault()
+    axios.post('http://127.0.0.1:8000/api/users/', {
+
+       phone: Number ,
+       first_name: Name,
+       last_name: Surname,
+       email: Mail,
+       password: Password,
+       re_password: PasswordReap,
+
+    },  {
+
+        headers: {
+            'Content-Type': 'application/json',
+
+        }
+
+    })
+
+    .then(res => {
+
+         res.request.status == 201 ? navigate('/login') : navigate('/register')
+        
+    } )
+
+    .catch(err => {
+    
+    err.message === 'Request failed with status code 400' ? setmodal(true) : setmodal(false)
+
+    } )
+
+}
+
 
 
     return (
         
         <section className={r.section__reg}>
+            
+
             <div className={h.container}>
 
-                <form className={r.reg}>
+            {modal ?
+
+                <div className={r.form__modal}>
+                    <p>не правильно ввели данные или</p>
+                    <p>пользователь с таким почтовым ящиком уже существует.</p>
+                </div>
+
+                :
+
+                ''             
+            }
+
+                <form className={r.reg} onSubmit={hanClickReg}>
 
                     <p className={r.reg__title}>
                     Регистрация
@@ -81,7 +133,7 @@ export default function Reg () {
                     />
 
 
-                    <input type="number" className={r.reg__item__inp} placeholder='Телефон'
+                    <input type="tel" className={r.reg__item__inp} placeholder='Телефон'
                     
                     value={Number}
                     onChange={(event) => setNumber(event.target.value)}
@@ -115,7 +167,7 @@ export default function Reg () {
 
                 </div>
 
-                <Link to={'/'} className={r.reg__button}>
+                <Link to={'/register'} type='submit' onClick={hanClickReg} className={r.reg__button}>
                 Зарегистрироваться
                 </Link>
 
@@ -126,4 +178,5 @@ export default function Reg () {
         </section>
 
     )
+
 }

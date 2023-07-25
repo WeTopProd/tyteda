@@ -3,7 +3,39 @@
     align-items: center;
     justify-content: center;
       height: 100vh;
+      padding: 40px 0px;
       width: 100%;
+      position: relative;
+}
+
+.form__modal{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background: #fff;
+    box-shadow: 0px 0px 70px #00000070;
+    border-radius: 30px;
+    animation: animation-name 1s ease ;
+    z-index: 10;
+    max-width: 100%;
+  
+
+    & p {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 30px;
+        text-transform: uppercase;
+        color: #000000;
+        margin: 0;
+
+                                   
+        @media screen and (max-width: 700px) {
+            font-size: 7px;
+            line-height: 140%;
+         }
+    }
 }
 
 .reg{
@@ -56,7 +88,7 @@
         }
 
         @media screen and (max-width: 480px ) {
-            padding: 20px 0px;
+            padding: 10px 0px;
             width: 250px;
         }
 
@@ -74,6 +106,21 @@
             width: 100%;
             background: var(--unnamed, #FFF);
             border: 1px solid #81818173;
+
+            &::placeholder{
+
+                @media screen and (max-width: 400px ) {
+                    font-size: 13px;    
+                 }
+
+            }
+
+
+         @media screen and (max-width: 400px ) {
+            font-size: 13px;    
+         }
+
+
         }
      }
 
@@ -88,6 +135,10 @@
           @media screen and (max-width: 500px ) {
             font-size: 22px;
                   
+         }
+
+         @media screen and (max-width: 400px ) {
+            font-size: 18px;    
          }
     }
 
@@ -106,6 +157,11 @@
             
                  
         }
+
+        @media screen and (max-width: 400px ) {
+            padding: 10px 0px; 
+            gap: 15px;  
+         }
     }
 
     &__item{
@@ -122,6 +178,10 @@
                  
         }
 
+        @media screen and (max-width: 400px ) {
+            gap: 15px;    
+         }
+
 
         &__inp{
             color: var(--unnamed, #595959);
@@ -135,6 +195,11 @@
             border-radius: 60px;
             background: var(--unnamed, #FFF);
             border: 1px solid #81818173;
+
+            @media screen and (max-width: 400px ) {
+                padding: 0px 10px;   
+                 
+             }
         }
         
     }
@@ -160,6 +225,7 @@
             @media screen and (max-width: 500px ) {
 
                 flex-direction: column;
+                align-items: flex-start;
                       
              }
         }
@@ -170,6 +236,10 @@
             font-style: normal;
             font-weight: 400;
             line-height: normal;
+
+            @media screen and (max-width: 400px ) {
+                font-size: 18px;    
+             }
         }
 
         &__link{
@@ -179,6 +249,11 @@
             font-weight: 400;
             line-height: normal;
             transition: all ease .3s;
+
+            @media screen and (max-width: 400px ) {
+                font-size: 18px;    
+             }
+
 
             &:hover{
                 color: orange ;
@@ -213,4 +288,17 @@
                   
          }
     }
+}
+
+
+@keyframes animation-name { 
+    0% { 
+     opacity: 0;
+     transform: translateY(100px);
+    } 
+
+   100% {
+    opacity: 1;
+    transform: translateY(0px);
+   }
 }

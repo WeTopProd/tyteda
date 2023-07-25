@@ -10,10 +10,20 @@ import bgOne from './img/022.png'
 import bgTwo from './img/033.png'
 import { MenuJson } from '../../components/Menu/MenuJSON'
 import MenuCard from '../../components/Menu/MenuCard'
+import { HashLink } from 'react-router-hash-link'
 
 
 export default function Combo () {
     
+    let scrollWithOffsett = (el) => {
+
+        const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+
+        const yOffset = -150;
+
+        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
+
+    }
 
 
     return (
@@ -37,9 +47,9 @@ export default function Combo () {
                     Если у вас нет свободного времени на приготовление сытного и домашнего обеда, то доставка комбо-наборов выручит вас. Также это сэкономит ваш бюджет, поскольку заказ комбо-набора обходится дешевле, чем покупка каждого блюда по отдельности. Кроме того, благодаря большому выбору, вы можете наслаждаться разнообразными комбо-наборами в течение всей недели, не повторяясь.
                     </p>
 
-                    <button className={c.combo__button}>
+                    <HashLink to='/combo/#combo' scroll={scrollWithOffsett}  className={c.combo__button}>
                     Смотреть меню
-                    </button>
+                    </HashLink>
 
                 </div>
 
@@ -189,7 +199,7 @@ export default function Combo () {
         </section>
 
 
-        <section className={c.section__menu}>
+        <section className={c.section__menu} id='combo'>
 
         <ContentLogo Title='Меню на неделю' />
 

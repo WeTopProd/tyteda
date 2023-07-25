@@ -16,9 +16,49 @@ import Payment from '../components/payment/Payment';
 import Delivery from '../components/Delivery/Delivery';
 import Reviews from '../components/Reviews/Reviews';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 export default function Home () {
+
+    let scrollWithOffset = (el) => {
+
+        const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+
+        const yOffset = -350;
+
+        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
+
+    }
+    
+    const [Goods , setGoods] = useState([])
+
+  
+    useEffect(() => {
+  
+      axios.get('http://127.0.0.1:8000/api/goods/', {
+      
+      headers: {
+          'Content-Type': 'application/json , multipart/form-data',
+          'authorization': `Token ${tokenTwo}`
+      }
+  
+      })
+  
+      .then((res) => {
+
+        setGoods(res.data.results)
+
+       })
+
+      .catch((err) => console.error(err))
+  
+  }, [])
+
+  const tokenTwo = localStorage.getItem('token')
+
 
     return (
 
@@ -52,9 +92,9 @@ export default function Home () {
                     и просто
                     </p>
 
-                    <button className={s.home__content_button}>
+                    <HashLink to='/#menu' scroll={scrollWithOffset} className={s.home__content_button}>
                     смотреть меню
-                    </button>
+                    </HashLink>
 
                 </div>
 
@@ -186,9 +226,9 @@ export default function Home () {
 д                   для ваших сотрудников
                     </p>
 
-                    <button className={s.home__content_button}>
+                    <Link to={'https://corp-pitanie.tyteda.ru/'} className={s.home__content_button}>
                     Подробнее 
-                    </button>
+                    </Link>
 
                 </div>
 
@@ -206,7 +246,7 @@ export default function Home () {
             
             <div className={s.mycard}>
 
-               {CardInfo.map( (info , index) => {
+               {Goods.map( (info , index) => {
                 return <Card {...info} key={index} />
                } )}
                 
@@ -218,7 +258,7 @@ export default function Home () {
 
     <Filter />
 
-    <section className={s.section__mycard}>
+    <section className={s.section__mycard} id='menu'  >
          <div className={h.container}>
             
             <div className={s.mycard}>
@@ -255,8 +295,8 @@ export default function Home () {
 <Payment />
 
 <ContentLogo Title='Доставка' />
-
-<Delivery />
+{/* 
+<Delivery /> */}
 
 <ContentLogo Title='Отзывы' />
 

@@ -32,7 +32,7 @@ import hleb from "./image/044.png";
 function Footer() {
   return (
     <>
-      <div className={f.section__footer} id="footer">
+      <div className={f.section__footer}>
         <div className={h.container}>
           <div className={f.footer}>
             <div className={f.footer__logos}>
@@ -192,7 +192,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className={f.footer__bottom}>
+      <div className={f.footer__bottom} id="footer">
         <div className={h.container}>
           <div className={f.bottom}>
             <p className={f.bottom_left}>ИП Авалян. В .Г ИНН: 502807103555</p>
