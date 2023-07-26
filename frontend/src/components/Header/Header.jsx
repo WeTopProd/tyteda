@@ -26,6 +26,7 @@ import Tovar from '../Tovar/Tovar'
 import { TovarJson } from '../Tovar/TovarJson'
 import TovarKarzinka from '../Tovar/TovarKarzinka'
 import axios from 'axios'
+import { useFavoritesContext } from '../../FavoritesContext'
 
 export default function Header ({isActive, setIsActive, token}) {
 
@@ -93,10 +94,12 @@ export default function Header ({isActive, setIsActive, token}) {
 
       };
 
+
       //избранное
 
       const handleLove = () => {
         setLovaOn(!loveOn)
+
         setAdminka(false)
         setkarzinka(false)
         setDanniy(false)
@@ -302,9 +305,9 @@ export default function Header ({isActive, setIsActive, token}) {
 
        }, [])
 
-       console.log(tovarlive);
-
       const tokenTwo = localStorage.getItem('token')
+
+      const { favorites } = useFavoritesContext();
 
 
     return (
@@ -472,7 +475,7 @@ export default function Header ({isActive, setIsActive, token}) {
     
         </div>
     
-        <div className={ loveOn ? [h.nav__love , h.nav__love__active].join(' ') : [h.nav__love] }
+        <div className={ loveOn ? [h.nav__love , h.nav__love__active].join(' ') : [h.nav__love]}
         
         >
             
@@ -494,8 +497,8 @@ export default function Header ({isActive, setIsActive, token}) {
     
             <div className={h.nav__kar__map}>
 
-            {tovarlive.map( (info , index) => {
-                return <Tovar {...info} key={index} />
+            {favorites.map( (info , index) => {
+                return <Tovar {...info} key={index}  />
             } )}
     
             </div>

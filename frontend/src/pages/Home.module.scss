@@ -430,7 +430,8 @@
 
     display: flex;
     align-items:first baseline;
-    justify-content: space-between;
+    // justify-content: space-between;
+    justify-content: flex-start;
     gap: 30px;
 
     flex-wrap: wrap;

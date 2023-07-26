@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react';
 import Footer from './components/Footer/Footer';
 import Basket from './pages/Basket/Basket';
 import axios from 'axios';
+import { FavoritesProvider } from './FavoritesContext';
+import { HeartProvider } from './components/ProductContainer';
 
 function App() {
 
@@ -38,8 +40,12 @@ function App() {
 
   
 
-    <BrowserRouter>
+<BrowserRouter>
     
+<FavoritesProvider>
+
+<HeartProvider>
+
       <div className="App">
 
         <ScrollToTop />
@@ -69,8 +75,13 @@ function App() {
         <Footer />
 
       </div>
+
+      </HeartProvider>
+      
+</FavoritesProvider>
     
-    </BrowserRouter>
+</BrowserRouter>
+
 
 
   );
