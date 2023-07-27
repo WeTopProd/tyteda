@@ -38,7 +38,11 @@ class Goods(models.Model):
         ('rolls', 'Роллы'),
         ('beer_snacks', 'Пивные закуски'),
         ('bread', 'Хлеб'),
-        ('wok', 'Вок')
+        ('wok', 'Вок'),
+    )
+    PROMO_GOODS = (
+        ('promotion', 'Акция'),
+        ('recommend', 'Рекомендуем'),
     )
     title = models.CharField(
         max_length=355,
@@ -68,6 +72,13 @@ class Goods(models.Model):
         'Тип блюда',
         max_length=50,
         choices=DISH_TYPE,
+        blank=True,
+        null=True
+    )
+    promotion = models.CharField(
+        'Акция блюда',
+        max_length=50,
+        choices=PROMO_GOODS,
         blank=True,
         null=True
     )

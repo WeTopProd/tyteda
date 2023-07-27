@@ -1,5 +1,5 @@
 from django_filters.rest_framework import (FilterSet, filters, RangeFilter,
-                                           MultipleChoiceFilter, ChoiceFilter)
+                                           ChoiceFilter)
 
 from .models import Goods
 
@@ -30,6 +30,10 @@ class GoodsFilter(FilterSet):
         choices=Goods.DISH_TYPE,
         field_name='type'
     )
+    promotion = ChoiceFilter(
+        calories=Goods.PROMO_GOODS,
+        field_name='promotion'
+    )
     is_favorited = filters.BooleanFilter(method='get_is_favorited')
     is_in_shopping_cart = filters.BooleanFilter(
         method='get_is_in_shopping_cart'
@@ -45,6 +49,7 @@ class GoodsFilter(FilterSet):
             'calories',
             'price',
             'type',
+            'promotion',
             'is_favorited',
             'is_in_shopping_cart'
         )
