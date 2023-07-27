@@ -39,6 +39,11 @@ class GoodsFilter(FilterSet):
         method='get_is_in_shopping_cart'
     )
 
+    def get_is_in_shopping_cart(self, queryset, name, value):
+        if self.request.user.is_authenticated and value is True:
+            return queryset.filter(shopping_cart_goods__user=self.request.user)
+        return queryset
+
     class Meta:
         model = Goods
         fields = (
@@ -57,9 +62,4 @@ class GoodsFilter(FilterSet):
     def get_is_favorited(self, queryset, name, value):
         if self.request.user.is_authenticated and value is True:
             return queryset.filter(users_favorites__user=self.request.user)
-        return queryset
-
-    def get_is_in_shopping_cart(self, queryset, name, value):
-        if self.request.user.is_authenticated and value is True:
-            return queryset.filter(shopping_cart__user=self.request.user)
         return queryset
