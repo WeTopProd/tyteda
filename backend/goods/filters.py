@@ -31,7 +31,7 @@ class GoodsFilter(FilterSet):
         field_name='type'
     )
     promotion = ChoiceFilter(
-        calories=Goods.PROMO_GOODS,
+        choices=Goods.PROMO_GOODS,
         field_name='promotion'
     )
     is_favorited = filters.BooleanFilter(method='get_is_favorited')
