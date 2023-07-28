@@ -11,91 +11,75 @@ export default function Tovar ({...info}) {
     const { favorites, setFavorites } = useFavoritesContext();
     const { heart, setHeart } = useHeartContext(info.id);
 
-    useEffect(() => {
-      setHeart(info.is_favorited);
-    }, [info.is_favorited, setHeart]);
+    const tokenTwo = localStorage.getItem('token');
 
     useEffect(() => {
-      async function fetchGoods() {
-        try {
-          const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
-            headers: {
-              'Content-Type': 'application/json , multipart/form-data',
-              authorization: `Token ${tokenTwo}`,
-            },
-          });
-          setImageUrls(res.data.results);
-        } catch (err) {
-          console.error(err);
+        setHeart(info.is_favorited);
+    }, []);
+
+    useEffect(() => {
+        async function fetchGoods() {
+            try {
+                const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+                    headers: {
+                        'Content-Type': 'application/json , multipart/form-data',
+                        authorization: `Token ${tokenTwo}`,
+                    },
+                });
+                setImageUrls(res.data.results);
+            } catch (err) {
+                console.error(err);
+            }
         }
-      }
   
-      fetchGoods();
+        fetchGoods();
   
-      // Добавим зависимость heart, чтобы useEffect выполнился при каждом изменении heart
+        // Добавим зависимость heart, чтобы useEffect выполнился при каждом изменении heart
     }, [heart]);
   
     async function favoritesDelete(id) { 
-      setHeart(!heart);
+        setHeart(!heart);
   
-      try {
-        await axios.delete(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, {
-          headers: {
-            'content-type': 'application/json',
-            authorization: `Token ${tokenTwo}`,
-          },
-        });
+        try {
+            await axios.delete(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, {
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Token ${tokenTwo}`,
+                },
+            });
   
-        const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
-          headers: {
-            'content-type': 'application/json',
-            authorization: `Token ${tokenTwo}`,
-          },
-        });
+            const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+                headers: {
+                    'content-type': 'application/json',
+                    authorization: `Token ${tokenTwo}`,
+                },
+            });
   
-        setFavorites(res.data.results);
-      } catch (err) {
-        console.error(err);
-      }
+            setFavorites(res.data.results);
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     // Сохранение состояния heart в localStorage при его изменении
     useEffect(() => {
-      localStorage.setItem(`heartStatus_${info.id}`, heart);
-    }, [info.id, heart]);
-
-    const tokenTwo = localStorage.getItem('token')
+        localStorage.setItem(`heartStatus_${info.id}`, heart);
+    }, []);
 
     return (
-        
-    <div className={h.nav__kar__item}>
-                
-        <div className={h.nav__kar__item_info}>
-
-        {imageUrls.map((item, index) => (
-
-          item.images.map((image, idx) => (
-
-            <img key={index + '-' + idx} src={image.images} alt={`Image ${index}-${idx}`} className={h.nav__kar__item_info_img} />
-
-          ))
-
-        ))}
-
-            <div className={h.nav__kar__item_info_titles}>
-                <p>{info.price} руб.</p>
-                <p>{info.title}</p>
+        <div className={h.nav__kar__item}>
+            <div className={h.nav__kar__item_info}>
+                {imageUrls.map((item, index) => (
+                    item.images.map((image, idx) => (
+                        <img key={index + '-' + idx} src={image.images} alt={`Image ${index}-${idx}`} className={h.nav__kar__item_info_img} />
+                    ))
+                ))}
+                <div className={h.nav__kar__item_info_titles}>
+                    <p>{info.price} руб.</p>
+                    <p>{info.title}</p>
+                </div>
+                <img src={del} id={info.id} onClick={(event) => favoritesDelete(event.currentTarget.id)} className={h.nav__kar__item_info__del} alt="svg" />
             </div>
-
-            <img src={del} id={info.id}
-             onClick={ (event) => favoritesDelete(event.currentTarget.id) }
-             className={h.nav__kar__item_info__del} alt="svg"
-             />
-
-
         </div>
-
-    </div>
-
-    )
+    );
 }

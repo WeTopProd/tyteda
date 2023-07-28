@@ -21,7 +21,14 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-export default function Home () {
+export default function Home ({
+    
+    isAddedToCart,
+    karzinkaTovar,
+    setkarzinkaTovar,
+    addBasket
+    
+    }) {
 
     let scrollWithOffset = (el) => {
 
@@ -56,6 +63,7 @@ export default function Home () {
       .catch((err) => console.error(err))
   
   }, [])
+
 
   const tokenTwo = localStorage.getItem('token')
 
@@ -247,7 +255,11 @@ export default function Home () {
             <div className={s.mycard}>
 
                {Goods.map( (info , index) => {
-                return <Card {...info} key={index} />
+                return <Card 
+
+                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
+
+                />
                } )}
                 
             </div>
@@ -263,9 +275,13 @@ export default function Home () {
             
             <div className={s.mycard}>
 
-               {CardInfo.map( (info , index) => {
-                return <Card {...info} key={index} />
-               } )}
+            {Goods.map( (info , index) => {
+                return <Card {...info}
+
+                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
+
+                />
+            } )}
                 
             </div>
 
@@ -279,9 +295,13 @@ export default function Home () {
         
         <div className={s.mycard}>
 
-           {CardInfo.map( (info , index) => {
-            return <Card {...info} key={index} />
-           } )}
+        {Goods.map( (info , index) => {
+                return <Card {...info}
+
+                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
+
+                />
+        } )}
             
         </div>
 

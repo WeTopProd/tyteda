@@ -17,6 +17,7 @@ import Basket from './pages/Basket/Basket';
 import axios from 'axios';
 import { FavoritesProvider } from './FavoritesContext';
 import { HeartProvider } from './components/ProductContainer';
+import Tovar from './pages/Tovar/Tovar';
 
 function App() {
 
@@ -32,6 +33,105 @@ function App() {
   }, []);
 
     const [token, setToken] = useState('')
+
+    const [isAddedToCart, setIsAddedToCart] = useState();
+
+    const [karzinkaTovar, setkarzinkaTovar] = useState([]);
+
+    async function addBasket(id) {
+
+    
+
+      if (!karzinkaTovar.some((item) => item.id === id)) {
+        try {
+          await axios.post(
+            `http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`,
+            null,
+            {
+              headers: {
+                'content-type': 'application/json',
+                authorization: `Token ${tokenTwo}`,
+              },
+            }
+          );
+    
+          // Обновление состояния для добавления нового товара в корзину
+          setkarzinkaTovar((prevKarzinkaTovar) => [
+            ...prevKarzinkaTovar,
+            { id: id, is_in_shopping_cart: true },
+          ]);
+    
+          // ... (другая логика)
+        } catch (error) {
+          console.error(error);
+        }
+      }
+  
+      axios
+      .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+        headers: {
+          'Content-Type': 'application/json , multipart/form-data',
+          authorization: `Token ${tokenTwo}`,
+        },
+      })
+      .then((res) => {
+        if (Array.isArray(res.data.results)) {
+            setkarzinkaTovar(res.data.results);
+        }
+      })
+  
+      
+      .catch((err) => console.error(err));
+  
+    }
+
+    const [Goods , setGoods] = useState([])
+
+
+    useEffect(() => {
+  
+      axios.get('http://127.0.0.1:8000/api/goods/', {
+      
+      headers: {
+          'Content-Type': 'application/json , multipart/form-data',
+          'authorization': `Token ${tokenTwo}`
+      }
+  
+      })
+  
+      .then((res) => {
+
+        setGoods(res.data.results)
+
+       })
+
+      .catch((err) => console.error(err))
+  
+  }, [])
+
+  useEffect(() => {
+  
+    axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+    
+    headers: {
+        'Content-Type': 'application/json , multipart/form-data',
+        'authorization': `Token ${tokenTwo}`
+    }
+
+    })
+
+    .then((res) => {
+
+      if (Array.isArray(res.data.results)) {
+          setkarzinkaTovar(res.data.results);
+        }
+
+     })
+
+    .catch((err) => console.error(err))
+
+}, [])
+
     
     const tokenTwo = localStorage.getItem('token')
 
@@ -54,7 +154,17 @@ function App() {
 
         <Routes>
 
-        <Route path='/'  element={<Home />} />
+        <Route path='/'  element={<Home
+        
+        isAddedToCart={isAddedToCart}
+
+        karzinkaTovar={karzinkaTovar}
+        
+        addBasket={addBasket}
+
+        setIsAddedToCart={setIsAddedToCart}
+
+        />} />
 
         <Route path='/register'  element={<Reg />} />
 
@@ -66,9 +176,45 @@ function App() {
 
         <Route path='/kidsmenu'  element={<KidsMenu />} />
 
-        <Route path='/intercard'  element={<InterCard />} />
+        <Route path='/intercard/:userId'  element={<InterCard 
+        
+                Goods={Goods}
 
-        <Route path='/basket'  element={<Basket />} />
+                isAddedToCart={isAddedToCart}
+
+                karzinkaTovar={karzinkaTovar}
+                
+                addBasket={addBasket}
+                
+                setIsAddedToCart={setIsAddedToCart}
+        
+        />} />
+
+        <Route path='/basket'  element={<Basket
+        
+        isAddedToCart={isAddedToCart}
+
+        setIsAddedToCart={setIsAddedToCart}
+
+        karzinkaTovar={karzinkaTovar}
+        
+        setkarzinkaTovar={setkarzinkaTovar}
+
+        addBasket={addBasket}
+
+
+        />} />
+
+        <Route path='/tovar'  element={<Tovar
+        
+        isAddedToCart={isAddedToCart}
+
+        karzinkaTovar={karzinkaTovar}
+        
+        addBasket={addBasket}
+        
+
+        />} />
 
         </Routes>
 
@@ -89,3 +235,34 @@ function App() {
 }
 
 export default App;
+
+
+{/* <div className={ loveOn ? [h.nav__love , h.nav__love__active].join(' ') : [h.nav__love]}
+        
+>
+    
+    <div className={h.nav__kar__header}>
+
+        <div className={h.nav__kar__header__item}>
+
+            <p className={h.nav__kar__header__item__title}>
+            Избранное
+            </p>
+            
+        </div>
+
+
+
+    </div>
+
+    {/* вот тут нужно сделать map  */}
+
+    // <div className={h.nav__kar__map}>
+
+    // {favorites.map( (info , index) => {
+    //     return <Tovar {...info} key={index}  />
+    // } )}
+
+    // {/* </div>
+
+// </div> */} */}

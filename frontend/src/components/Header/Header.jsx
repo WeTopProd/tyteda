@@ -15,16 +15,12 @@ import admin2  from './img/admin2.svg'
 import admin3  from './img/admin3.svg'
 import admin4  from './img/admin4.svg'
 
-import kar  from './img/kar.svg'
 import del  from './img/del.svg'
 import FotoKar  from './img/karFoto.svg'
 import X  from './img/Vector.svg'
 import plus  from './img/plus.svg'
 import location from './img/location.svg'
 import { HashLink } from 'react-router-hash-link';
-import Tovar from '../Tovar/Tovar'
-import { TovarJson } from '../Tovar/TovarJson'
-import TovarKarzinka from '../Tovar/TovarKarzinka'
 import axios from 'axios'
 import { useFavoritesContext } from '../../FavoritesContext'
 
@@ -356,16 +352,6 @@ export default function Header ({isActive, setIsActive, token}) {
     
                 <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>детское меню</Link>
     
-                {!isActive ?
-    
-                   ''
-                   
-                :
-    
-                <Link to='/basket' onClick={burgerClose} className={h.nav__links_link}>Корзина</Link>
-                
-                }
-    
                 
                 <HashLink to='/#footer' scroll={scrollWithOffset} onClick={burgerClose} className={h.nav__links_link}
                 >
@@ -397,19 +383,19 @@ export default function Header ({isActive, setIsActive, token}) {
     
                <div className={h.nav__admin}>
                 
-                <div  onClick={handleLove}  className={ h.nav__admin_box} >
+                <Link to={'/tovar'}  onClick={handleLove}  className={ h.nav__admin_box} >
                     <img src={love} alt="svg" />
-                </div>
+                </Link>
 
                  
     
-                <div
+                <Link to={'/basket'}
                 onClick={handleKarzinka}
                 className={!karzinka ? h.nav__admin_box : h.nav__admin_box__active }
                 
                 >
                     <img src={karzina} alt="svg" />
-                </div>
+                </Link>
     
                 <div onClick={adminkaActive}
                  className={!adminka ? h.nav__admin_box : h.nav__admin_box__active }
@@ -472,89 +458,6 @@ export default function Header ({isActive, setIsActive, token}) {
                 <img src={admin4} alt="" />
                 <p>Выйти</p>
             </div>           
-    
-        </div>
-    
-        <div className={ loveOn ? [h.nav__love , h.nav__love__active].join(' ') : [h.nav__love]}
-        
-        >
-            
-            <div className={h.nav__kar__header}>
-    
-                <div className={h.nav__kar__header__item}>
-    
-                    <p className={h.nav__kar__header__item__title}>
-                    Избранное
-                    </p>
-                    
-                </div>
-    
-    
-    
-            </div>
-    
-            {/* вот тут нужно сделать map  */}
-    
-            <div className={h.nav__kar__map}>
-
-            {favorites.map( (info , index) => {
-                return <Tovar {...info} key={index}  />
-            } )}
-    
-            </div>
-    
-        </div>
-    
-        <div className={ karzinka ? [h.nav__kar , h.nav__kar__active].join(' ') : [h.nav__kar] }
-        
-        >
-            
-            <div className={h.nav__kar__header}>
-    
-                <div className={h.nav__kar__header__item}>
-    
-                    <img src={kar} alt="svg" />
-    
-                    <p className={h.nav__kar__header__item__title}>
-                        Корзина
-                    </p>
-                    
-                </div>
-    
-                <img src={del} alt="delete" className={h.nav__kar__header__del} />
-    
-            </div>
-    
-            {/* вот тут нужно сделать map  */}
-    
-            <div className={h.nav__kar__map}>
-
-            {TovarJson.map( (info , index) => {
-                return <TovarKarzinka {...info} key={index} />
-            } )}
-    
-            </div>
-    
-    
-            
-    
-            {/* //// */}
-    
-            <div className={h.nav__kar__center}>
-                <p>Доставка</p>
-    
-                <p>0 руб.</p>
-            </div>
-    
-            <div className={h.nav__kar__footer}>
-                <p>Итого:</p>
-    
-                <p>1 920 руб.</p>
-            </div>
-    
-            <button className={h.nav__kar__footer__btn}>
-                Заказать
-            </button>
     
         </div>
 

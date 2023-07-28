@@ -605,7 +605,7 @@
             &__exit{
                 cursor: pointer;
                 transition: all ease .3s;
-
+                margin-left: 20px !important;
                 &:hover{
                     transform: scale(1.1);
                 }

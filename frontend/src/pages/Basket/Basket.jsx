@@ -4,15 +4,28 @@ import h from '../../components/Header/Header.module.scss'
 import i from '../InterCard/interCard.module.scss'
 import s from '../Home.module.scss'  
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TovarJson } from '../../components/Tovar/TovarJson'
 import BasketTovar from './BasketTovar'
 import ContentLogo from '../../components/Content/ContentLogo'
 import CardInfo from '../../components/Content/CardInfo'
 import Card from '../../components/Content/Card'
+import axios from 'axios'
 
 
-export default function Basket () {
+export default function Basket ({
+
+    isAddedToCart,
+
+    setIsAddedToCart,
+
+    karzinkaTovar,
+    
+    setkarzinkaTovar,
+
+    addBasket
+
+}) {
 
     
     const [oplata, seetOplata] = useState(false)
@@ -30,6 +43,68 @@ export default function Basket () {
             seetOplata(true);
         }
       };
+
+      const [Goods , setGoods] = useState([])
+
+
+
+      useEffect(() => {
+        axios
+          .get('http://127.0.0.1:8000/api/goods/', {
+            headers: {
+              'Content-Type': 'application/json',
+              authorization: `Token ${tokenTwo}`,
+            },
+          })
+          .then((res) => {
+            setGoods(res.data.results);
+          })
+          .catch((err) => console.error(err));
+      }, []);
+  
+    useEffect(() => {
+  
+      axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+      
+      headers: {
+          'Content-Type': 'application/json , multipart/form-data',
+          'authorization': `Token ${tokenTwo}`
+      }
+  
+      })
+  
+      .then((res) => {
+
+        if (Array.isArray(res.data.results)) {
+            setkarzinkaTovar(res.data.results);
+          }
+
+       })
+
+      .catch((err) => console.error(err))
+  
+  }, [])
+
+  async function removeBasket(id) {
+    try {
+        await axios.delete(`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`, {
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Token ${tokenTwo}`,
+            },
+        });
+
+        // Обновление списка товаров в корзине после удаления
+        setkarzinkaTovar((prevKarzinkaTovar) => prevKarzinkaTovar.filter((item) => item.id !== id));
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+
+  const tokenTwo = localStorage.getItem('token')
+
 
     return (
         
@@ -185,9 +260,17 @@ export default function Basket () {
 
                 <div className={b.basket__item__map}>
 
-                            {TovarJson.map( (info , index) => {
-                                return <BasketTovar {...info} key={index} />
-                            } )}
+                            {karzinkaTovar.length === 0 ? (
+
+                            <p className={b.basket__item__map__text}>Пока что нет избранных товаров.</p>
+
+                            ) : (
+
+                            karzinkaTovar.map( (info , index) => {
+                                return <BasketTovar {...info} setkarzinkaTovar={setkarzinkaTovar} removeBasket={removeBasket} key={index} />
+                            } )
+
+                            )}
 
                         </div>
 
@@ -258,8 +341,8 @@ export default function Basket () {
             
             <div className={s.mycard}>
 
-               {CardInfo.map( (info , index) => {
-                return <Card {...info} key={index} />
+               {Goods.map( (info , index) => {
+                return <Card addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} />
                } )}
                 
             </div>
