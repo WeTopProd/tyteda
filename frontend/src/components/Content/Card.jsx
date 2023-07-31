@@ -83,26 +83,13 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
     }
   }
 
-  const [imageUrls, setImageUrls] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/api/goods/', {
-        headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          authorization: `Token ${tokenTwo}`,
-        },
-      })
-      .then((res) => {
-        setImageUrls(res.data.results);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-
   const tokenTwo = localStorage.getItem('token');
 
+
+
   return (
+
+
     <div className={s.mycard__item}>
 
       <div className={s.mycard__item__fon}>
@@ -123,8 +110,14 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
           />
         </svg>
 
-        {imageUrls.map((item, index) =>
-          item.images.map((image, idx) => <img key={index + '-' + idx} src={image.images} alt={`Image ${index}-${idx}`} className={s.mycard__item__fon__img} />)
+        {info && info.images && info.images[0] && info.images[0].images ? (
+
+        <img src={info.images[0].images} alt="img" className={s.mycard__item__fon__img} />
+
+        ) : (
+
+        <p>No image available</p>
+
         )}
 
       </div>

@@ -262,7 +262,7 @@ export default function Basket ({
 
                             {karzinkaTovar.length === 0 ? (
 
-                            <p className={b.basket__item__map__text}>Пока что нет избранных товаров.</p>
+                            <p className={b.basket__item__map__text}>Пока что нет выбранных товаров.</p>
 
                             ) : (
 
@@ -342,7 +342,10 @@ export default function Basket ({
             <div className={s.mycard}>
 
                {Goods.map( (info , index) => {
-                return <Card addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} />
+
+                return <Card addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
+                {...info} key={index} />
+                
                } )}
                 
             </div>

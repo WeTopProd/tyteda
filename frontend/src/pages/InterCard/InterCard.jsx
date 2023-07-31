@@ -9,25 +9,21 @@ import CardKarzina from '../../components/Content/img/cardKarzina.svg';
 import { useParams } from 'react-router-dom'
 import Card from '../../components/Content/Card'
 import ContentLogo from '../../components/Content/ContentLogo'
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function InterCard ({
     
-    isAddedToCart,
-    karzinkaTovar,
     addBasket,
     Goods,
+    isAddedToCart,
+    karzinkaTovar,
+    setIsAddedToCart
 
 }) {
-
-    
 
     const params = useParams()
     const userId = Goods.findIndex(user => user.id === +params.userId)
     const mas = Goods[userId]
-
-    console.log(mas);
 
     return (
 
@@ -44,8 +40,15 @@ export default function InterCard ({
                     
                     <div className={i.inter__flex}>
 
-                        <img src={mas.images[0].images} alt="img" className={i.inter__flex__img} />
+{mas && mas.images && mas.images[0] && mas.images[0].images ? (
 
+    <img src={mas.images[0].images} alt="img" className={i.inter__flex__img} />
+
+  ) : (
+
+    <p>No image available</p>
+
+)}
                     </div>
 
                     <div className={i.inter__item}>
@@ -89,13 +92,21 @@ export default function InterCard ({
 
         ) : (
 
+          <Link to={'/basket'}>
+          
           <img
             src={CardKarzina}
             id={mas.id}
-            onClick={() => addBasket(mas.id)}
+            onClick={() => {
+              addBasket(mas.id);
+              setIsAddedToCart(true); // Установите состояние isAddedToCart в true, когда товар добавляется в корзину
+            }}
             className={s.mycard__item__footer__kar}
             alt="svg"
           />
+          
+          </Link>
+
 
         )}                            
 

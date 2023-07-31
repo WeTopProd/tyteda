@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 
 import './index.scss';
 import Header from './components/Header/Header';
@@ -39,9 +39,6 @@ function App() {
     const [karzinkaTovar, setkarzinkaTovar] = useState([]);
 
     async function addBasket(id) {
-
-    
-
       if (!karzinkaTovar.some((item) => item.id === id)) {
         try {
           await axios.post(
@@ -55,34 +52,25 @@ function App() {
             }
           );
     
-          // Обновление состояния для добавления нового товара в корзину
-          setkarzinkaTovar((prevKarzinkaTovar) => [
-            ...prevKarzinkaTovar,
-            { id: id, is_in_shopping_cart: true },
-          ]);
-    
           // ... (другая логика)
         } catch (error) {
           console.error(error);
         }
       }
-  
+    
       axios
-      .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
-        headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          authorization: `Token ${tokenTwo}`,
-        },
-      })
-      .then((res) => {
-        if (Array.isArray(res.data.results)) {
+        .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+          headers: {
+            'Content-Type': 'application/json , multipart/form-data',
+            authorization: `Token ${tokenTwo}`,
+          },
+        })
+        .then((res) => {
+          if (Array.isArray(res.data.results)) {
             setkarzinkaTovar(res.data.results);
-        }
-      })
-  
-      
-      .catch((err) => console.error(err));
-  
+          }
+        })
+        .catch((err) => console.error(err));
     }
 
     const [Goods , setGoods] = useState([])
@@ -132,6 +120,8 @@ function App() {
 
 }, [])
 
+
+    const params = useParams()
     
     const tokenTwo = localStorage.getItem('token')
 
@@ -176,19 +166,23 @@ function App() {
 
         <Route path='/kidsmenu'  element={<KidsMenu />} />
 
-        <Route path='/intercard/:userId'  element={<InterCard 
-        
+         <Route
+            path="/intercard/:userId"
+              element={
+                <InterCard
+
                 Goods={Goods}
 
-                isAddedToCart={isAddedToCart}
+                isAddedToCart={karzinkaTovar.some((item) => item.id === +params.userId)}
 
-                karzinkaTovar={karzinkaTovar}
-                
+                karzinkaTovar={karzinkaTovar} 
                 addBasket={addBasket}
-                
                 setIsAddedToCart={setIsAddedToCart}
-        
-        />} />
+                />
+              }
+          />
+
+
 
         <Route path='/basket'  element={<Basket
         
@@ -235,34 +229,3 @@ function App() {
 }
 
 export default App;
-
-
-{/* <div className={ loveOn ? [h.nav__love , h.nav__love__active].join(' ') : [h.nav__love]}
-        
->
-    
-    <div className={h.nav__kar__header}>
-
-        <div className={h.nav__kar__header__item}>
-
-            <p className={h.nav__kar__header__item__title}>
-            Избранное
-            </p>
-            
-        </div>
-
-
-
-    </div>
-
-    {/* вот тут нужно сделать map  */}
-
-    // <div className={h.nav__kar__map}>
-
-    // {favorites.map( (info , index) => {
-    //     return <Tovar {...info} key={index}  />
-    // } )}
-
-    // {/* </div>
-
-// </div> */} */}

@@ -64,14 +64,100 @@ export default function Home ({
   
   }, [])
 
+  const [Promotion , setPromotion] = useState([])
+
+  useEffect(() => {
+  
+    axios.get('http://127.0.0.1:8000/api/goods/?promotion=promotion', {
+    
+    headers: {
+        'Content-Type': 'application/json , multipart/form-data',
+        'authorization': `Token ${tokenTwo}`
+    }
+
+    })
+
+    .then((res) => {
+
+        setPromotion(res.data.results)
+
+     })
+
+    .catch((err) => console.error(err))
+
+}, [])
+
+const [Recommend , setRecommend] = useState([])
+
+useEffect(() => {
+
+  axios.get('http://127.0.0.1:8000/api/goods/?promotion=recommend', {
+  
+  headers: {
+      'Content-Type': 'application/json , multipart/form-data',
+      'authorization': `Token ${tokenTwo}`
+  }
+
+  })
+
+  .then((res) => {
+
+    setRecommend(res.data.results)
+
+   })
+
+  .catch((err) => console.error(err))
+
+}, [])
+
+  const [postCard, setPost] = useState([])
+
+  const [postLoading, setPostLoading] = useState(false)
+
+  const [ poiskvalue, setpoiskvalue] = useState('')
+
+
+  
+
+  const PoiskCard = (event) => {
+
+    event.preventDefault()
+
+    axios.get(`http://127.0.0.1:8000/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
+
+    headers: {
+      "content-type": "application/json",
+      authorization: `Token ${tokenTwo}`,
+    },
+
+  })
+
+  .then(res => {
+     setPost(res.data.results)
+     setPostLoading(true)
+   })
+
+  .catch(err => console.error(err))
+
+  }
+
+  const throwOff = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    setpoiskvalue('');
+    setPostLoading(false);
+  };
+
+  useEffect(() => throwOff, [] )
+
+
 
   const tokenTwo = localStorage.getItem('token')
-
 
     return (
 
         <>
-
         
     <Swiper
         pagination={{
@@ -254,7 +340,7 @@ export default function Home ({
             
             <div className={s.mycard}>
 
-               {Goods.map( (info , index) => {
+               {Recommend.map( (info , index) => {
                 return <Card 
 
                 addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
@@ -268,25 +354,92 @@ export default function Home ({
     </section>
 
 
-    <Filter />
-
-    <section className={s.section__mycard} id='menu'  >
-         <div className={h.container}>
-            
-            <div className={s.mycard}>
-
-            {Goods.map( (info , index) => {
-                return <Card {...info}
-
-                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
-
-                />
-            } )}
+    <section className={s.section__filter}>
+            <div className={h.container}>
                 
-            </div>
+                <form className={s.filter} onSubmit={PoiskCard}>
+                    
+                    <p className={s.filter__title}>
+                    Выберите тип блюдо 
+                    </p>
 
-         </div>
-    </section>
+                    <form className={s.filter__form}>
+
+                    <select className={s.filter__form__select}
+
+                    value={poiskvalue} onChange={(event) => setpoiskvalue(event.target.value)}
+                    
+                    >
+
+                        <option value="Выбрать">Выбрать</option>
+                        <option value="hot_dishes">Горячие блюда</option>
+                        <option value="soups">Супы</option>
+                        <option value="paste">Паста</option>
+                        <option value="snacks">Закуски</option>
+                        <option value="salads">Салаты</option>
+                        <option value="side_dishes">Гарниры</option>
+                        <option value="pizza">Пицца</option>
+                        <option value="burgers">Бургеры</option>
+                        <option value="dessert">Десерты</option>
+                        <option value="drinks">Напитки</option>
+                        <option value="khachapuri">Хачапури</option>
+                        <option value="ossetian_pies">Осетинские пироги</option>
+                        <option value="sauces">Соусы</option>
+                        <option value="dishes_grill">Блюда на мангале</option>
+                        <option value="rolls">Роллы</option>
+                        <option value="beer_snacks">Пивные закуски</option>
+                        <option value="bread">Хлеб</option>
+                        <option value="wok">Вок</option>
+
+                    </select>
+
+                    <button className={s.filter__button} onClick={PoiskCard}>
+                    Применить
+                    </button>
+
+
+                    <button className={s.filter__button} onClick={(event) => throwOff(event)}>
+                    Сбросить
+                    </button>
+
+                    </form>
+
+
+
+                </form>
+
+            </div>
+        </section>
+
+<section className={s.section__mycard} id='menu'>
+  <div className={h.container}>
+    <div className={s.mycard}>
+      {postLoading ? (
+        postCard.map((info, index) => {
+          return (
+            <Card
+              {...info}
+              addBasket={addBasket}
+              isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
+              key={index}
+            />
+          );
+        })
+      ) : (
+        Goods.map((info, index) => {
+          return (
+            <Card
+              {...info}
+              addBasket={addBasket}
+              isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
+              key={index}
+            />
+          );
+        })
+      )}
+    </div>
+  </div>
+</section>
 
 <ContentLogo Title='Акции' />
 
@@ -295,7 +448,7 @@ export default function Home ({
         
         <div className={s.mycard}>
 
-        {Goods.map( (info , index) => {
+        {Promotion.map( (info , index) => {
                 return <Card {...info}
 
                 addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
