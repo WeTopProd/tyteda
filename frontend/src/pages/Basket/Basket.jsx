@@ -42,11 +42,9 @@ export default function Basket ({
         if (selectedOption) {
             seetOplata(true);
         }
-      };
+    };
 
-      const [Goods , setGoods] = useState([])
-
-
+    const [Goods , setGoods] = useState([])
 
       useEffect(() => {
         axios
@@ -62,7 +60,7 @@ export default function Basket ({
           .catch((err) => console.error(err));
       }, []);
   
-    useEffect(() => {
+      useEffect(() => {
   
       axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
       
@@ -83,7 +81,7 @@ export default function Basket ({
 
       .catch((err) => console.error(err))
   
-  }, [])
+      }, [])
 
   async function removeBasket(id) {
     try {
@@ -100,11 +98,39 @@ export default function Basket ({
     } catch (err) {
         console.error(err);
     }
-}
+  }
 
+
+
+  const [totalSum, setTotalSum] = useState(0);
+
+  const [countInfo, setCountInfo] = useState([]) 
+
+ useEffect(() => {
+  
+    axios.get('http://127.0.0.1:8000/api/goods/basket/', {
+    
+    headers: {
+        'Content-Type': 'application/json , multipart/form-data',
+        'authorization': `Token ${tokenTwo}`
+    }
+
+    })
+
+    .then((res) => {
+
+            setCountInfo(res.data.map(item => item));
+     })
+
+    .catch((err) => console.error(err))
+
+}, [])
+
+
+console.log(countInfo);
 
   const tokenTwo = localStorage.getItem('token')
-
+  
 
     return (
         
@@ -266,9 +292,9 @@ export default function Basket ({
 
                             ) : (
 
-                            karzinkaTovar.map( (info , index) => {
-                                return <BasketTovar {...info} setkarzinkaTovar={setkarzinkaTovar} removeBasket={removeBasket} key={index} />
-                            } )
+                                karzinkaTovar.map((info, index) => {
+                                    return <BasketTovar countInfo={countInfo} setCountInfo={setCountInfo} {...info} setkarzinkaTovar={setkarzinkaTovar} removeBasket={removeBasket} key={index} />;
+                                  })
 
                             )}
 
@@ -311,7 +337,7 @@ export default function Basket ({
                     <div className={b.basket__item__footer}>
                         
                         <p className={b.basket__item__footer__price}>
-                            1920 руб.
+                            {totalSum} руб.
                         </p>
 
                         <button className={b.basket__item__footer__button}>

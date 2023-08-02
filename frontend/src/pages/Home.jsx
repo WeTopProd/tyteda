@@ -468,8 +468,8 @@ useEffect(() => {
 <Payment />
 
 <ContentLogo Title='Доставка' />
-{/* 
-<Delivery /> */}
+
+{/* <Delivery />  */}
 
 <ContentLogo Title='Отзывы' />
 
