@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.validators import ValidationError
 from rest_framework.response import Response
+from django.db import transaction
 
 from .pagination import CustomPagination
 from .filters import GoodsFilter
@@ -12,7 +13,7 @@ from .models import Goods, ShoppingCart, Favorite, Order, OrderItem
 from .permissions import IsAdminOrReadOnly
 from .serializers import (GoodsSerializer, ShortGoodsSerializer,
                           FavoriteSerializer, ShoppingCartSerializer,
-                          OrderSerializer, OrderItemSerializer)
+                          OrderSerializer)
 
 
 class GoodsViewSet(viewsets.ModelViewSet):
@@ -88,27 +89,42 @@ class GoodsViewSet(viewsets.ModelViewSet):
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
     @action(
-        detail=True,
+        detail=False,
         methods=['post'],
         permission_classes=[IsAuthenticated]
     )
-    def order(self, request, pk):
-        goods = self.get_object()
+    def create_order(self, request):
         user = request.user
+        shopping_cart = ShoppingCart.objects.filter(user=user)
 
-        total_price = request.data.get('total_price', 1)
+        if not shopping_cart.exists():
+            return Response({'error': 'Корзина пуста!'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        total_price = 0
         cutlery = request.data.get('cutlery', 1)
-        delivery = request.data.get('delivery', 100)
+        delivery_cost = request.data.get('delivery', 100)
 
-        order = Order.objects.create(
-            user=user,
-            total_price=total_price,
-            cutlery=cutlery,
-            delivery=delivery
-        )
-        OrderItem.objects.create(order=order, goods=goods,
-                                 count=request.data.get('count', 1),
-                                 price=goods.price)
+        order_items_to_create = []
+
+        for item in shopping_cart:
+            total_price += item.price
+            order_items_to_create.append(
+                OrderItem(order=None, goods=item.goods, count=item.count,
+                          price=item.price))
+
+        total_price += delivery_cost
+
+        with transaction.atomic():
+            order = Order.objects.create(user=user, total_price=total_price,
+                                         delivery=delivery_cost,
+                                         cutlery=cutlery)
+
+            for order_item in order_items_to_create:
+                order_item.order = order
+                order_item.save()
+
+            shopping_cart.delete()
 
         serializer = OrderSerializer(order)
         return Response(data=serializer.data, status=status.HTTP_201_CREATED)

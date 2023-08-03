@@ -39,6 +39,7 @@ class Goods(models.Model):
         ('beer_snacks', 'Пивные закуски'),
         ('bread', 'Хлеб'),
         ('wok', 'Вок'),
+        ('children_menu', 'Детское меню')
     )
     PROMO_GOODS = (
         ('promotion', 'Акция'),
