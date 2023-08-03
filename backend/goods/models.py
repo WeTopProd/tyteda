@@ -149,3 +149,38 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         return f'{self.user} added {self.goods} to shopping cart'
+
+
+class Order(models.Model):
+    user = models.ForeignKey(
+        User,
+        verbose_name='Покупатель',
+        related_name='orders',
+        on_delete=models.CASCADE
+    )
+    goods = models.ManyToManyField(Goods, through='OrderItem')
+    order_date = models.DateTimeField('Дата заказа', auto_now_add=True)
+    total_price = models.IntegerField('Итоговая цена')
+    cutlery = models.IntegerField('Столовые приборы')
+    delivery = models.IntegerField('Цена доставки')
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
+    def __str__(self):
+        return f'Заказ #{self.pk} от {self.order_date}'
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    goods = models.ForeignKey(Goods, on_delete=models.CASCADE)
+    count = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = 'Товар в заказе'
+        verbose_name_plural = 'Товары в заказе'
+
+    def __str__(self):
+        return f'{self.goods.title} - {self.count}'

@@ -1,6 +1,6 @@
 from rest_framework import serializers, validators
 
-from .models import Goods, Favorite, ShoppingCart, Image
+from .models import Goods, Favorite, ShoppingCart, Image, Order, OrderItem
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -97,3 +97,28 @@ class FavoriteSerializer(serializers.ModelSerializer):
             instance.goods,
             context={'request': request}
         ).data
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    goods = GoodsSerializer()
+
+    class Meta:
+        model = OrderItem
+        fields = ('goods', 'count', 'price')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    items = OrderItemSerializer(source='orderitem_set',
+                                many=True, read_only=True)
+
+    class Meta:
+        model = Order
+        fields = (
+            'id',
+            'user',
+            'order_date',
+            'total_price',
+            'cutlery',
+            'delivery',
+            'items'
+        )

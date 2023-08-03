@@ -8,10 +8,11 @@ from rest_framework.response import Response
 
 from .pagination import CustomPagination
 from .filters import GoodsFilter
-from .models import Goods, ShoppingCart, Favorite
+from .models import Goods, ShoppingCart, Favorite, Order, OrderItem
 from .permissions import IsAdminOrReadOnly
 from .serializers import (GoodsSerializer, ShortGoodsSerializer,
-                          FavoriteSerializer, ShoppingCartSerializer)
+                          FavoriteSerializer, ShoppingCartSerializer,
+                          OrderSerializer, OrderItemSerializer)
 
 
 class GoodsViewSet(viewsets.ModelViewSet):
@@ -84,6 +85,43 @@ class GoodsViewSet(viewsets.ModelViewSet):
             goods_serializer = GoodsSerializer(goods)
             item['goods'] = goods_serializer.data
 
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+    @action(
+        detail=True,
+        methods=['post'],
+        permission_classes=[IsAuthenticated]
+    )
+    def order(self, request, pk):
+        goods = self.get_object()
+        user = request.user
+
+        total_price = request.data.get('total_price', 1)
+        cutlery = request.data.get('cutlery', 1)
+        delivery = request.data.get('delivery', 100)
+
+        order = Order.objects.create(
+            user=user,
+            total_price=total_price,
+            cutlery=cutlery,
+            delivery=delivery
+        )
+        OrderItem.objects.create(order=order, goods=goods,
+                                 count=request.data.get('count', 1),
+                                 price=goods.price)
+
+        serializer = OrderSerializer(order)
+        return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(
+        detail=False,
+        methods=['get'],
+        permission_classes=[IsAuthenticated]
+    )
+    def order_history(self, request):
+        user = request.user
+        orders = Order.objects.filter(user=user)
+        serializer = OrderSerializer(orders, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
 
 

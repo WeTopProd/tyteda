@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Goods, Image
+from .models import Goods, Image, Order
 
 
 class PostImageAdmin(admin.StackedInline):
@@ -26,3 +26,18 @@ class GoodsAdmin(admin.ModelAdmin):
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'pk',
+        'user',
+        'order_date',
+        'total_price',
+        'cutlery',
+        'delivery'
+    )
+    ordering = ('-order_date',)
+    search_fields = ('user',)
+    list_filter = ('order_date', 'total_price',)
