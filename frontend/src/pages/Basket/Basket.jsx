@@ -5,10 +5,8 @@ import i from '../InterCard/interCard.module.scss'
 import s from '../Home.module.scss'  
 
 import { useEffect, useState } from 'react'
-import { TovarJson } from '../../components/Tovar/TovarJson'
 import BasketTovar from './BasketTovar'
 import ContentLogo from '../../components/Content/ContentLogo'
-import CardInfo from '../../components/Content/CardInfo'
 import Card from '../../components/Content/Card'
 import axios from 'axios'
 
@@ -31,136 +29,72 @@ export default function Basket ({
 
 }) {
 
-    console.log(karzinkaTovar);
 
-    
-    const [oplata, seetOplata] = useState(false)
-    
-    const handleOplata = () => {
-        seetOplata(false)
-    }
+    const [oplata, seetOplata] = useState(false);
 
     const handleSelectChange = (event) => {
-        // Получаем выбранное значение из события onChange
-        const selectedOption = event.target.value;
-    
-        // Проверяем, если выбрана опция, устанавливаем состояние на true
-        if (selectedOption) {
-            seetOplata(true);
-        }
-    };
-
-  
-      useEffect(() => {
-  
-      axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
-      
-      headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          'authorization': `Token ${tokenTwo}`
+      const selectedOption = event.target.value;
+      if (selectedOption) {
+        seetOplata(true);
       }
+    };
   
-      })
-  
-      .then((res) => {
-
-        if (Array.isArray(res.data.results)) {
-            setkarzinkaTovar(res.data.results);
-          }
-
-       })
-
-      .catch((err) => console.error(err))
-  
-      }, [])
-
-  async function removeBasket(id) {
-    try {
-        await axios.delete(`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`, {
-            headers: {
-                'content-type': 'application/json',
-                authorization: `Token ${tokenTwo}`,
-            },
-        });
-
-        // Обновление списка товаров в корзине после удаления
-        setkarzinkaTovar((prevKarzinkaTovar) => prevKarzinkaTovar.filter((item) => item.id !== id));
-
-    } catch (err) {
-        console.error(err);
-    }
-  }
-
-
-
-  const [totalSum, setTotalSum] = useState(0);
-
-  const [instrumentation, setInstrumentation] = useState(1)
-
-  const [delivery_amount, setdelivery_amount] = useState('200')
-
-  const [countInfo, setCountInfo] = useState([]) 
-
-  useEffect(() => {
-    axios
-        .get('http://127.0.0.1:8000/api/goods/basket/', {
-            headers: {
-                'Content-Type': 'application/json',
-                authorization: `Token ${tokenTwo}`,
-            },
+    useEffect(() => {
+      axios
+        .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Token ${localStorage.getItem('token')}`,
+          },
         })
         .then((res) => {
-            // Обновляем состояние countInfo на основе данных из API
-            setCountInfo(res.data.map((item) => item));
+          if (Array.isArray(res.data.results)) {
+            setkarzinkaTovar(res.data.results);
+          }
         })
         .catch((err) => console.error(err));
-}, []);
-
-
-  const increaseCount = () => {
-    setInstrumentation(instrumentation + 1);
-  };
-
-  const decreaseCount = () => {
-    if (instrumentation > 0) {
-        setInstrumentation(instrumentation - 1);
-    }
-  };
-
+    }, []);
   
+    async function removeBasket(id) {
+      try {
+        await axios.delete(`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`, {
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Token ${localStorage.getItem('token')}`,
+          },
+        });
+        setkarzinkaTovar((prevKarzinkaTovar) =>
+          prevKarzinkaTovar.filter((item) => item.id !== id)
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  
+    const [instrumentation, setInstrumentation] = useState(1);
+    const [delivery_amount, setdelivery_amount] = useState('200');
+    const [countInfo, setCountInfo] = useState([]);
+  
+    const increaseCount = () => {
+      setInstrumentation(instrumentation + 1);
+    };
+  
+    const decreaseCount = () => {
+      if (instrumentation > 0) {
+        setInstrumentation(instrumentation - 1);
+      }
+    };
 
+    // Функция для рассчета общей цены корзины
+    const calculateTotalCartPrice = () => {
+      const totalKarzinkaPrice = karzinkaTovar.reduce((total, item) => total + item.price * item.count, 0);
+      const totalCountInfoPrice = countInfo.reduce((total, item) => total + item.count * item.goods.price, 0);
+      return totalKarzinkaPrice + totalCountInfoPrice;
+    };
 
-  // Функция для вычисления общей суммы на основе countInfo
-  const calculateTotalPriceFromCountInfo = (countInfo) => {
-      let totalPrice = 0;
-      countInfo.forEach((item) => {
-          totalPrice += item.count * item.goods.price;
-      });
-      return totalPrice;
-  };
-
-  useEffect(() => {
-
-    // Вычисляем общую сумму на основе karzinkaTovar
-    const updatedTotalPriceKarzinka = calculateTotalPriceKarzinka(karzinkaTovar);
-
-    // Вычисляем общую сумму на основе countInfo
-    const updatedTotalPriceCountInfo = calculateTotalPriceFromCountInfo(countInfo);
-
-    // Обновляем состояние totalCartPrice через переданную из пропсов функцию setTotalCartPrice
-    setTotalCartPrice(updatedTotalPriceKarzinka + updatedTotalPriceCountInfo);
-}, [karzinkaTovar, countInfo, setTotalCartPrice]);
-
-const calculateTotalPriceKarzinka = (cartItems) => {
-    let totalPrice = 0;
-    cartItems.forEach((item) => {
-        totalPrice += item.price * item.count;
-    });
-    return totalPrice;
-};
-
-
-  const tokenTwo = localStorage.getItem('token')
+    useEffect(() => {
+      setTotalCartPrice(calculateTotalCartPrice());
+    }, [karzinkaTovar, countInfo, setTotalCartPrice]);
   
 
     return (
@@ -287,8 +221,6 @@ const calculateTotalPriceKarzinka = (cartItems) => {
                                             {...info}
                                             setkarzinkaTovar={setkarzinkaTovar}
                                             removeBasket={removeBasket}
-                                            calculateTotalPriceKarzinka={calculateTotalPriceKarzinka}
-                                            calculateTotalPriceFromCountInfo={calculateTotalPriceFromCountInfo} // Переместите сюда
                                             karzinkaTovar={karzinkaTovar}
                                             setTotalCartPrice={setTotalCartPrice}
                                             key={index}
