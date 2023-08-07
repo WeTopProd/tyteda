@@ -442,11 +442,6 @@ export default function Header ({isActive, setIsActive, token}) {
                 <p>Мои данные</p>
             </div>
     
-            <div className={h.nav__user__nav} onClick={handleAddress}>
-                <img src={admin2} alt="" />
-                <p>Мои адреса</p>
-            </div>
-    
             <div className={h.nav__user__nav}
             onClick={handleZakaz}
             >

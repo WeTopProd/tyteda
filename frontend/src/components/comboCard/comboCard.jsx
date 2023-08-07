@@ -1,17 +1,26 @@
 
 import c from './comboCard.module.scss'
+import s from '../../pages/Home.module.scss'
 
 import CardKarzina from '../Content/img/cardKarzina.svg'
-import comboJsonFormat from './comboJsonFormat'
+import CardKarzinaAdd from '../Content/img/cardKarzinaAdd.svg';
 
-export default function ComboCard ({...info}) {
+export default function ComboCard ({ addBasket, isAddedToCart,...info}) {
     return (
         
         <div className={c.item}>
 
             <div className={c.item__fon}>
 
-           <img src={info.Img} alt="" className={c.item__img} />
+        {info && info.images && info.images[0] && info.images[0].images ? (
+
+          <img src={info.images[0].images} alt="img"  className={c.item__img} />
+
+        ) : (
+
+          <p>No image available</p>
+
+        )}
 
             </div>
             
@@ -19,44 +28,50 @@ export default function ComboCard ({...info}) {
            <div className={c.item__info}>
             
             <p className={c.item__info__title}>
-            {info.Dish_Name}
+            {info.title}
             </p>
 
             <div className={c.item__info__flex}>
 
                 <p className={c.item__info__flex__text}>
-                    {info.BludText}
+                    {info.compound}
                 </p>
 
             </div>
 
             <p className={c.item__info__gram}>
-            {info.Gram} г.
+            {info.weight} г.
             </p>
 
             <div className={c.item__info__footer}>
                 
                 <p className={c.item__info__footer__sum}>
-                {info.Dish_price} руб.
+                {info.price} руб.
                 </p>
 
-                <div className={c.item__info__footer__comb}>
-                    
-                    <button className={c.comb__plus}>
-                        -
-                    </button>
+        {isAddedToCart ? (
 
-                    <p className={c.comb__text}>
-                        1
-                    </p>
+          <div>
+            <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
+          </div>
 
-                    <button className={c.comb__plus}>
-                        +
-                    </button>
+        ) : (
 
-                </div>
+          <img
+            src={CardKarzina}
+            id={info.id}
+            onClick={() => addBasket(info.id)}
+            className={s.mycard__item__footer__kar}
+            alt="svg"
+          />
 
-                <img src={CardKarzina} alt="" />
+        )}
+
+            </div>
+
+            <div className={c.item__info__footer__text}>
+
+            {isAddedToCart ? <p style={{textAlign: 'left', marginLeft: '0 auto'}} className={c.mycard__item__footer__text}>Товар добавлен в карзину</p> : ''}
 
             </div>
 

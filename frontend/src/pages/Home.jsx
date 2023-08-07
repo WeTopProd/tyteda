@@ -26,7 +26,8 @@ export default function Home ({
     isAddedToCart,
     karzinkaTovar,
     setkarzinkaTovar,
-    addBasket
+    addBasket,
+    Goods
     
     }) {
 
@@ -40,29 +41,6 @@ export default function Home ({
 
     }
     
-    const [Goods , setGoods] = useState([])
-
-  
-    useEffect(() => {
-  
-      axios.get('http://127.0.0.1:8000/api/goods/', {
-      
-      headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          'authorization': `Token ${tokenTwo}`
-      }
-  
-      })
-  
-      .then((res) => {
-
-        setGoods(res.data.results)
-
-       })
-
-      .catch((err) => console.error(err))
-  
-  }, [])
 
   const [Promotion , setPromotion] = useState([])
 

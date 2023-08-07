@@ -75,27 +75,37 @@ function App() {
 
     const [Goods , setGoods] = useState([])
 
+    const [comboCard , setComboCard] = useState([])
+
 
     useEffect(() => {
-  
+
       axios.get('http://127.0.0.1:8000/api/goods/', {
-      
-      headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          'authorization': `Token ${tokenTwo}`
-      }
-  
+
+          headers: {
+              'Content-Type': 'application/json',
+              'authorization': `Token ${tokenTwo}`
+          }
+
       })
-  
+
       .then((res) => {
-
-        setGoods(res.data.results)
-
-       })
-
-      .catch((err) => console.error(err))
   
-  }, [])
+          const nonComboItems = res.data.results.filter(item => !item.title.startsWith("Комбо"));
+          
+          setGoods(nonComboItems);
+  
+          const comboItems = res.data.results.filter(item => item.title.startsWith("Комбо"));
+  
+          const reversedComboItems = comboItems.reverse();
+  
+          setComboCard(reversedComboItems);
+      })
+
+      .catch((err) => console.error(err));
+
+  }, []);
+
 
   useEffect(() => {
   
@@ -120,6 +130,7 @@ function App() {
 
 }, [])
 
+    const [totalCartPrice, setTotalCartPrice] = useState(0);
 
     const params = useParams()
     
@@ -154,17 +165,41 @@ function App() {
 
         setIsAddedToCart={setIsAddedToCart}
 
+        Goods={Goods}
+
         />} />
 
         <Route path='/register'  element={<Reg />} />
 
         <Route path='/login'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
 
-        <Route path='/combo'  element={<Combo />} />
+        <Route path='/combo'  element={<Combo
+        
+        comboCard={comboCard}
+
+        isAddedToCart={isAddedToCart}
+
+        karzinkaTovar={karzinkaTovar}
+        
+        addBasket={addBasket}
+
+        setIsAddedToCart={setIsAddedToCart}
+        
+        />} />
 
         <Route path='/about'  element={<About />} />
 
-        <Route path='/kidsmenu'  element={<KidsMenu />} />
+        <Route path='/kidsmenu'  element={<KidsMenu
+
+                isAddedToCart={isAddedToCart}
+
+                karzinkaTovar={karzinkaTovar}
+                
+                addBasket={addBasket}
+        
+                setIsAddedToCart={setIsAddedToCart}
+        
+        />} />
 
          <Route
             path="/intercard/:userId"
@@ -195,6 +230,12 @@ function App() {
         setkarzinkaTovar={setkarzinkaTovar}
 
         addBasket={addBasket}
+
+        Goods={Goods}
+
+        totalCartPrice={totalCartPrice}
+
+        setTotalCartPrice={setTotalCartPrice}
 
 
         />} />

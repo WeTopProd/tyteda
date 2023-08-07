@@ -23,9 +23,15 @@ export default function Basket ({
     
     setkarzinkaTovar,
 
-    addBasket
+    addBasket,
+
+    Goods,
+
+    totalCartPrice, setTotalCartPrice 
 
 }) {
+
+    console.log(karzinkaTovar);
 
     
     const [oplata, seetOplata] = useState(false)
@@ -44,21 +50,6 @@ export default function Basket ({
         }
     };
 
-    const [Goods , setGoods] = useState([])
-
-      useEffect(() => {
-        axios
-          .get('http://127.0.0.1:8000/api/goods/', {
-            headers: {
-              'Content-Type': 'application/json',
-              authorization: `Token ${tokenTwo}`,
-            },
-          })
-          .then((res) => {
-            setGoods(res.data.results);
-          })
-          .catch((err) => console.error(err));
-      }, []);
   
       useEffect(() => {
   
@@ -104,30 +95,70 @@ export default function Basket ({
 
   const [totalSum, setTotalSum] = useState(0);
 
+  const [instrumentation, setInstrumentation] = useState(1)
+
+  const [delivery_amount, setdelivery_amount] = useState('200')
+
   const [countInfo, setCountInfo] = useState([]) 
 
- useEffect(() => {
-  
-    axios.get('http://127.0.0.1:8000/api/goods/basket/', {
-    
-    headers: {
-        'Content-Type': 'application/json , multipart/form-data',
-        'authorization': `Token ${tokenTwo}`
+  useEffect(() => {
+    axios
+        .get('http://127.0.0.1:8000/api/goods/basket/', {
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `Token ${tokenTwo}`,
+            },
+        })
+        .then((res) => {
+            // Обновляем состояние countInfo на основе данных из API
+            setCountInfo(res.data.map((item) => item));
+        })
+        .catch((err) => console.error(err));
+}, []);
+
+
+  const increaseCount = () => {
+    setInstrumentation(instrumentation + 1);
+  };
+
+  const decreaseCount = () => {
+    if (instrumentation > 0) {
+        setInstrumentation(instrumentation - 1);
     }
+  };
 
-    })
-
-    .then((res) => {
-
-            setCountInfo(res.data.map(item => item));
-     })
-
-    .catch((err) => console.error(err))
-
-}, [])
+  
 
 
-console.log(countInfo);
+  // Функция для вычисления общей суммы на основе countInfo
+  const calculateTotalPriceFromCountInfo = (countInfo) => {
+      let totalPrice = 0;
+      countInfo.forEach((item) => {
+          totalPrice += item.count * item.goods.price;
+      });
+      return totalPrice;
+  };
+
+  useEffect(() => {
+
+    // Вычисляем общую сумму на основе karzinkaTovar
+    const updatedTotalPriceKarzinka = calculateTotalPriceKarzinka(karzinkaTovar);
+
+    // Вычисляем общую сумму на основе countInfo
+    const updatedTotalPriceCountInfo = calculateTotalPriceFromCountInfo(countInfo);
+
+    // Обновляем состояние totalCartPrice через переданную из пропсов функцию setTotalCartPrice
+    setTotalCartPrice(updatedTotalPriceKarzinka + updatedTotalPriceCountInfo);
+}, [karzinkaTovar, countInfo, setTotalCartPrice]);
+
+const calculateTotalPriceKarzinka = (cartItems) => {
+    let totalPrice = 0;
+    cartItems.forEach((item) => {
+        totalPrice += item.price * item.count;
+    });
+    return totalPrice;
+};
+
 
   const tokenTwo = localStorage.getItem('token')
   
@@ -178,15 +209,6 @@ console.log(countInfo);
 
                             </label>
 
-                            <label className={b.basket__item__form__label}>
-                                
-                                <p className={b.basket__item__form__label__text}>
-                                Условия доставки
-                                </p>
-
-                                <p type="text" className={b.basket__item__form__label__inp}>100 руб</p>
-
-                            </label>
 
                             <label className={b.basket__item__form__label}>
                                 
@@ -225,7 +247,7 @@ console.log(countInfo);
                             <select onChange={handleSelectChange} type="text" className={b.basket__item__form__label__selectTwo}>
 
                                 <option value="">Выберете опцию</option>
-                                <option value="Добавить новую карту">Добавить новую карту</option>
+                                <option value="">Оптала онлайн</option>
                                 <option value="">Оплата картой курьеру</option>
                                 <option value="">Оплата наличными курьеру</option>
                                 
@@ -234,41 +256,6 @@ console.log(countInfo);
                                 </div>
 
                             </label>
-
-                        {oplata  &&
-                            
-                            <label className={b.basket__item__form__labelTwo}>
-                                
-                                <p className={b.basket__item__form__label__text}>
-                                
-                                </p>
-
-                                <input type="text"
-                                className={b.basket__item__form__label__inp}
-                                placeholder='Введите номер карты'  
-                                />
-
-                                <div className={b.basket__item__form__label__flex}>
-
-                                <input type="number"
-                                className={b.basket__item__form__label__flex__inp}
-                                placeholder='ММ/ГГ'  
-                                />
-
-                                <input type="password"
-                                className={b.basket__item__form__label__flex__inp}
-                                placeholder='CVV'  
-                                />
-
-                                </div>
-
-                                <button onClick={handleOplata} className={b.basket__item__form__label__btn}>
-                                привязать карту
-                                </button>
-
-                            </label>
-                        
-                        }
 
                             
                         </div>
@@ -293,8 +280,21 @@ console.log(countInfo);
                             ) : (
 
                                 karzinkaTovar.map((info, index) => {
-                                    return <BasketTovar countInfo={countInfo} setCountInfo={setCountInfo} {...info} setkarzinkaTovar={setkarzinkaTovar} removeBasket={removeBasket} key={index} />;
-                                  })
+                                    return (
+                                        <BasketTovar
+                                            countInfo={countInfo}
+                                            setCountInfo={setCountInfo}
+                                            {...info}
+                                            setkarzinkaTovar={setkarzinkaTovar}
+                                            removeBasket={removeBasket}
+                                            calculateTotalPriceKarzinka={calculateTotalPriceKarzinka}
+                                            calculateTotalPriceFromCountInfo={calculateTotalPriceFromCountInfo} // Переместите сюда
+                                            karzinkaTovar={karzinkaTovar}
+                                            setTotalCartPrice={setTotalCartPrice}
+                                            key={index}
+                                        />
+                                    );
+                                })                                
 
                             )}
 
@@ -308,13 +308,13 @@ console.log(countInfo);
 
                         <div className={h.nav__kar__item__fun}>
 
-                           <div className={h.nav__kar__item__fun__add}>
+                           <div className={h.nav__kar__item__fun__add} onClick={decreaseCount}>
                                 -
                            </div>
 
-                           <h3>1</h3>
+                           <h3>{instrumentation}</h3>
 
-                           <div className={h.nav__kar__item__fun__add}>
+                           <div className={h.nav__kar__item__fun__add} onClick={increaseCount}>
                              +
                            </div>
 
@@ -329,7 +329,7 @@ console.log(countInfo);
                         </p>
 
                         <p className={b.basket__item__pribor__title}>
-                        100 руб.
+                        {delivery_amount} руб.
                         </p>     
 
                     </div>
@@ -337,7 +337,7 @@ console.log(countInfo);
                     <div className={b.basket__item__footer}>
                         
                         <p className={b.basket__item__footer__price}>
-                            {totalSum} руб.
+                            {totalCartPrice} руб.
                         </p>
 
                         <button className={b.basket__item__footer__button}>

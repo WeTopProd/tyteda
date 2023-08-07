@@ -13,13 +13,21 @@ import MenuCard from '../../components/Menu/MenuCard'
 import { HashLink } from 'react-router-hash-link'
 
 
-export default function Combo () {
+export default function Combo ({
+    
+    comboCard,
+    isAddedToCart,
+    karzinkaTovar,
+    setkarzinkaTovar,
+    addBasket
+    
+}) {
     
     let scrollWithOffsett = (el) => {
 
         const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
 
-        const yOffset = -150;
+        const yOffset = -60;
 
         window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
 
@@ -165,8 +173,8 @@ export default function Combo () {
                 
                 <div className={c.combocard}>
 
-        {comboJson.map( (info , index) => {
-            return <ComboCard {...info} key={index} />
+        {comboCard.map( (info , index) => {
+            return <ComboCard  addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} />
         } )}
 
                 </div>

@@ -3,8 +3,46 @@ import h from '../../components/Header/Header.module.scss'
 import s from '../Home.module.scss'
 import CardInfoKids from './ContentKids/CardInfoKids'
 import CardKids from './ContentKids/CardKids'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
-export default function KidsMenu () {
+export default function KidsMenu ({
+    
+    isAddedToCart,
+    karzinkaTovar,
+    setkarzinkaTovar,
+    addBasket
+    
+    }) {
+    
+    const [CardKidsInfo , setCardKidsInfo] = useState([])
+
+    useEffect(() => {
+    
+      axios.get('http://127.0.0.1:8000/api/goods/?type=children_menu', {
+      
+      headers: {
+          'Content-Type': 'application/json , multipart/form-data',
+          'authorization': `Token ${tokenTwo}`
+      }
+    
+      })
+    
+      .then((res) => {
+    
+        setCardKidsInfo(res.data.results)
+    
+       })
+    
+      .catch((err) => console.error(err))
+    
+    }, [])
+
+    console.log(CardKidsInfo);
+
+  const tokenTwo = localStorage.getItem('token')
+
+
     return (
 
         <>
@@ -33,8 +71,12 @@ export default function KidsMenu () {
                 
             <div className={s.mycard}>
 
-               {CardInfoKids.map( (info , index) => {
-                return <CardKids {...info} key={index} />
+               {CardKidsInfo.map( (info , index) => {
+                return <CardKids 
+                
+                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
+                
+                />
                } )}
                 
             </div>
