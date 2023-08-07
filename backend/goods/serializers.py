@@ -119,6 +119,11 @@ class OrderSerializer(serializers.ModelSerializer):
             'order_date',
             'total_price',
             'cutlery',
-            'delivery',
+            'delivery_cost',
+            'fio',
+            'email',
+            'address',
+            'delivery_time',
+            'payment_method',
             'items'
         )

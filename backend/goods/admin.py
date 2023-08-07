@@ -36,7 +36,7 @@ class OrderAdmin(admin.ModelAdmin):
         'order_date',
         'total_price',
         'cutlery',
-        'delivery'
+        'delivery_cost'
     )
     ordering = ('-order_date',)
     search_fields = ('user',)

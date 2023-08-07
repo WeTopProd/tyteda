@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import validate_email
 
 from users.models import User
 
@@ -163,7 +164,17 @@ class Order(models.Model):
     order_date = models.DateTimeField('Дата заказа', auto_now_add=True)
     total_price = models.IntegerField('Итоговая цена')
     cutlery = models.IntegerField('Столовые приборы')
-    delivery = models.IntegerField('Цена доставки')
+    delivery_cost = models.IntegerField('Цена доставки')
+    fio = models.CharField('Ф.И.О.', max_length=255)
+    email = models.EmailField(
+        db_index=True,
+        max_length=255,
+        verbose_name='Почта',
+        validators=[validate_email],
+    )
+    address = models.CharField('Адрес доставки', max_length=255)
+    delivery_time = models.CharField('Время доставки', max_length=50)
+    payment_method = models.CharField('Метод оплаты', max_length=100)
 
     class Meta:
         verbose_name = 'Заказ'

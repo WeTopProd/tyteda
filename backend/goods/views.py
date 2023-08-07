@@ -103,8 +103,12 @@ class GoodsViewSet(viewsets.ModelViewSet):
 
         total_price = 0
         cutlery = request.data.get('cutlery', 1)
-        delivery_cost = request.data.get('delivery', 100)
-
+        delivery_cost = request.data.get('delivery_cost', 100)
+        fio = request.data.get('fio', '')
+        email = request.data.get('email', '')
+        address = request.data.get('address', '')
+        delivery_time = request.data.get('delivery_time', '')
+        payment_method = request.data.get('payment_method', '')
         order_items_to_create = []
 
         for item in shopping_cart:
@@ -116,9 +120,17 @@ class GoodsViewSet(viewsets.ModelViewSet):
         total_price += delivery_cost
 
         with transaction.atomic():
-            order = Order.objects.create(user=user, total_price=total_price,
-                                         delivery=delivery_cost,
-                                         cutlery=cutlery)
+            order = Order.objects.create(
+                user=user,
+                total_price=total_price,
+                delivery_cost=delivery_cost,
+                cutlery=cutlery,
+                fio=fio,
+                email=email,
+                address=address,
+                delivery_time=delivery_time,
+                payment_method=payment_method
+            )
 
             for order_item in order_items_to_create:
                 order_item.order = order
