@@ -23,6 +23,7 @@ import location from './img/location.svg'
 import { HashLink } from 'react-router-hash-link';
 import axios from 'axios'
 import { useFavoritesContext } from '../../FavoritesContext'
+import HeaderCard from '../HeaderCard'
 
 export default function Header ({isActive, setIsActive, token}) {
 
@@ -176,6 +177,7 @@ export default function Header ({isActive, setIsActive, token}) {
           setZakaz(false)
           setLovaOn(false)
           setDanniyTwo(false)
+          
 
         }
       };
@@ -247,7 +249,8 @@ export default function Header ({isActive, setIsActive, token}) {
       const [emailPo, setEmailPo] = useState('')
 
 
-      const PreapUsers = () => {       
+      const PreapUsers = () => {    
+  
     
         axios.patch('http://127.0.0.1:8000/api/users/me/', {
 
@@ -306,6 +309,46 @@ export default function Header ({isActive, setIsActive, token}) {
       const { favorites } = useFavoritesContext();
 
 
+      const [HeaderTovar, setHeaderTovar] = useState([])
+
+      const [titleItem, setTitleItem] = useState('')
+
+
+      const PoiskItem = (event) => {
+        
+        const inputValue = event.target.value;
+
+        setTitleItem(inputValue);
+
+        if (inputValue.length === 0) {
+          setShowInfo(false);
+
+        } else {
+          setShowInfo(true);
+        }
+
+        event.preventDefault()
+  
+        axios.get(`http://127.0.0.1:8000/api/goods/?title=${titleItem}`, {
+  
+        headers: {
+            'Content-Type': 'application/json',
+            authorization: `Token ${localStorage.getItem('token')}`,
+        },
+  
+      })
+  
+      .then(res => {
+         setHeaderTovar(res.data.results)
+       })
+  
+      .catch(err => console.error(err))
+  
+      }
+
+      const [showInfo, setShowInfo] = useState(false);
+
+
     return (
 
     <>
@@ -335,10 +378,51 @@ export default function Header ({isActive, setIsActive, token}) {
     
         
     
-                <form className={h.nav__form}>
+                <form className={h.nav__form} onChange={PoiskItem}>
+
                     <img src={poisk} alt="svg" className={h.nav__form_svg} />
-                    <input type="text" className={h.nav__form_poisk} placeholder='Наименование блюда' />
+
+      <input
+        type="text"
+        className={h.nav__form_poisk}
+        placeholder="Наименование блюда"
+        value={titleItem}
+        onChange={(event) => setTitleItem(event.target.value)}
+        onBlur={() => setShowInfo(false)} // Hide info div on blur
+      />
+
+                    
+                    {showInfo && (
+
+                    <div className={h.nav__form__info}>
+
+                        <div className={h.basketTovar}>
+
+                        {HeaderTovar.length === 0 ? (
+
+                            <p className={h.basketTovar__text}>Искать на TYTEDA</p>
+
+                            ) : (
+
+                                HeaderTovar.map((info, index) => {
+                                    return (
+                                        <HeaderCard {...info} key={index} />
+                                    );
+                                })                                
+
+                        )}
+
+                        </div>
+
+
+
+                    </div>
+
+                    ) }
+
                 </form>
+
+
     
     
     
