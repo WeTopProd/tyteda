@@ -338,7 +338,7 @@ useEffect(() => {
                 <form className={s.filter} onSubmit={PoiskCard}>
                     
                     <p className={s.filter__title}>
-                    Выберите тип блюдо 
+                    Выберите тип блюдa
                     </p>
 
                     <form className={s.filter__form}>
@@ -447,7 +447,7 @@ useEffect(() => {
 
 <ContentLogo Title='Доставка' />
 
-{/* <Delivery />  */}
+<Delivery /> 
 
 <ContentLogo Title='Отзывы' />
 

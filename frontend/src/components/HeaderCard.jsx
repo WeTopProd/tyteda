@@ -1,7 +1,8 @@
 
+import { Link } from 'react-router-dom';
 import h from './Header/Header.module.scss'
 
-export default function HeaderCard ({...info}) {
+export default function HeaderCard ({setShowInfo ,...info}) {
 
     console.log(info);
     
@@ -22,7 +23,10 @@ export default function HeaderCard ({...info}) {
 
                 <div className={h.basketTovar__item__info}>
                                     
-                    <p className={h.basketTovar__item__info__title}>{info.title}</p>
+                    <Link className={h.basketTovar__item__info__title}
+                    to={`/intercard/${info.id}`}
+                    onClick={() => setShowInfo(false)} 
+                    >{info.title}</Link>
 
                     <p className={h.basketTovar__item__info__subtitle}>{info.price} руб</p>
 
