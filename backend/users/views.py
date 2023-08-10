@@ -85,7 +85,6 @@ def send_email(request):
             ['info@tyteda.ru'],
             fail_silently=False,
         )
-
     return Response({'success': 'Сообщение успешно отправлено'})
 
 
