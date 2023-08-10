@@ -146,4 +146,3 @@ def payment(request):
     link = f"{server_paykeeper}/bill/{invoice_id}/"
 
     return Response({'success': f'{link}'})
-

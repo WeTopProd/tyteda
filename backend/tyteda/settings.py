@@ -193,4 +193,3 @@ EMAIL_HOST_PASSWORD = '9I7f4T7x'
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'info@tyteda.ru'
 SERVER_EMAIL = 'info@tyteda.ru'
-
