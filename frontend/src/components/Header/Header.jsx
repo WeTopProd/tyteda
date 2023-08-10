@@ -465,6 +465,7 @@ export default function Header ({isActive, setIsActive, token}) {
                 <Link to='/combo' onClick={burgerClose} className={h.nav__links_link}>Комбо-обеды</Link>
     
                 <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>детское меню</Link>
+                
     
                 
                 <HashLink to='/#footer' scroll={scrollWithOffset} onClick={burgerClose} className={h.nav__links_link}

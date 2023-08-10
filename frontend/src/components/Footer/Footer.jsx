@@ -207,6 +207,27 @@ function Footer() {
           </div>
         </div>
       </div>
+
+      <div className={f.footer__bottom} >
+        <div className={h.container}>
+
+          <div className={f.bottom}>
+
+
+            <div className={f.bottom_text}>
+
+              <Link to={'/oplataprav'}> Правила оплаты</Link>
+              <Link to={'/oplatainfo'}> Оплата</Link>
+              <Link to={'/returninfo'}> Возврат</Link>
+
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+
+
     </>
   );
 }

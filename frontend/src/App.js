@@ -18,6 +18,9 @@ import axios from 'axios';
 import { FavoritesProvider } from './FavoritesContext';
 import { HeartProvider } from './components/ProductContainer';
 import Tovar from './pages/Tovar/Tovar';
+import OplataPrav from './components/Footer/OplataPrav';
+import OplataInfo from './components/Footer/OplataInfo';
+import ReturnInfo from './components/Footer/ReturnInfo';
 
 function App() {
 
@@ -250,6 +253,13 @@ function App() {
         
 
         />} />
+
+        <Route path='/oplataprav'  element={<OplataPrav/>} />
+
+        <Route path='/oplatainfo'  element={<OplataInfo/>} />
+
+        <Route path='/returninfo'  element={<ReturnInfo/>} />
+
 
         </Routes>
 

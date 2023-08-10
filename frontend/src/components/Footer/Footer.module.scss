@@ -295,6 +295,21 @@
             align-items: flex-start;
         }
 
+        &_text{
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+
+            & a{
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 120%;
+                color: #a5a5a5;
+            }
+        }
+
         &_left {
             max-width: 180px;
             font-style: normal;
