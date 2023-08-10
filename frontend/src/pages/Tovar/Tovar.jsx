@@ -19,7 +19,7 @@ export default function Tovar ({
 
     useEffect(() => {
   
-      axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+      axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
       
       headers: {
           'Content-Type': 'application/json , multipart/form-data',

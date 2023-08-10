@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-*mzje=yktkay8l632q8$h)xzn#0a&218(jz^&17d$w4o1tbl^&'
 
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = [
@@ -17,7 +17,7 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = [
         'tyteda.ru',
-        '',
+        '89.108.79.12',
     ]
 
 
@@ -86,8 +86,8 @@ else:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'tyteda',
             'USER': 'tyteda_user',
-            'PASSWORD': '20031956tAA',
-            'HOST': '',
+            'PASSWORD': '20031956',
+            'HOST': '89.108.79.12',
             'PORT': '5432'
         }
     }
@@ -188,8 +188,9 @@ PHONENUMBER_DEFAULT_REGION = 'RU'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'server61.hosting.reg.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'academy@frantsuz.ru'
-EMAIL_HOST_PASSWORD = 'wE6aN6lC6e'
+EMAIL_HOST_USER = 'info@tyteda.ru'
+EMAIL_HOST_PASSWORD = '9I7f4T7x'
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'academy@frantsuz.ru'
-SERVER_EMAIL = 'academy@frantsuz.ru'
+DEFAULT_FROM_EMAIL = 'info@tyteda.ru'
+SERVER_EMAIL = 'info@tyteda.ru'
+

@@ -109,6 +109,11 @@ class GoodsViewSet(viewsets.ModelViewSet):
         address = request.data.get('address', '')
         delivery_time = request.data.get('delivery_time', '')
         payment_method = request.data.get('payment_method', '')
+        if (not fio or not email or not address
+                or not delivery_time or not payment_method):
+            return Response(
+                {'error': 'Отсутствуют обязательные поля в запросе'},
+                status=status.HTTP_400_BAD_REQUEST)
         order_items_to_create = []
 
         for item in shopping_cart:

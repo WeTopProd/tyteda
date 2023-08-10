@@ -9,7 +9,7 @@ export default function MyZakazCards ({ ...info}) {
 
     // console.log(arr.images[0].images);
 
-    let domen = 'http://127.0.0.1:8000'
+    let domen = 'https://tyteda.ru'
 
     return (
 
