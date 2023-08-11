@@ -96,9 +96,6 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
   const tokenTwo = localStorage.getItem('token');
 
-
-  console.log(info.images[0].images);
-
   return (
 
 
