@@ -66,8 +66,14 @@ export default function Basket ({
         setkarzinkaTovar((prevKarzinkaTovar) =>
           prevKarzinkaTovar.filter((item) => item.id !== id)
         );
-      } catch (err) {
-        console.error(err);
+      } catch (err) 
+      {
+        if (err.response && err.response.status === 401) {
+          // Ничего не делать или выполнить альтернативные действия
+
+        } else {
+          // Обработка других ошибок
+        }
       }
     }
   

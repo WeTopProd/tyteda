@@ -185,7 +185,7 @@
                 &_geo {
                     display: flex;
                     align-items: center;
-                    gap: 23px;
+                    gap: 10px;
                     margin: 0;
 
                     @media screen and (max-width: 550px) {
@@ -195,10 +195,12 @@
                     &_text {
                         font-style: normal;
                         font-weight: 400;
-                        font-size: 20px;
-                        line-height: 0px;
+                        font-size: 13px;
+                        line-height: 140%;
                         text-align: center;
                         color: #ffffff;
+                        white-space: pre-wrap;
+                        flex-wrap: wrap;
                     }
                 }
 

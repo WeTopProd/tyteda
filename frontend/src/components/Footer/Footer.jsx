@@ -79,7 +79,7 @@ function Footer() {
                 <p className={f.footer__info_item_title}>Наши проекты</p>
 
                 <div className={f.footer__info_port_imgs}>
-                  <Link to="">
+                  <Link to="https://frantsuz-club.ru/">
                     <img
                       src={img2}
                       alt="img"
@@ -87,7 +87,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://шашландия.рф/">
                     <img
                       src={img1}
                       alt="img"
@@ -95,7 +95,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://reiting.moscow/">
                     <img
                       src={Logo}
                       alt="img"
@@ -103,7 +103,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://corp-pitanie.tyteda.ru/">
                     <img
                       src={img8}
                       alt="img"
@@ -111,7 +111,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://poyuvsegda.ru/">
                     <img
                       src={img9}
                       alt="img"
@@ -119,7 +119,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://comicadze.ru/">
                     <img
                       src={img5}
                       alt="img"
@@ -127,7 +127,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://wetop.ru/">
                     <img
                       src={img4}
                       alt="img"
@@ -135,7 +135,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://pominki-dostavka.ru/">
                     <img
                       src={img10}
                       alt="img"
@@ -143,7 +143,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="">
+                  <Link to="https://frantsuz.ru/">
                     <img
                       src={img3}
                       alt="img"

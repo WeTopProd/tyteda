@@ -58,7 +58,13 @@ function App() {
     
           // ... (другая логика)
         } catch (error) {
-          console.error(error);
+          
+          if (error.response && error.response.status === 401) {
+            // Ничего не делать или выполнить альтернативные действия
+
+          } else {
+            // Обработка других ошибок
+          }
         }
       }
     
