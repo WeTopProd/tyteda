@@ -46,7 +46,7 @@ export default function Home ({
 
   useEffect(() => {
   
-    axios.get('http://127.0.0.1:8000/api/goods/?promotion=promotion', {
+    axios.get('https://tyteda.ru/api/goods/?promotion=promotion', {
     
     headers: {
         'Content-Type': 'application/json , multipart/form-data',
@@ -69,7 +69,7 @@ const [Recommend , setRecommend] = useState([])
 
 useEffect(() => {
 
-  axios.get('http://127.0.0.1:8000/api/goods/?promotion=recommend', {
+  axios.get('https://tyteda.ru/api/goods/?promotion=recommend', {
   
   headers: {
       'Content-Type': 'application/json , multipart/form-data',
@@ -110,7 +110,7 @@ useEffect(() => {
 
     event.preventDefault()
 
-    axios.get(`http://127.0.0.1:8000/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
+    axios.get(`https://tyteda.ru/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
 
     headers: {
       "content-type": "application/json",
