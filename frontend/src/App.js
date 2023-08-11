@@ -155,8 +155,12 @@ function App() {
            <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
   
           <Routes>
-  
-          <Route path='/'  element={<Home
+
+            {isActive ? (
+
+              <>
+
+         <Route path='/'  element={<Home
           
           isAddedToCart={isAddedToCart}
   
@@ -169,10 +173,6 @@ function App() {
           Goods={Goods}
   
           />} />
-  
-          <Route path='/register'  element={<Reg />} />
-  
-          <Route path='/login'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
   
           <Route path='/combo'  element={<Combo
           
@@ -260,24 +260,22 @@ function App() {
   
           <Route path='/policy'  element={<Konfidi/>} />
 
-          <Route
-                path="/protected"
 
-                element={
-                  
-                  isActive ? (
-                    
-                    <ProtectedPage />
+              
+              </>
 
-                  ) : (
 
-                    <Navigate to="/login" replace />
+            ) : (
 
-                  )
-                  
-                }
-              />
+            <>
+
+          <Route path='/register'  element={<Reg />} />
   
+          <Route path='/login'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
+            
+            </>
+
+            )}          
   
           </Routes>
   
