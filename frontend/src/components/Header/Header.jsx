@@ -245,7 +245,7 @@ export default function Header ({isActive, setIsActive, token}) {
             // Действия, если нет токена
             console.log("Пользователь не авторизован");
         }
-    }, [tokenTwo]);
+    }, []);
 
       const [phoneTel, setPhoneTel] = useState('')
 
@@ -375,7 +375,7 @@ export default function Header ({isActive, setIsActive, token}) {
             // Действия, если нет токена
             console.log("Пользователь не авторизован");
         }
-    }, [tokenTwo]);
+    }, []);
 
     return (
 
