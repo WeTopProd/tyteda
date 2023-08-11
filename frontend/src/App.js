@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
 
 import './index.scss';
 import Header from './components/Header/Header';
@@ -88,11 +88,6 @@ function App() {
 
       axios.get('https://tyteda.ru/api/goods/', {
 
-          headers: {
-              'Content-Type': 'application/json',
-              'authorization': `Token ${tokenTwo}`
-          }
-
       })
 
       .then((res) => {
@@ -147,31 +142,11 @@ function App() {
   <HeartProvider>
   
         <div className="App">
-  
-
-          {isActive ? (
-            <>
 
              <ScrollToTop />
              <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
-            
-            </>
-          ) : (
 
-            <>
-            
-            </>
-
-          ) }
-          
-  
-          
-  
-          <Routes>
-
-            {isActive ? (
-
-              <>
+         <Routes>
 
          <Route path='/'  element={<Home
           
@@ -274,22 +249,12 @@ function App() {
           <Route path='/policy'  element={<Konfidi/>} />
 
 
-              
-              </>
 
-
-            ) : (
-
-            <>
 
           <Route path='/register'  element={<Reg />} />
   
           <Route path='/'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
             
-            </>
-
-            )}          
-  
           </Routes>
   
           <Footer />
