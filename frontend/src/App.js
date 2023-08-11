@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import './index.scss';
 import Header from './components/Header/Header';
@@ -22,8 +22,10 @@ import OplataPrav from './components/Footer/OplataPrav';
 import OplataInfo from './components/Footer/OplataInfo';
 import ReturnInfo from './components/Footer/ReturnInfo';
 import Konfidi from './components/Footer/Konfidi';
+import ProtectedPage from './ProtectedPage';
 
 function App() {
+
 
 
   const [isActive , setIsActive] = useState(false)
@@ -137,146 +139,163 @@ function App() {
     const params = useParams()
     
     const tokenTwo = localStorage.getItem('token')
-
-
-  return (
-
+    
+    return (
   
-
-<BrowserRouter>
-    
-<FavoritesProvider>
-
-<HeartProvider>
-
-      <div className="App">
-
-        <ScrollToTop />
-
-         <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
-
-        <Routes>
-
-        <Route path='/'  element={<Home
-        
-        isAddedToCart={isAddedToCart}
-
-        karzinkaTovar={karzinkaTovar}
-        
-        addBasket={addBasket}
-
-        setIsAddedToCart={setIsAddedToCart}
-
-        Goods={Goods}
-
-        />} />
-
-        <Route path='/register'  element={<Reg />} />
-
-        <Route path='/login'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
-
-        <Route path='/combo'  element={<Combo
-        
-        comboCard={comboCard}
-
-        isAddedToCart={isAddedToCart}
-
-        karzinkaTovar={karzinkaTovar}
-        
-        addBasket={addBasket}
-
-        setIsAddedToCart={setIsAddedToCart}
-        
-        />} />
-
-        <Route path='/about'  element={<About />} />
-
-        <Route path='/kidsmenu'  element={<KidsMenu
-
-                isAddedToCart={isAddedToCart}
-
-                karzinkaTovar={karzinkaTovar}
-                
-                addBasket={addBasket}
-        
-                setIsAddedToCart={setIsAddedToCart}
-        
-        />} />
-
-         <Route
-            path="/intercard/:userId"
-              element={
-                <InterCard
-
-                Goods={Goods}
-
-                isAddedToCart={karzinkaTovar.some((item) => item.id === +params.userId)}
-
-                karzinkaTovar={karzinkaTovar} 
-                addBasket={addBasket}
-                setIsAddedToCart={setIsAddedToCart}
-                />
-              }
-          />
-
-
-
-        <Route path='/basket'  element={<Basket
-        
-        isAddedToCart={isAddedToCart}
-
-        setIsAddedToCart={setIsAddedToCart}
-
-        karzinkaTovar={karzinkaTovar}
-        
-        setkarzinkaTovar={setkarzinkaTovar}
-
-        addBasket={addBasket}
-
-        Goods={Goods}
-
-        totalCartPrice={totalCartPrice}
-
-        setTotalCartPrice={setTotalCartPrice}
-
-
-        />} />
-
-        <Route path='/tovar'  element={<Tovar
-        
-        isAddedToCart={isAddedToCart}
-
-        karzinkaTovar={karzinkaTovar}
-        
-        addBasket={addBasket}
-        
-
-        />} />
-
-        <Route path='/oplataprav'  element={<OplataPrav/>} />
-
-        <Route path='/oplatainfo'  element={<OplataInfo/>} />
-
-        <Route path='/returninfo'  element={<ReturnInfo/>} />
-
-        <Route path='/policy'  element={<Konfidi/>} />
-
-
-        </Routes>
-
-        <Footer />
-
-      </div>
-
-      </HeartProvider>
+  <BrowserRouter>
       
-</FavoritesProvider>
-    
-</BrowserRouter>
+  <FavoritesProvider>
+  
+  <HeartProvider>
+  
+        <div className="App">
+  
+          <ScrollToTop />
+  
+           <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
+  
+          <Routes>
+  
+          <Route path='/'  element={<Home
+          
+          isAddedToCart={isAddedToCart}
+  
+          karzinkaTovar={karzinkaTovar}
+          
+          addBasket={addBasket}
+  
+          setIsAddedToCart={setIsAddedToCart}
+  
+          Goods={Goods}
+  
+          />} />
+  
+          <Route path='/register'  element={<Reg />} />
+  
+          <Route path='/login'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
+  
+          <Route path='/combo'  element={<Combo
+          
+          comboCard={comboCard}
+  
+          isAddedToCart={isAddedToCart}
+  
+          karzinkaTovar={karzinkaTovar}
+          
+          addBasket={addBasket}
+  
+          setIsAddedToCart={setIsAddedToCart}
+          
+          />} />
+  
+          <Route path='/about'  element={<About />} />
+  
+          <Route path='/kidsmenu'  element={<KidsMenu
+  
+                  isAddedToCart={isAddedToCart}
+  
+                  karzinkaTovar={karzinkaTovar}
+                  
+                  addBasket={addBasket}
+          
+                  setIsAddedToCart={setIsAddedToCart}
+          
+          />} />
+  
+           <Route
+              path="/intercard/:userId"
+                element={
+                  <InterCard
+  
+                  Goods={Goods}
+  
+                  isAddedToCart={karzinkaTovar.some((item) => item.id === +params.userId)}
+  
+                  karzinkaTovar={karzinkaTovar} 
+                  addBasket={addBasket}
+                  setIsAddedToCart={setIsAddedToCart}
+                  />
+                }
+            />
+  
+  
+  
+          <Route path='/basket'  element={<Basket
+          
+          isAddedToCart={isAddedToCart}
+  
+          setIsAddedToCart={setIsAddedToCart}
+  
+          karzinkaTovar={karzinkaTovar}
+          
+          setkarzinkaTovar={setkarzinkaTovar}
+  
+          addBasket={addBasket}
+  
+          Goods={Goods}
+  
+          totalCartPrice={totalCartPrice}
+  
+          setTotalCartPrice={setTotalCartPrice}
+  
+  
+          />} />
+  
+          <Route path='/tovar'  element={<Tovar
+          
+          isAddedToCart={isAddedToCart}
+  
+          karzinkaTovar={karzinkaTovar}
+          
+          addBasket={addBasket}
+          
+  
+          />} />
+  
+          <Route path='/oplataprav'  element={<OplataPrav/>} />
+  
+          <Route path='/oplatainfo'  element={<OplataInfo/>} />
+  
+          <Route path='/returninfo'  element={<ReturnInfo/>} />
+  
+          <Route path='/policy'  element={<Konfidi/>} />
 
+          <Route
+                path="/protected"
 
+                element={
+                  
+                  isActive ? (
+                    
+                    <ProtectedPage />
 
-  );
+                  ) : (
+
+                    <Navigate to="/login" replace />
+
+                  )
+                  
+                }
+              />
+  
+  
+          </Routes>
+  
+          <Footer />
+
+          
+  
+        </div>
+  
+        </HeartProvider>
+        
+  </FavoritesProvider>
+      
+  </BrowserRouter>
+  
+  
+  
+    );
 
 }
 
