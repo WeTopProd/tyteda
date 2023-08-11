@@ -226,20 +226,26 @@ export default function Header ({isActive, setIsActive, token}) {
       
   
       useEffect(() => {
-          axios.get('https://tyteda.ru/api/users/me/', {
-  
-          
-          headers: {
-              'Content-Type': 'application/json',
-              'authorization': `Token ${tokenTwo}`
-          }
-      
-          })
-      
-          .then((res) => { setMeUser(res.data) })
-
-
-      }, [])
+        // Проверяем наличие токена
+        if (tokenTwo) {
+            axios.get('https://tyteda.ru/api/users/me/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${tokenTwo}`
+                }
+            })
+            .then((res) => {
+                setMeUser(res.data);
+            })
+            .catch((error) => {
+                // Обработка ошибки авторизации
+                console.error("Ошибка при выполнении GET-запроса:", error);
+            });
+        } else {
+            // Действия, если нет токена
+            console.log("Пользователь не авторизован");
+        }
+    }, [tokenTwo]);
 
       const [phoneTel, setPhoneTel] = useState('')
 
@@ -345,29 +351,31 @@ export default function Header ({isActive, setIsActive, token}) {
 
       const [MyZakazCard, setMyZakazCard] = useState([])
 
-
       useEffect(() => {
+        // Проверяем наличие токена
+        if (tokenTwo) {
+            axios.get('https://tyteda.ru/api/goods/order_history/', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${tokenTwo}`
+                }
+            })
+            
+            .then((res) => {
 
-        axios.get('https://tyteda.ru/api/goods/order_history/', {
-
-        headers: {
-          "content-type": "application/json",
-          authorization: `Token ${tokenTwo}`,
+                setMyZakaz(res.data);
+                // setMyZakazCard(res.data[0].items)
+        
+               })
+            .catch((error) => {
+                // Обработка ошибки авторизации
+                console.error("Ошибка при выполнении GET-запроса:", error);
+            });
+        } else {
+            // Действия, если нет токена
+            console.log("Пользователь не авторизован");
         }
-  
-      })
-
-      .then((res) => {
-
-        setMyZakaz(res.data);
-        // setMyZakazCard(res.data[0].items)
-
-       })
-
-       }, [])
-
-
-
+    }, [tokenTwo]);
 
     return (
 

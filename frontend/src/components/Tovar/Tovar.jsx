@@ -21,10 +21,6 @@ export default function Tovar ({...info}) {
         async function fetchGoods() {
             try {
                 const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
-                    headers: {
-                        'Content-Type': 'application/json , multipart/form-data',
-                        authorization: `Token ${tokenTwo}`,
-                    },
                 });
                 setImageUrls(res.data.results);
             } catch (err) {
