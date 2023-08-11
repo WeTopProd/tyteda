@@ -2,8 +2,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-      height: 100vh;
-      padding: 40px 0px;
+      
+      height: 110vh;
       width: 100%;
       position: relative;
 }
@@ -214,6 +214,8 @@
         @media screen and (max-width: 500px ) {
 
            align-items: flex-start;
+           flex-direction: column;
+           gap: 10px;
                   
          }
 

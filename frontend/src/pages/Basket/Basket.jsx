@@ -32,7 +32,7 @@ export default function Basket ({
   
     useEffect(() => {
       axios
-        .get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
+        .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
           headers: {
             'Content-Type': 'application/json',
             authorization: `Token ${localStorage.getItem('token')}`,
@@ -43,12 +43,21 @@ export default function Basket ({
             setkarzinkaTovar(res.data.results);
           }
         })
-        .catch((err) => console.error(err));
+        .catch(error => {
+            
+          if (error.response && error.response.status === 401) {
+            // Ничего не делать или выполнить альтернативные действия
+
+          } else {
+            // Обработка других ошибок
+          }
+
+        })
     }, []);
   
     async function removeBasket(id) {
       try {
-        await axios.delete(`https://tyteda.ru/api/goods/${id}/shopping_cart/`, {
+        await axios.delete(`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`, {
           headers: {
             'content-type': 'application/json',
             authorization: `Token ${localStorage.getItem('token')}`,
@@ -109,7 +118,7 @@ export default function Basket ({
 
       e.preventDefault()
 
-      axios.post(`https://tyteda.ru/api/goods/create_order/`,
+      axios.post(`http://127.0.0.1:8000/api/goods/create_order/`,
       
       {
           total_price: totalCartPrice,  

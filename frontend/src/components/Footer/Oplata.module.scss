@@ -68,12 +68,23 @@
 
     &__subtitle{
 
-        color: var(--white, #FFF);
+        color: #000;
         // font-family: Montserrat;
         font-size: 24px;
         font-style: normal;
         font-weight: 700;
         line-height: 140%;
+
+    }
+
+    &__gl{
+
+        color: #000;
+        // font-family: Montserrat;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 340%;
 
     }
 
@@ -85,7 +96,8 @@
 
     &__text{
 
-        color: var(--white, #FFF);
+        color: #000;
+
         // font-family: Montserrat;
         font-size: 17px;
         font-style: normal;
@@ -125,6 +137,34 @@
 @media screen and (max-width: 770px){
     margin-top: 30px !important;
 }
+
+    &__data{
+
+        max-width: 650px;
+        width: 100%;
+        border-radius: 12px;
+        // padding: 20px;
+        border: none;
+        outline: none;
+
+        color: rgba(0, 0, 0, 0.70);
+        font-family: Montserrat;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 50.451px; 
+        padding: 5px 20px;
+
+    }
+
+    &__text{
+        color: rgba(0, 0, 0, 0.70);
+        font-family: Montserrat;
+        font-size: 24px;
+        font-style: normal;
+        line-height: 90%;
+        margin: 0 !important;
+    }
 
     &__item{
         max-width: 650px;

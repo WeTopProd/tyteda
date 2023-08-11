@@ -28,9 +28,9 @@ export default function ReturnInfo () {
             e.preventDefault()
             
 
-        axios.post('https://tyteda.ru/api/send-email/', {
+        axios.post('http://127.0.0.1:8000/api/send-email/', {
 
-        cancel_service: uslugi,
+        date: uslugi,
         description: Info,
         num_card: Cart,
         file: File
@@ -74,42 +74,29 @@ export default function ReturnInfo () {
             <div className={h.container}>
                 
                 <p className={o.oplata__title}>
-                Отказ от платных услуг и возврат
+                Отказ от товаров и возврат
                 </p>
 
                 <div className={o.return}>
                     
                     <form className={o.return__item} onSubmit={HandleVozvrat}>
-                        
-                        <select className={o.return__select} 
-                        value={uslugi} onChange={(event) => setuslugi(event.target.value)}
-                        >
 
-                            <option value="Выберете услугу от которой хотите отказаться">Выберете услугу от которой хотите отказаться</option>
-                            
-                            <option value="Платное составление полного резюме за вас: 200 рублей;">Платное составление полного резюме за вас: 200 рублей;</option>
+                    <p className={o.return__text}>Выберите дату заказа</p>    
 
-                            <option value="Платное составление резюме и его продвижение в поиске: 700 рублей;">Платное составление резюме и его продвижение в поиске: 700 рублей;</option>
+                    <input type="date"
+                    value={uslugi} onChange={(event) => setuslugi(event.target.value)}
+                    className={o.return__data}
+                    
+                    />
+                    
 
-                            <option value="Все вклчено. Составление резюме, продвижение резюме на 30 дней: 2000 рублей.">Все вклчено. Составление резюме, продвижение резюме на 30 дней: 2000 рублей.</option>
-
-                            <option value="Разблокирование одного номера соискателя: 100 руб;">Разблокирование одного номера соискателя: 100 руб;</option>
-
-                            <option value="Разблокировать шесть номеров соискателей: 500руб;">Разблокировать шесть номеров соискателей: 500руб;</option>
-
-                            <option value="Доступ ко всем номерам соискателей на 30 дней: 2000 руб.">
-                            Доступ ко всем номерам соискателей на 30 дней: 2000 руб.
-                            </option>
-
-                        </select>
-
-                        <textarea className={o.return__textarea} placeholder='Опишите с чем связан отказ от услуги '
+                        <textarea className={o.return__textarea} placeholder='Опишите с чем связан отказ от заказа '
                         value={Info} onChange={(event) => setInfo(event.target.value)}
                         >
 
                         </textarea>
 
-                        <input type="number" className={o.return__cart} placeholder='Напишите Номер карты куда вернуть средства'
+                        <input type="number" className={o.return__cart} placeholder='Напишите номер карты куда вернуть средства'
                         
                         value={Cart} onChange={(event) => setCart(event.target.value)} />
 

@@ -226,7 +226,7 @@ export default function Header ({isActive, setIsActive, token}) {
       
   
       useEffect(() => {
-          axios.get('https://tyteda.ru/api/users/me/', {
+          axios.get('http://127.0.0.1:8000/api/users/me/', {
   
           
           headers: {
@@ -237,7 +237,18 @@ export default function Header ({isActive, setIsActive, token}) {
           })
       
           .then((res) => { setMeUser(res.data) })
-          .catch((err) => console.error(err))
+
+          
+          .catch(error => {
+            
+            if (error.response && error.response.status === 401) {
+              // Ничего не делать или выполнить альтернативные действия
+
+            } else {
+              // Обработка других ошибок
+            }
+
+          })
 
       }, [])
 
@@ -253,7 +264,7 @@ export default function Header ({isActive, setIsActive, token}) {
       const PreapUsers = () => {    
   
     
-        axios.patch('https://tyteda.ru/api/users/me/', {
+        axios.patch('http://127.0.0.1:8000/api/users/me/', {
 
         email: emailPo,
         first_name: firstName,
@@ -280,7 +291,16 @@ export default function Header ({isActive, setIsActive, token}) {
             
         })
 
-        .catch(err => console.error(err))
+        .catch(error => {
+            
+            if (error.response && error.response.status === 401) {
+              // Ничего не делать или выполнить альтернативные действия
+
+            } else {
+              // Обработка других ошибок
+            }
+
+          })
 
       }
 
@@ -288,7 +308,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
        useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+        axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
 
         headers: {
           "content-type": "application/json",
@@ -301,6 +321,15 @@ export default function Header ({isActive, setIsActive, token}) {
 
         setTovarLove(res.data.results)
 
+       })
+
+       .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            // Ничего не делать или выполнить альтернативные действия
+
+          } else {
+            // Обработка других ошибок
+          }
        })
 
        }, [])
@@ -330,7 +359,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
         event.preventDefault()
   
-        axios.get(`https://tyteda.ru/api/goods/?title=${titleItem}`, {
+        axios.get(`http://127.0.0.1:8000/api/goods/?title=${titleItem}`, {
   
         headers: {
             'Content-Type': 'application/json',
@@ -343,7 +372,16 @@ export default function Header ({isActive, setIsActive, token}) {
          setHeaderTovar(res.data.results)
        })
   
-      .catch(err => console.error(err))
+       .catch(error => {
+            
+        if (error.response && error.response.status === 401) {
+          // Ничего не делать или выполнить альтернативные действия
+
+        } else {
+          // Обработка других ошибок
+        }
+
+      })
   
       }
 
@@ -356,7 +394,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
       useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods/order_history/', {
+        axios.get('http://127.0.0.1:8000/api/goods/order_history/', {
 
         headers: {
           "content-type": "application/json",
@@ -371,6 +409,17 @@ export default function Header ({isActive, setIsActive, token}) {
         // setMyZakazCard(res.data[0].items)
 
        })
+
+       .catch(error => {
+            
+        if (error.response && error.response.status === 401) {
+          // Ничего не делать или выполнить альтернативные действия
+
+        } else {
+          // Обработка других ошибок
+        }
+
+      })
 
        }, [])
 
@@ -464,7 +513,7 @@ export default function Header ({isActive, setIsActive, token}) {
     
                 <Link to='/combo' onClick={burgerClose} className={h.nav__links_link}>Комбо-обеды</Link>
     
-                <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>детское меню</Link>
+                <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>Детское меню</Link>
                 
     
                 

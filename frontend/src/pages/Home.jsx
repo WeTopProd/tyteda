@@ -46,7 +46,7 @@ export default function Home ({
 
   useEffect(() => {
   
-    axios.get('https://tyteda.ru/api/goods/?promotion=promotion', {
+    axios.get('http://127.0.0.1:8000/api/goods/?promotion=promotion', {
     
     headers: {
         'Content-Type': 'application/json , multipart/form-data',
@@ -69,7 +69,7 @@ const [Recommend , setRecommend] = useState([])
 
 useEffect(() => {
 
-  axios.get('https://tyteda.ru/api/goods/?promotion=recommend', {
+  axios.get('http://127.0.0.1:8000/api/goods/?promotion=recommend', {
   
   headers: {
       'Content-Type': 'application/json , multipart/form-data',
@@ -84,7 +84,16 @@ useEffect(() => {
 
    })
 
-  .catch((err) => console.error(err))
+  .catch(error => {
+            
+    if (error.response && error.response.status === 401) {
+      // Ничего не делать или выполнить альтернативные действия
+
+    } else {
+      // Обработка других ошибок
+    }
+
+  })
 
 }, [])
 
@@ -101,7 +110,7 @@ useEffect(() => {
 
     event.preventDefault()
 
-    axios.get(`https://tyteda.ru/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
+    axios.get(`http://127.0.0.1:8000/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
 
     headers: {
       "content-type": "application/json",
@@ -115,7 +124,16 @@ useEffect(() => {
      setPostLoading(true)
    })
 
-  .catch(err => console.error(err))
+   .catch(error => {
+            
+    if (error.response && error.response.status === 401) {
+      // Ничего не делать или выполнить альтернативные действия
+
+    } else {
+      // Обработка других ошибок
+    }
+
+  })
 
   }
 

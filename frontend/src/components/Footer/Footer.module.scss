@@ -74,7 +74,7 @@
                     line-height: 28px;
                     color: rgb(244, 223, 0);
                     text-align: left;
-                    margin-bottom: 80px !important;
+                    margin-bottom: 40px !important;
 
                     @media screen and (max-width: 900px) {
                         text-align: left;
@@ -260,11 +260,15 @@
                         margin-top: 20px;
                     }
 
+                    @media screen and (max-width: 550px) {
+                        justify-content: space-between;
+                    }
+
                     & img {
                         margin: 0;
                         width: 100px;
                         @media screen and (max-width: 550px) {
-                            width: 100px;
+                            width: 70px;
                         }
                     } 
                 }
@@ -337,6 +341,15 @@
             display: flex;
             align-items: center;
             gap: 35px;
+
+
+            & a{
+                font-style: normal;
+                font-weight: 400;
+                font-size: 18px;
+                line-height: 120%;
+                color: #a5a5a5;
+            }
 
             @media screen and (max-width: 900px) {
                 flex-direction: column-reverse;

@@ -21,6 +21,7 @@ import Tovar from './pages/Tovar/Tovar';
 import OplataPrav from './components/Footer/OplataPrav';
 import OplataInfo from './components/Footer/OplataInfo';
 import ReturnInfo from './components/Footer/ReturnInfo';
+import Konfidi from './components/Footer/Konfidi';
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
       if (!karzinkaTovar.some((item) => item.id === id)) {
         try {
           await axios.post(
-            `https://tyteda.ru/api/goods/${id}/shopping_cart/`,
+            `http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`,
             null,
             {
               headers: {
@@ -62,7 +63,7 @@ function App() {
       }
     
       axios
-        .get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
+        .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
           headers: {
             'Content-Type': 'application/json , multipart/form-data',
             authorization: `Token ${tokenTwo}`,
@@ -73,7 +74,16 @@ function App() {
             setkarzinkaTovar(res.data.results);
           }
         })
-        .catch((err) => console.error(err));
+          .catch(error => {
+            
+            if (error.response && error.response.status === 401) {
+              // Ничего не делать или выполнить альтернативные действия
+
+            } else {
+              // Обработка других ошибок
+            }
+            
+          })
     }
 
     const [Goods , setGoods] = useState([])
@@ -83,7 +93,7 @@ function App() {
 
     useEffect(() => {
 
-      axios.get('https://tyteda.ru/api/goods/', {
+      axios.get('http://127.0.0.1:8000/api/goods/', {
 
           headers: {
               'Content-Type': 'application/json',
@@ -105,14 +115,23 @@ function App() {
           setComboCard(reversedComboItems);
       })
 
-      .catch((err) => console.error(err));
+      .catch(error => {
+            
+        if (error.response && error.response.status === 401) {
+          // Ничего не делать или выполнить альтернативные действия
+
+        } else {
+          // Обработка других ошибок
+        }
+        
+      })
 
   }, []);
 
 
   useEffect(() => {
   
-    axios.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
+    axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
     
     headers: {
         'Content-Type': 'application/json , multipart/form-data',
@@ -129,7 +148,16 @@ function App() {
 
      })
 
-    .catch((err) => console.error(err))
+     .catch(error => {
+            
+      if (error.response && error.response.status === 401) {
+        // Ничего не делать или выполнить альтернативные действия
+
+      } else {
+        // Обработка других ошибок
+      }
+      
+    })
 
 }, [])
 
@@ -259,6 +287,8 @@ function App() {
         <Route path='/oplatainfo'  element={<OplataInfo/>} />
 
         <Route path='/returninfo'  element={<ReturnInfo/>} />
+
+        <Route path='/policy'  element={<Konfidi/>} />
 
 
         </Routes>

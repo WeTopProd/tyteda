@@ -52,7 +52,7 @@ function Footer() {
                 <div className={f.footer__info_item_geo}>
                   <img src={Geol} alt="svg" />
                   <p className={f.footer__info_item_geo_text}>
-                    г. Москва ул. Сталеваров, 14к1
+                  Московская область, г Реутов, ул Гагарина, д. 40
                   </p>
                 </div>
 
@@ -195,10 +195,10 @@ function Footer() {
       <div className={f.footer__bottom} id="footer">
         <div className={h.container}>
           <div className={f.bottom}>
-            <p className={f.bottom_left}>ИП Авалян. В .Г ИНН: 502807103555</p>
+            <p className={f.bottom_left}>OOO "Экостар" ИНН: 5041214554</p>
 
             <p className={f.bottom_right}>
-              <span> Политика конфиденциальности</span>
+              <Link to={'/policy'}> Политика конфиденциальности</Link>
               <span>Не является публичной офертой</span>
               <span>©Все права защищены</span>
             </p>

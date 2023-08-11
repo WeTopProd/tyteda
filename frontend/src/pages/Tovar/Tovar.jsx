@@ -19,7 +19,7 @@ export default function Tovar ({
 
     useEffect(() => {
   
-      axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+      axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
       
       headers: {
           'Content-Type': 'application/json , multipart/form-data',
@@ -34,7 +34,16 @@ export default function Tovar ({
 
        })
 
-      .catch((err) => console.error(err))
+       .catch(error => {
+            
+        if (error.response && error.response.status === 401) {
+          // Ничего не делать или выполнить альтернативные действия
+
+        } else {
+          // Обработка других ошибок
+        }
+        
+      })
   
   }, [])
 

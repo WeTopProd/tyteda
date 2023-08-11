@@ -22,7 +22,7 @@ export default function Login ({setToken, setIsActive,token}) {
 
         e.preventDefault()
 
-        axios.post(`https://tyteda.ru/api/auth/${emailRegex.test(ValuePocht) ? 'token-email' : 'token-phone'}/`,
+        axios.post(`http://127.0.0.1:8000/api/auth/${emailRegex.test(ValuePocht) ? 'token-email' : 'token-phone'}/`,
         
         {
             email: emailRegex.test(ValuePocht) === true ? ValuePocht : null,
