@@ -33,10 +33,7 @@ export default function Basket ({
     useEffect(() => {
       axios
         .get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
-          headers: {
-            'Content-Type': 'application/json',
-            authorization: `Token ${localStorage.getItem('token')}`,
-          },
+
         })
         .then((res) => {
           if (Array.isArray(res.data.results)) {

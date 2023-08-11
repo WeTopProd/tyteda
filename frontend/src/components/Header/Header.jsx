@@ -288,10 +288,6 @@ export default function Header ({isActive, setIsActive, token}) {
 
         axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
 
-        headers: {
-          "content-type": "application/json",
-          authorization: `Token ${tokenTwo}`,
-        }
   
       })
 

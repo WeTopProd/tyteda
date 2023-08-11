@@ -111,11 +111,6 @@ function App() {
   useEffect(() => {
   
     axios.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
-    
-    headers: {
-        'Content-Type': 'application/json , multipart/form-data',
-        'authorization': `Token ${tokenTwo}`
-    }
 
     })
 

@@ -47,12 +47,7 @@ export default function Home ({
   useEffect(() => {
   
     axios.get('https://tyteda.ru/api/goods/?promotion=promotion', {
-    
-    headers: {
-        'Content-Type': 'application/json , multipart/form-data',
-        'authorization': `Token ${tokenTwo}`
-    }
-
+  
     })
 
     .then((res) => {
@@ -70,11 +65,6 @@ const [Recommend , setRecommend] = useState([])
 useEffect(() => {
 
   axios.get('https://tyteda.ru/api/goods/?promotion=recommend', {
-  
-  headers: {
-      'Content-Type': 'application/json , multipart/form-data',
-      'authorization': `Token ${tokenTwo}`
-  }
 
   })
 

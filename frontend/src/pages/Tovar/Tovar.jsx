@@ -20,11 +20,6 @@ export default function Tovar ({
     useEffect(() => {
   
       axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
-      
-      headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          'authorization': `Token ${tokenTwo}`
-      }
   
       })
   
