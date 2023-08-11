@@ -46,7 +46,7 @@ function App() {
       if (!karzinkaTovar.some((item) => item.id === id)) {
         try {
           await axios.post(
-            `http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`,
+            `https://tyteda.ru/api/goods/${id}/shopping_cart/`,
             null,
             {
               headers: {
@@ -69,7 +69,7 @@ function App() {
       }
     
       axios
-        .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+        .get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
           headers: {
             'Content-Type': 'application/json , multipart/form-data',
             authorization: `Token ${tokenTwo}`,
@@ -99,7 +99,7 @@ function App() {
 
     useEffect(() => {
 
-      axios.get('http://127.0.0.1:8000/api/goods/', {
+      axios.get('https://tyteda.ru/api/goods/', {
 
           headers: {
               'Content-Type': 'application/json',
@@ -137,7 +137,7 @@ function App() {
 
   useEffect(() => {
   
-    axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+    axios.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
     
     headers: {
         'Content-Type': 'application/json , multipart/form-data',

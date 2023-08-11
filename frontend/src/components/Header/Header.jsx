@@ -226,7 +226,7 @@ export default function Header ({isActive, setIsActive, token}) {
       
   
       useEffect(() => {
-          axios.get('http://127.0.0.1:8000/api/users/me/', {
+          axios.get('https://tyteda.ru/api/users/me/', {
   
           
           headers: {
@@ -264,7 +264,7 @@ export default function Header ({isActive, setIsActive, token}) {
       const PreapUsers = () => {    
   
     
-        axios.patch('http://127.0.0.1:8000/api/users/me/', {
+        axios.patch('https://tyteda.ru/api/users/me/', {
 
         email: emailPo,
         first_name: firstName,
@@ -308,7 +308,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
        useEffect(() => {
 
-        axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+        axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
 
         headers: {
           "content-type": "application/json",
@@ -359,7 +359,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
         event.preventDefault()
   
-        axios.get(`http://127.0.0.1:8000/api/goods/?title=${titleItem}`, {
+        axios.get(`https://tyteda.ru/api/goods/?title=${titleItem}`, {
   
         headers: {
             'Content-Type': 'application/json',
@@ -394,7 +394,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
       useEffect(() => {
 
-        axios.get('http://127.0.0.1:8000/api/goods/order_history/', {
+        axios.get('https://tyteda.ru/api/goods/order_history/', {
 
         headers: {
           "content-type": "application/json",
