@@ -28,12 +28,6 @@ export default function Tovar ({...info}) {
                 });
                 setImageUrls(res.data.results);
             } catch (err) {
-                if (err.response && err.response.status === 401) {
-                    // Ничего не делать или выполнить альтернативные действия
-      
-                  } else {
-                    // Обработка других ошибок
-                  }
             }
         }
   
@@ -62,12 +56,6 @@ export default function Tovar ({...info}) {
   
             setFavorites(res.data.results);
         } catch (err) {
-            if (err.response && err.response.status === 401) {
-                // Ничего не делать или выполнить альтернативные действия
-  
-              } else {
-                // Обработка других ошибок
-              }
         }
     }
 

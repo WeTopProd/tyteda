@@ -43,16 +43,6 @@ export default function Basket ({
             setkarzinkaTovar(res.data.results);
           }
         })
-        .catch(error => {
-            
-          if (error.response && error.response.status === 401) {
-            // Ничего не делать или выполнить альтернативные действия
-
-          } else {
-            // Обработка других ошибок
-          }
-
-        })
     }, []);
   
     async function removeBasket(id) {
@@ -68,12 +58,7 @@ export default function Basket ({
         );
       } catch (err) 
       {
-        if (err.response && err.response.status === 401) {
-          // Ничего не делать или выполнить альтернативные действия
-
-        } else {
-          // Обработка других ошибок
-        }
+        
       }
     }
   
@@ -149,12 +134,6 @@ export default function Basket ({
 
       .then(res => {
         window.location.reload()
-      } )
-
-      .catch(err => {
-  
-          console.error(err)
-      
       } )
 
   }

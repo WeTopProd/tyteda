@@ -59,12 +59,6 @@ function App() {
           // ... (другая логика)
         } catch (error) {
           
-          if (error.response && error.response.status === 401) {
-            // Ничего не делать или выполнить альтернативные действия
-
-          } else {
-            // Обработка других ошибок
-          }
         }
       }
     
@@ -75,21 +69,12 @@ function App() {
             authorization: `Token ${tokenTwo}`,
           },
         })
+
         .then((res) => {
           if (Array.isArray(res.data.results)) {
             setkarzinkaTovar(res.data.results);
           }
         })
-          .catch(error => {
-            
-            if (error.response && error.response.status === 401) {
-              // Ничего не делать или выполнить альтернативные действия
-
-            } else {
-              // Обработка других ошибок
-            }
-            
-          })
     }
 
     const [Goods , setGoods] = useState([])
@@ -121,16 +106,7 @@ function App() {
           setComboCard(reversedComboItems);
       })
 
-      .catch(error => {
-            
-        if (error.response && error.response.status === 401) {
-          // Ничего не делать или выполнить альтернативные действия
 
-        } else {
-          // Обработка других ошибок
-        }
-        
-      })
 
   }, []);
 
@@ -153,17 +129,6 @@ function App() {
         }
 
      })
-
-     .catch(error => {
-            
-      if (error.response && error.response.status === 401) {
-        // Ничего не делать или выполнить альтернативные действия
-
-      } else {
-        // Обработка других ошибок
-      }
-      
-    })
 
 }, [])
 

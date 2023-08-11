@@ -43,12 +43,6 @@ export function HeartProvider({ children }) {
           return updatedHearts;
         });
       } catch (err) {
-        if (err.response && err.response.status === 401) {
-          // Ничего не делать или выполнить альтернативные действия
-  
-        } else {
-          // Обработка других ошибок
-        }
       }
     };
     fetchFavorites();

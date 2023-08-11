@@ -34,20 +34,9 @@ export default function KidsMenu ({
     
        })
     
-       .catch(error => {
-            
-        if (error.response && error.response.status === 401) {
-          // Ничего не делать или выполнить альтернативные действия
 
-        } else {
-          // Обработка других ошибок
-        }
-
-      })
     
     }, [])
-
-    console.log(CardKidsInfo);
 
   const tokenTwo = localStorage.getItem('token')
 

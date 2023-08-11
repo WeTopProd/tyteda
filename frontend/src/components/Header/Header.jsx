@@ -238,17 +238,6 @@ export default function Header ({isActive, setIsActive, token}) {
       
           .then((res) => { setMeUser(res.data) })
 
-          
-          .catch(error => {
-            
-            if (error.response && error.response.status === 401) {
-              // Ничего не делать или выполнить альтернативные действия
-
-            } else {
-              // Обработка других ошибок
-            }
-
-          })
 
       }, [])
 
@@ -291,17 +280,6 @@ export default function Header ({isActive, setIsActive, token}) {
             
         })
 
-        .catch(error => {
-            
-            if (error.response && error.response.status === 401) {
-              // Ничего не делать или выполнить альтернативные действия
-
-            } else {
-              // Обработка других ошибок
-            }
-
-          })
-
       }
 
       const [tovarlive, setTovarLove] = useState([])
@@ -321,15 +299,6 @@ export default function Header ({isActive, setIsActive, token}) {
 
         setTovarLove(res.data.results)
 
-       })
-
-       .catch((error) => {
-          if (error.response && error.response.status === 401) {
-            // Ничего не делать или выполнить альтернативные действия
-
-          } else {
-            // Обработка других ошибок
-          }
        })
 
        }, [])
@@ -372,17 +341,6 @@ export default function Header ({isActive, setIsActive, token}) {
          setHeaderTovar(res.data.results)
        })
   
-       .catch(error => {
-            
-        if (error.response && error.response.status === 401) {
-          // Ничего не делать или выполнить альтернативные действия
-
-        } else {
-          // Обработка других ошибок
-        }
-
-      })
-  
       }
 
       const [showInfo, setShowInfo] = useState(false);
@@ -410,20 +368,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
        })
 
-       .catch(error => {
-            
-        if (error.response && error.response.status === 401) {
-          // Ничего не делать или выполнить альтернативные действия
-
-        } else {
-          // Обработка других ошибок
-        }
-
-      })
-
        }, [])
-
-       console.log();
 
 
 

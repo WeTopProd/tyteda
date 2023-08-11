@@ -85,14 +85,7 @@ useEffect(() => {
    })
 
   .catch(error => {
-            
-    if (error.response && error.response.status === 401) {
-      // Ничего не делать или выполнить альтернативные действия
-
-    } else {
-      // Обработка других ошибок
-    }
-
+  
   })
 
 }, [])
@@ -123,17 +116,6 @@ useEffect(() => {
      setPost(res.data.results)
      setPostLoading(true)
    })
-
-   .catch(error => {
-            
-    if (error.response && error.response.status === 401) {
-      // Ничего не делать или выполнить альтернативные действия
-
-    } else {
-      // Обработка других ошибок
-    }
-
-  })
 
   }
 

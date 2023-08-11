@@ -48,12 +48,6 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
     } catch (error) {
 
-      if (error.response && error.response.status === 401) {
-        // Ничего не делать или выполнить альтернативные действия
-
-      } else {
-        // Обработка других ошибок
-      }
     }
   }
 
@@ -85,12 +79,6 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
       );
 
     } catch (error) {
-                  if (error.response && error.response.status === 401) {
-              // Ничего не делать или выполнить альтернативные действия
-
-            } else {
-              // Обработка других ошибок
-            }
     }
   }
 
