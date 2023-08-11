@@ -143,16 +143,29 @@ function App() {
     return (
   
   <BrowserRouter>
-      
   <FavoritesProvider>
-  
   <HeartProvider>
   
         <div className="App">
   
-          <ScrollToTop />
+
+          {isActive ? (
+            <>
+
+             <ScrollToTop />
+             <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
+            
+            </>
+          ) : (
+
+            <>
+            
+            </>
+
+          ) }
+          
   
-           <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
+          
   
           <Routes>
 
