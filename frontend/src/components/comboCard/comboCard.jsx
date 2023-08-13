@@ -4,8 +4,12 @@ import s from '../../pages/Home.module.scss'
 
 import CardKarzina from '../Content/img/cardKarzina.svg'
 import CardKarzinaAdd from '../Content/img/cardKarzinaAdd.svg';
+import { Link } from 'react-router-dom';
 
 export default function ComboCard ({ addBasket, isAddedToCart,...info}) {
+
+  const tokenTwo = localStorage.getItem('token');
+
     return (
         
         <div className={c.item}>
@@ -49,23 +53,34 @@ export default function ComboCard ({ addBasket, isAddedToCart,...info}) {
                 {info.price} руб.
                 </p>
 
-        {isAddedToCart ? (
+{tokenTwo ? (
 
-          <div>
-            <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
-          </div>
+isAddedToCart ? (
 
-        ) : (
+  <div>
+    <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
+  </div>
 
-          <img
-            src={CardKarzina}
-            id={info.id}
-            onClick={() => addBasket(info.id)}
-            className={s.mycard__item__footer__kar}
-            alt="svg"
-          />
+) : (
 
-        )}
+  <img
+    src={CardKarzina}
+    id={info.id}
+    onClick={() => addBasket(info.id)}
+    className={s.mycard__item__footer__kar}
+    alt="svg"
+  />
+)
+
+
+) : (
+
+<Link to="/login">
+  <img src={CardKarzina} className={s.mycard__item__footer__kar} alt="svg" />
+</Link>
+
+)}
+
 
             </div>
 

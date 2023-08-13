@@ -87,20 +87,11 @@ useEffect(() => {
   const [ poiskvalue, setpoiskvalue] = useState('')
 
 
-  const navigate = useNavigate()
 
   const PoiskCard = (event) => {
 
     event.preventDefault()
 
-    const userToken = localStorage.getItem('token');
-    
-    if (!userToken) {
-      
-      navigate('/login');
-
-      return;
-    }
 
     axios.get(`https://tyteda.ru/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
 
@@ -370,14 +361,40 @@ useEffect(() => {
 
                     </select>
 
-                    <button className={s.filter__button} onClick={PoiskCard}>
-                    Применить
-                    </button>
+                    {tokenTwo ? (
+
+                      <>
+
+<button className={s.filter__button} onClick={PoiskCard}>
+Применить
+</button>
 
 
-                    <button className={s.filter__button} onClick={(event) => throwOff(event)}>
-                    Сбросить
-                    </button>
+<button className={s.filter__button} onClick={(event) => throwOff(event)}>
+Сбросить
+</button>
+
+</>
+
+
+) : (
+
+  <>
+
+  <Link to={'/login'} className={s.filter__button} >
+  Применить
+  </Link>
+  
+  
+  <Link to={'/login'}  className={s.filter__button} >
+  Сбросить
+  </Link>
+  
+  </>
+
+
+
+)}
 
                     </form>
 

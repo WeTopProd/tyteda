@@ -137,23 +137,33 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
         <p className={s.mycard__item__footer__sum}>{info.price} руб.</p>
 
-        {isAddedToCart ? (
+{tokenTwo ? (
 
-          <div>
-            <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
-          </div>
+  isAddedToCart ? (
 
-        ) : (
+    <div>
+      <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
+    </div>
 
-          <img
-            src={CardKarzina}
-            id={info.id}
-            onClick={() => addBasket(info.id)}
-            className={s.mycard__item__footer__kar}
-            alt="svg"
-          />
+  ) : (
 
-        )}
+    <img
+      src={CardKarzina}
+      id={info.id}
+      onClick={() => addBasket(info.id)}
+      className={s.mycard__item__footer__kar}
+      alt="svg"
+    />
+  )
+  
+
+) : (
+
+  <Link to="/login">
+    <img src={CardKarzina} className={s.mycard__item__footer__kar} alt="svg" />
+  </Link>
+
+)}
 
       </div>
 

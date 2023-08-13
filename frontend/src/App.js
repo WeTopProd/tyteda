@@ -44,19 +44,8 @@ function App() {
 
     const [karzinkaTovar, setkarzinkaTovar] = useState([]);
 
-    const navigate = useNavigate()
 
     async function addBasket(id) {
-
-
-      const userToken = localStorage.getItem('token');
-    
-      if (!userToken) {
-
-        navigate('/login');
-
-        return;
-      }
 
       if (!karzinkaTovar.some((item) => item.id === id)) {
 
