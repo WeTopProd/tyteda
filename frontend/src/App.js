@@ -97,21 +97,21 @@ function App() {
       })
 
       .then((res) => {
-  
+
           const nonComboItems = res.data.results.filter(item => !item.title.startsWith("Комбо"));
-          
-          setGoods(nonComboItems);
   
           const comboItems = res.data.results.filter(item => item.title.startsWith("Комбо"));
   
           const reversedComboItems = comboItems.reverse();
   
           setComboCard(reversedComboItems);
+
+          setGoods(res.data.results + nonComboItems);
       })
 
+ }, []);
 
-
-  }, []);
+ console.log(Goods);
 
 
   useEffect(() => {
