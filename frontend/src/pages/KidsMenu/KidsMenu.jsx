@@ -20,11 +20,6 @@ export default function KidsMenu ({
     useEffect(() => {
     
       axios.get('https://tyteda.ru/api/goods/?type=children_menu', {
-      
-      headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          'authorization': `Token ${tokenTwo}`
-      }
     
       })
     
@@ -38,7 +33,7 @@ export default function KidsMenu ({
     
     }, [])
 
-  const tokenTwo = localStorage.getItem('token')
+//   const tokenTwo = localStorage.getItem('token')
 
 
     return (

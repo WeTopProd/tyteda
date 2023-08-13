@@ -248,7 +248,7 @@ function App() {
 
           <Route path='/register'  element={<Reg />} />
   
-          <Route path='/'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
+          <Route path='/login'  element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
             
           </Routes>
   
