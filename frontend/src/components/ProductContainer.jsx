@@ -25,17 +25,14 @@ export function HeartProvider({ children }) {
   }, [hearts]);
 
   useEffect(() => {
-    
     const fetchFavorites = async () => {
       try {
-        const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
-
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Token ${localStorage.getItem('token')}`,
-        },
-
-
+        const token = localStorage.getItem('token');
+        const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Token ${token}`,
+          },
         });
         const favoriteIds = res.data.results.map((item) => item.id);
         setHearts((prevHearts) => {
@@ -46,6 +43,7 @@ export function HeartProvider({ children }) {
           return updatedHearts;
         });
       } catch (err) {
+        console.error(err);
       }
     };
     fetchFavorites();
