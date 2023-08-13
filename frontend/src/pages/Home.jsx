@@ -15,7 +15,7 @@ import Filter from '../components/Filter/Filter';
 import Payment from '../components/payment/Payment';
 import Delivery from '../components/Delivery/Delivery';
 import Reviews from '../components/Reviews/Reviews';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -87,7 +87,7 @@ useEffect(() => {
   const [ poiskvalue, setpoiskvalue] = useState('')
 
 
-  
+  const navigate = useNavigate()
 
   const PoiskCard = (event) => {
 
@@ -97,7 +97,7 @@ useEffect(() => {
     
     if (!userToken) {
       
-      Navigate('/login');
+      navigate('/login');
 
       return;
     }

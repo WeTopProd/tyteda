@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom'
 
 import './index.scss';
 import Header from './components/Header/Header';
@@ -44,6 +44,8 @@ function App() {
 
     const [karzinkaTovar, setkarzinkaTovar] = useState([]);
 
+    const navigate = useNavigate()
+
     async function addBasket(id) {
 
 
@@ -51,7 +53,7 @@ function App() {
     
       if (!userToken) {
 
-        Navigate('/login');
+        navigate('/login');
 
         return;
       }
@@ -155,7 +157,8 @@ function App() {
   
         <div className="App">
 
-             <ScrollToTop />
+         <ScrollToTop />
+
          <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
 
          <Routes>
