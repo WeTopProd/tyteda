@@ -20,6 +20,11 @@ export default function Tovar ({
       if (tokenTwo) {
   
       axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+
+      headers: {
+        'content-type': 'application/json',
+        authorization: `Token ${localStorage.getItem('token')}`,
+      },  
   
       })
   
