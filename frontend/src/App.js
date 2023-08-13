@@ -115,6 +115,8 @@ function App() {
 
 
   useEffect(() => {
+
+    if (tokenTwo) {
   
     axios.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
 
@@ -132,6 +134,8 @@ function App() {
         }
 
      })
+
+    }
 
 }, [])
 

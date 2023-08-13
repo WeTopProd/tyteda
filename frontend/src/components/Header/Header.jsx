@@ -288,23 +288,6 @@ export default function Header ({isActive, setIsActive, token}) {
 
       }
 
-      const [tovarlive, setTovarLove] = useState([])
-
-       useEffect(() => {
-
-        axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
-
-  
-      })
-
-      .then((res) => {
-
-        setTovarLove(res.data.results)
-
-       })
-
-       }, [])
-
       const tokenTwo = localStorage.getItem('token')
 
       const { favorites } = useFavoritesContext();

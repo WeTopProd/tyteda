@@ -15,9 +15,9 @@ export default function Tovar ({
     
     const [Tovar, setTovar] = useState([]);
 
-    const [final , setFinal] = useState([])
-
     useEffect(() => {
+
+      if (tokenTwo) {
   
       axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
   
@@ -28,6 +28,8 @@ export default function Tovar ({
         setTovar(res.data.results)
 
        })
+
+     }
   
   }, [])
 
