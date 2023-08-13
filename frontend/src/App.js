@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import './index.scss';
 import Header from './components/Header/Header';
@@ -45,17 +45,32 @@ function App() {
     const [karzinkaTovar, setkarzinkaTovar] = useState([]);
 
     async function addBasket(id) {
+
+
+      const userToken = localStorage.getItem('token');
+    
+      if (!userToken) {
+
+        Navigate('/login');
+
+        return;
+      }
+
       if (!karzinkaTovar.some((item) => item.id === id)) {
+
         try {
           await axios.post(
+
             `https://tyteda.ru/api/goods/${id}/shopping_cart/`,
             null,
+
             {
               headers: {
                 'content-type': 'application/json',
                 authorization: `Token ${tokenTwo}`,
               },
             }
+
           );
     
           // ... (другая логика)
@@ -133,13 +148,15 @@ function App() {
     return (
   
   <BrowserRouter>
+
   <FavoritesProvider>
+
   <HeartProvider>
   
         <div className="App">
 
              <ScrollToTop />
-             <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
+         <Header token={token} isActive={isActive} setIsActive={setIsActive}  />
 
          <Routes>
 

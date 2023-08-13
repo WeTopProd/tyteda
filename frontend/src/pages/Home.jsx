@@ -15,7 +15,7 @@ import Filter from '../components/Filter/Filter';
 import Payment from '../components/payment/Payment';
 import Delivery from '../components/Delivery/Delivery';
 import Reviews from '../components/Reviews/Reviews';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -92,6 +92,15 @@ useEffect(() => {
   const PoiskCard = (event) => {
 
     event.preventDefault()
+
+    const userToken = localStorage.getItem('token');
+    
+    if (!userToken) {
+      
+      Navigate('/login');
+
+      return;
+    }
 
     axios.get(`https://tyteda.ru/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
 
