@@ -20,7 +20,9 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
   async function toggleFavorites(id) {
 
-    setHeart(!heart);
+    setHeart(prevHeart => !prevHeart)
+
+    
 
     try {
       await axios.post(`https://tyteda.ru/api/goods/${info.id}/favorite/`, null, {
@@ -39,10 +41,12 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
       setFavorites(res.data.results);
 
+
       setFavorites((prevFavorites) =>
         prevFavorites.map((favorite) =>
           favorite.id === info.id ? { ...favorite, is_favorited: true } : favorite
         )
+        
         
       );
 
@@ -52,9 +56,10 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
   }
 
   async function favoritesDelete(id) {
-    setHeart(!heart);
 
-    try {
+    setHeart(prevHeart => !prevHeart)
+
+   try {
       await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
         headers: {
           'content-type': 'application/json',
@@ -81,6 +86,7 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
     } catch (error) {
     }
   }
+
 
   const tokenTwo = localStorage.getItem('token');
 

@@ -26,34 +26,30 @@ export function HeartProvider({ children }) {
   }, [hearts]);
 
   useEffect(() => {
-
     const fetchFavorites = async () => {
-
       try {
-
         const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
-
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Token ${localStorage.getItem('token')}`,
-        },
-
-
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Token ${localStorage.getItem('token')}`,
+          },
         });
         const favoriteIds = res.data.results.map((item) => item.id);
         setHearts((prevHearts) => {
           const updatedHearts = { ...prevHearts };
           favoriteIds.forEach((id) => {
-            updatedHearts[id] = true;
+            if (!updatedHearts[id]) {
+              updatedHearts[id] = true;
+            }
           });
           return updatedHearts;
         });
       } catch (err) {
+        // Обработка ошибки
       }
     };
-
+  
     fetchFavorites();
-
   }, []);
 
   return (
