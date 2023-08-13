@@ -9,7 +9,8 @@ export default function Tovar ({
 
   isAddedToCart,
   karzinkaTovar,
-  addBasket
+  addBasket,
+  isActive
 
 }) {
     
@@ -62,7 +63,7 @@ export default function Tovar ({
             Tovar.map((info, index) => {
               return <Card {...info} key={index}
 
-              addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} 
+              addBasket={addBasket} isActive={isActive}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} 
               
               />;
             })

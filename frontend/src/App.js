@@ -172,6 +172,8 @@ function App() {
           setIsAddedToCart={setIsAddedToCart}
   
           Goods={Goods}
+
+          isActive={isActive}
   
           />} />
   
@@ -209,7 +211,7 @@ function App() {
                   <InterCard
   
                   Goods={Goods}
-  
+                  isActive={isActive}
                   isAddedToCart={karzinkaTovar.some((item) => item.id === +params.userId)}
   
                   karzinkaTovar={karzinkaTovar} 
@@ -238,6 +240,8 @@ function App() {
           totalCartPrice={totalCartPrice}
   
           setTotalCartPrice={setTotalCartPrice}
+
+          isActive={isActive}
   
   
           />} />
@@ -249,6 +253,7 @@ function App() {
           karzinkaTovar={karzinkaTovar}
           
           addBasket={addBasket}
+          isActive={isActive}
           
   
           />} />

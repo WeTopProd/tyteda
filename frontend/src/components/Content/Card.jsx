@@ -4,11 +4,11 @@ import CardKarzina from './img/cardKarzina.svg';
 import CardKarzinaAdd from './img/cardKarzinaAdd.svg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFavoritesContext } from '../../FavoritesContext';
 import { useHeartContext } from '../ProductContainer';
 
-export default function Card({ addBasket, isAddedToCart, ...info }) {
+export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
 
   const { favorites, setFavorites } = useFavoritesContext();
 
@@ -16,11 +16,12 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
   useEffect(() => {
     setHeart(info.is_favorited);
-  }, []);
+  }, [info.is_favorited]);
 
   async function toggleFavorites(id) {
 
-    setHeart(!heart);
+    const newHeartState = !heart; // Calculate the new heart state before setting it
+    setHeart(newHeartState);
 
     try {
       await axios.post(`https://tyteda.ru/api/goods/${info.id}/favorite/`, null, {
@@ -43,8 +44,8 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
       setFavorites((prevFavorites) =>
         prevFavorites.map((favorite) =>
-          favorite.id === info.id ? { ...favorite, is_favorited: true } : favorite
-        )
+          favorite.id === info.id ? { ...favorite, is_favorited: newHeartState } : favorite
+      )
         
       );
 
@@ -54,9 +55,12 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
   }
 
   async function favoritesDelete(id) {
-    setHeart(!heart);
+
+    const newHeartState = !heart; // Calculate the new heart state before setting it
+    setHeart(newHeartState);
 
     try {
+
       await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
         headers: {
           'content-type': 'application/json',
@@ -75,8 +79,8 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
       setFavorites((prevFavorites) =>
         prevFavorites.map((favorite) =>
-          favorite.id === info.id ? { ...favorite, is_favorited: false } : favorite
-        )
+          favorite.id === info.id ? { ...favorite, is_favorited: newHeartState } : favorite
+      )
 
       );
 
@@ -85,6 +89,11 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
     }
   }
 
+  const navigate = useNavigate()
+
+  const btnFeforiteLike = () => {
+    navigate('/login')
+  }
 
   const tokenTwo = localStorage.getItem('token');
 
@@ -95,17 +104,34 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
       <div className={s.mycard__item__fon}>
 
-        { tokenTwo ? (
+
+        
 
           <svg
+
             id={info.id}
-            onClick={!heart ? (event) => toggleFavorites(event.currentTarget.id) : (event) => favoritesDelete(event.currentTarget.id)}
+
+            onClick={
+
+              isActive ?
+
+                !heart ? (event) => toggleFavorites(event.currentTarget.id) :
+                (event) => favoritesDelete(event.currentTarget.id)
+
+                :
+
+                navigate('/login')
+                
+              }
+            
+            
             width="25px"
             height="25px"
             className={s.mycard__item__fon__live}
             viewBox="0 0 24 24"
             fill="#00000000"
             xmlns="http://www.w3.org/2000/svg"
+            
           >
   
             <path
@@ -114,16 +140,6 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
             />
 
         </svg>
-
-        ) : (
-
-          null
-
-        ) }
-
-
-
-
 
         {info && info.images && info.images[0] && info.images[0].images ? (
 

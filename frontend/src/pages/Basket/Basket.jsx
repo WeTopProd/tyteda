@@ -25,7 +25,8 @@ export default function Basket ({
 
     Goods,
 
-    totalCartPrice, setTotalCartPrice 
+    totalCartPrice, setTotalCartPrice ,
+    isActive
 
 }) {
 
@@ -363,7 +364,7 @@ export default function Basket ({
 
                {Goods.map( (info , index) => {
 
-                return <Card addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} />
+                return <Card addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive} />
                 
                } )}
                 

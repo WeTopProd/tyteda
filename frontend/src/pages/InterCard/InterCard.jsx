@@ -17,7 +17,8 @@ export default function InterCard ({
     Goods,
     isAddedToCart,
     karzinkaTovar,
-    setIsAddedToCart
+    setIsAddedToCart,
+    isActive
 
 }) {
 
@@ -138,7 +139,7 @@ export default function InterCard ({
                {Goods.map( (info , index) => {
                 return <Card {...info} key={index}
 
-                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}  {...info}
+                addBasket={addBasket} isActive={isActive}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}  {...info}
 
                 />
                } )}

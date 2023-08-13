@@ -27,7 +27,8 @@ export default function Home ({
     karzinkaTovar,
     setkarzinkaTovar,
     addBasket,
-    Goods
+    Goods,
+    isActive
     
     }) {
 
@@ -311,7 +312,7 @@ useEffect(() => {
                {Recommend.map( (info , index) => {
                 return <Card 
 
-                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
+                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive}
 
                 />
                } )}
@@ -416,6 +417,7 @@ useEffect(() => {
               addBasket={addBasket}
               isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
               key={index}
+              isActive={isActive}
             />
           );
         })
@@ -427,6 +429,7 @@ useEffect(() => {
               addBasket={addBasket}
               isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
               key={index}
+              isActive={isActive}
             />
           );
         })
@@ -445,7 +448,7 @@ useEffect(() => {
         {Promotion.map( (info , index) => {
                 return <Card {...info}
 
-                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index}
+                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive}
 
                 />
         } )}
