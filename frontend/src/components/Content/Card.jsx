@@ -12,11 +12,8 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
 
   const { favorites, setFavorites } = useFavoritesContext();
 
-  const { heart, setHeart } = useHeartContext(info.id);
+  const { heart, setHeart } = useHeartContext(info.is_favorited);
 
-  useEffect(() => {
-    setHeart(info.is_favorited);
-  }, []);
 
   async function toggleFavorites(id) {
 
@@ -49,6 +46,8 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
     } catch (error) {
 
     }
+
+    
   }
 
   async function favoritesDelete(id) {
@@ -82,6 +81,11 @@ export default function Card({ addBasket, isAddedToCart, ...info }) {
     }
   }
 
+
+  useEffect(() => {
+    setHeart(info.is_favorited);
+  }, []);
+  
   const tokenTwo = localStorage.getItem('token');
 
   return (
