@@ -113,17 +113,9 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
 
             onClick={
 
-              isActive ?
-
                 !heart ? (event) => toggleFavorites(event.currentTarget.id) :
-                (event) => favoritesDelete(event.currentTarget.id)
+                (event) => favoritesDelete(event.currentTarget.id) }
 
-                :
-
-                navigate('/login')
-                
-              }
-            
             
             width="25px"
             height="25px"
@@ -131,7 +123,7 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
             viewBox="0 0 24 24"
             fill="#00000000"
             xmlns="http://www.w3.org/2000/svg"
-            
+
           >
   
             <path
