@@ -106,12 +106,10 @@ function App() {
   
           setComboCard(reversedComboItems);
 
-          setGoods(res.data.results + nonComboItems);
+          setGoods(nonComboItems);
       })
 
  }, []);
-
- console.log(Goods);
 
 
   useEffect(() => {
