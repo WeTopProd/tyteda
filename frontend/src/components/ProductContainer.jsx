@@ -28,6 +28,13 @@ export function HeartProvider({ children }) {
     const fetchFavorites = async () => {
       try {
         const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Token ${localStorage.getItem('token')}`,
+        },
+
+
         });
         const favoriteIds = res.data.results.map((item) => item.id);
         setHearts((prevHearts) => {

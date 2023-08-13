@@ -118,6 +118,11 @@ function App() {
   
     axios.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
 
+    headers: {
+      'content-type': 'application/json',
+      authorization: `Token ${localStorage.getItem('token')}`,
+    },
+
     })
 
     .then((res) => {

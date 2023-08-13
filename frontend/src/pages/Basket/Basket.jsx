@@ -29,18 +29,7 @@ export default function Basket ({
 
 }) {
 
-  
-    useEffect(() => {
-      axios
-        .get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
 
-        })
-        .then((res) => {
-          if (Array.isArray(res.data.results)) {
-            setkarzinkaTovar(res.data.results);
-          }
-        })
-    }, []);
   
     async function removeBasket(id) {
       try {
