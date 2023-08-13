@@ -15,7 +15,7 @@ export default function Tovar ({
     
     const [Tovar, setTovar] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
 
       if (tokenTwo) {
   
