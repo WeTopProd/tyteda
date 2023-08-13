@@ -9,6 +9,7 @@ export function useHeartContext(productId) {
     throw new Error(`useHeartContext должен использоваться внутри HeartProvider`);
   }
   const { hearts, setHearts } = context;
+  
   const heart = hearts[productId] || false;
 
   return { heart, setHeart: (value) => setHearts({ ...hearts, [productId]: value }) };
@@ -25,9 +26,11 @@ export function HeartProvider({ children }) {
   }, [hearts]);
 
   useEffect(() => {
-    
+
     const fetchFavorites = async () => {
+
       try {
+
         const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
 
         headers: {
@@ -48,7 +51,9 @@ export function HeartProvider({ children }) {
       } catch (err) {
       }
     };
+
     fetchFavorites();
+
   }, []);
 
   return (

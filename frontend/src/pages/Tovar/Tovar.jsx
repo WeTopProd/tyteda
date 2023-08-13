@@ -13,11 +13,11 @@ export default function Tovar ({
 
 }) {
     
-    const [Tovar, setTovar] = useState([]);
+  const [Tovar, setTovar] = useState([]);
 
   useEffect(() => {
 
-      if (tokenTwo) {
+    if (tokenTwo) {
   
       axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
 
