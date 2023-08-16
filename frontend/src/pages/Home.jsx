@@ -354,10 +354,6 @@ useEffect(() => {
 
                     </select>
 
-                    {tokenTwo ? (
-
-                      <>
-
 <button className={s.filter__button} onClick={PoiskCard}>
 Применить
 </button>
@@ -366,28 +362,6 @@ useEffect(() => {
 <button className={s.filter__button} onClick={(event) => throwOff(event)}>
 Сбросить
 </button>
-
-</>
-
-
-) : (
-
-  <>
-
-  <Link to={'/login'} className={s.filter__button} >
-  Применить
-  </Link>
-  
-  
-  <Link to={'/login'}  className={s.filter__button} >
-  Сбросить
-  </Link>
-  
-  </>
-
-
-
-)}
 
                     </form>
 
