@@ -315,10 +315,10 @@ export default function Header ({isActive, setIsActive, token}) {
   
         axios.get(`https://tyteda.ru/api/goods/?title=${titleItem}`, {
   
-        headers: {
-            'Content-Type': 'application/json',
-            authorization: `Token ${localStorage.getItem('token')}`,
-        },
+        // headers: {
+        //     'Content-Type': 'application/json',
+        //     authorization: `Token ${localStorage.getItem('token')}`,
+        // },
   
       })
   
