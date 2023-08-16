@@ -96,11 +96,6 @@ useEffect(() => {
 
     axios.get(`https://tyteda.ru/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
 
-    headers: {
-      "content-type": "application/json",
-      authorization: `Token ${tokenTwo}`,
-    },
-
   })
 
   .then(res => {
@@ -119,9 +114,6 @@ useEffect(() => {
   };
 
   useEffect(() => throwOff, [] )
-
-
-
   const tokenTwo = localStorage.getItem('token')
 
     return (
