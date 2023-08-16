@@ -119,6 +119,10 @@
 
     margin: 0 !important;
 
+    @media screen and (max-width: 550px ) {
+        padding: 5px 0px;  
+    }
+
     &__logo{
         @media screen and (max-width: 550px ) {
             max-width: 50px;
