@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-*mzje=yktkay8l632q8$h)xzn#0a&218(jz^&17d$w4o1tbl^&'
 
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = [
@@ -16,6 +16,9 @@ if DEBUG:
     ]
 else:
     ALLOWED_HOSTS = [
+        '*',
+        '127.0.0.1',
+        'localhost',
         'tyteda.ru',
         '89.108.79.12',
     ]
@@ -73,7 +76,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tyteda.wsgi.application'
 
 
-if DEBUG:
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -142,15 +145,13 @@ REST_FRAMEWORK = {
 }
 
 CORS_URLS_REGEX = r'^/api/.*$'
-if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
-else:
-    CORS_ALLOWED_ORIGINS = [
-        'https://frantsuz.ru',
-        'https://37.140.195.3',
-        'https://37.140.195.3:3000',
-        'https://37.140.195.3:8000',
-    ]
+# if DEBUG:
+CORS_ORIGIN_ALLOW_ALL = True
+# else:
+#     CORS_ALLOWED_ORIGINS = [
+#         'https://tyteda.ru',
+#         'https://89.108.79.12:3000',
+#     ]
 
 DJOSER = {
     'LOGIN_FIELD': 'email',
