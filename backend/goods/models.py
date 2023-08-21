@@ -23,9 +23,7 @@ class Image(models.Model):
 class Goods(models.Model):
     DISH_TYPE = (
         ('hot_dishes', 'Горячие блюда'),
-        ('soups', 'Супы'),
         ('paste', 'Паста'),
-        ('snacks', 'Закуски'),
         ('salads', 'Салаты'),
         ('side_dishes', 'Гарниры'),
         ('pizza', 'Пицца'),
@@ -37,11 +35,15 @@ class Goods(models.Model):
         ('sauces', 'Соусы'),
         ('dishes_grill', 'Блюда на мангале'),
         ('rolls', 'Роллы'),
+        ('mini_rolls', 'Мини роллы'),
         ('beer_snacks', 'Пивные закуски'),
         ('bread', 'Хлеб'),
         ('wok', 'Вок'),
         ('children_menu', 'Детское меню'),
-        ('seasonal_dishes', 'Сезонные блюда')
+        ('seasonal_dishes', 'Сезонные блюда'),
+        ('cold_snacks', 'Холодные закуски'),
+        ('hot_snacks', 'Горячие закуски'),
+        ('first_dish', 'Первые блюда')
     )
     PROMO_GOODS = (
         ('promotion', 'Акция'),

@@ -333,10 +333,12 @@ useEffect(() => {
                     >
 
                         <option value="Выбрать">Выбрать</option>
+                        <option value="first_dish">Первые блюда</option>
                         <option value="hot_dishes">Горячие блюда</option>
-                        <option value="soups">Супы</option>
                         <option value="paste">Паста</option>
-                        <option value="snacks">Закуски</option>
+                        <option value="cold_snacks">Холодные закуски</option>
+                        <option value="hot_snacks">Горячие закуски</option>
+                        <option value="seasonal_dishes">Сезонные блюда</option>
                         <option value="salads">Салаты</option>
                         <option value="side_dishes">Гарниры</option>
                         <option value="pizza">Пицца</option>
