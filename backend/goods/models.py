@@ -91,7 +91,7 @@ class Goods(models.Model):
     class Meta:
         verbose_name = 'Блюдо'
         verbose_name_plural = 'Блюда'
-        ordering = ['-title']
+        ordering = ['title']
 
     def __str__(self):
         return f'Блюдо {self.title}'
