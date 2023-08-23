@@ -195,7 +195,7 @@ function Footer() {
       <div className={f.footer__bottom} id="footer">
         <div className={h.container}>
           <div className={f.bottom}>
-            <p className={f.bottom_left}>OOO "Экостар" ИНН: 5041214554</p>
+            <p className={f.bottom_left}>OOO "Экостар" ИНН: 5041214554 ОГРН: 1235000052330</p>
 
             <p className={f.bottom_right}>
               <Link to={'/policy'}> Политика конфиденциальности</Link>
