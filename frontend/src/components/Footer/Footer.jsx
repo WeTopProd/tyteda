@@ -68,7 +68,7 @@ function Footer() {
                   <Link
                     className={f.footer__info_item_mail_text}
                     to="mailto:info@tyteda.ru">
-                    frantsuz-shop.ru
+                    info@tyteda.ru
                   </Link>
                 </div>
 
