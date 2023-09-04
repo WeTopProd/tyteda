@@ -202,7 +202,7 @@ export default function Basket ({
                                 onChange={(event) => setDelTime(event.target.value)}
                                 
                                 >
-                                    <option value="">Выберете</option>
+                                    <option value="">Выберите</option>
                                     <option value="Сегодня">Сегодня</option>
                                     <option value="Завтра">Завтра</option>
                                 </select>
@@ -243,8 +243,8 @@ export default function Basket ({
                             
                             >
 
-                                <option value="">Выберете опцию</option>
-                                <option value="Оптала онлайн">Оптала онлайн</option>
+                                <option value="">Выберите опцию</option>
+                                <option value="Оплата онлайн">Оплата онлайн</option>
                                 <option value="Оплата картой курьеру">Оплата картой курьеру</option>
                                 <option value="Оплата наличными курьеру">Оплата наличными курьеру</option>
                                 
