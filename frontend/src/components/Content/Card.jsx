@@ -24,7 +24,7 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
     setHeart(newHeartState);
 
     try {
-      await axios.post(`https://tyteda.ru/api/goods/${info.id}/favorite/`, null, {
+      await axios.post(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, null, {
 
         headers: {
           'content-type': 'application/json',
@@ -33,7 +33,7 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
 
       });
 
-      const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+      const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
         headers: {
           'content-type': 'application/json',
           authorization: `Token ${tokenTwo}`,
@@ -45,8 +45,8 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
       setFavorites((prevFavorites) =>
         prevFavorites.map((favorite) =>
           favorite.id === info.id ? { ...favorite, is_favorited: newHeartState } : favorite
-      )
-        
+        )
+
       );
 
     } catch (error) {
@@ -61,14 +61,14 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
 
     try {
 
-      await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
+      await axios.delete(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, {
         headers: {
           'content-type': 'application/json',
           authorization: `Token ${tokenTwo}`,
         },
       });
 
-      const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+      const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
         headers: {
           'content-type': 'application/json',
           authorization: `Token ${tokenTwo}`,
@@ -80,7 +80,7 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
       setFavorites((prevFavorites) =>
         prevFavorites.map((favorite) =>
           favorite.id === info.id ? { ...favorite, is_favorited: newHeartState } : favorite
-      )
+        )
 
       );
 
@@ -105,48 +105,48 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
       <div className={s.mycard__item__fon}>
 
 
-        
 
-          <svg
 
-            id={info.id}
+        <svg
 
-            onClick={
+          id={info.id}
 
-                !heart ? (event) => toggleFavorites(event.currentTarget.id) :
-                (event) => favoritesDelete(event.currentTarget.id) }
+          onClick={
 
-            
-            width="25px"
-            height="25px"
-            className={s.mycard__item__fon__live}
-            viewBox="0 0 24 24"
-            fill="#00000000"
-            xmlns="http://www.w3.org/2000/svg"
+            !heart ? (event) => toggleFavorites(event.currentTarget.id) :
+              (event) => favoritesDelete(event.currentTarget.id)}
 
-          >
-  
-            <path
-              d="M12.39 20.87a.696.696 0 0 1-.78 0C9.764 19.637 2 14.15 2 8.973c0-6.68 7.85-7.75 10-3.25 2.15-4.5 10-3.43 10 3.25 0 5.178-7.764 10.664-9.61 11.895z"
-              fill={heart ? 'rgb(223, 28, 28)' : '#000'}
-            />
+
+          width="25px"
+          height="25px"
+          className={s.mycard__item__fon__live}
+          viewBox="0 0 24 24"
+          fill="#00000000"
+          xmlns="http://www.w3.org/2000/svg"
+
+        >
+
+          <path
+            d="M12.39 20.87a.696.696 0 0 1-.78 0C9.764 19.637 2 14.15 2 8.973c0-6.68 7.85-7.75 10-3.25 2.15-4.5 10-3.43 10 3.25 0 5.178-7.764 10.664-9.61 11.895z"
+            fill={heart ? 'rgb(223, 28, 28)' : '#000'}
+          />
 
         </svg>
 
         {info && info.images && info.images[0] && info.images[0].images ? (
 
-        <img src={info.images[0].images} alt="img" className={s.mycard__item__fon__img} />
+          <img src={info.images[0].images} alt="img" className={s.mycard__item__fon__img} />
 
         ) : (
 
-        <p>No image available</p>
+          <p>No image available</p>
 
         )}
 
       </div>
 
       <div className={s.mycard__item__info}>
-      
+
         <Link to={`/intercard/${info.id}`} className={s.mycard__item__info__title}>
           {info.title}
         </Link>
@@ -163,33 +163,33 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
 
         <p className={s.mycard__item__footer__sum}>{info.price} руб.</p>
 
-{tokenTwo ? (
+        {tokenTwo ? (
 
-  isAddedToCart ? (
+          isAddedToCart ? (
 
-    <div>
-      <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
-    </div>
+            <div>
+              <img src={CardKarzinaAdd} alt="svg" className={s.mycard__item__footer__add} />
+            </div>
 
-  ) : (
+          ) : (
 
-    <img
-      src={CardKarzina}
-      id={info.id}
-      onClick={() => addBasket(info.id)}
-      className={s.mycard__item__footer__kar}
-      alt="svg"
-    />
-  )
+            <img
+              src={CardKarzina}
+              id={info.id}
+              onClick={() => addBasket(info.id)}
+              className={s.mycard__item__footer__kar}
+              alt="svg"
+            />
+          )
 
 
-) : (
+        ) : (
 
-  <Link to="/login">
-    <img src={CardKarzina} className={s.mycard__item__footer__kar} alt="svg" />
-  </Link>
+          <Link to="/login">
+            <img src={CardKarzina} className={s.mycard__item__footer__kar} alt="svg" />
+          </Link>
 
-)}
+        )}
 
       </div>
 

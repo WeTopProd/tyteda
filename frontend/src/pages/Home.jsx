@@ -21,71 +21,71 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
-export default function Home ({
-    
-    isAddedToCart,
-    karzinkaTovar,
-    setkarzinkaTovar,
-    addBasket,
-    Goods,
-    isActive
-    
-    }) {
+export default function Home({
 
-    let scrollWithOffset = (el) => {
+  isAddedToCart,
+  karzinkaTovar,
+  setkarzinkaTovar,
+  addBasket,
+  Goods,
+  isActive
 
-        const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+}) {
 
-        const yOffset = -350;
+  let scrollWithOffset = (el) => {
 
-        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
 
-    }
-    
+    const yOffset = -350;
 
-  const [Promotion , setPromotion] = useState([])
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+
+  }
+
+
+  const [Promotion, setPromotion] = useState([])
 
   useEffect(() => {
-  
-    axios.get('https://tyteda.ru/api/goods/?promotion=promotion', {
-  
+
+    axios.get('http://127.0.0.1:8000/api/goods/?promotion=promotion', {
+
     })
 
-    .then((res) => {
+      .then((res) => {
 
         setPromotion(res.data.results)
 
-     })
+      })
 
-    .catch((err) => console.error(err))
+      .catch((err) => console.error(err))
 
-}, [])
+  }, [])
 
-const [Recommend , setRecommend] = useState([])
+  const [Recommend, setRecommend] = useState([])
 
-useEffect(() => {
+  useEffect(() => {
 
-  axios.get('https://tyteda.ru/api/goods/?promotion=recommend', {
+    axios.get('http://127.0.0.1:8000/api/goods/?promotion=recommend', {
 
-  })
+    })
 
-  .then((res) => {
+      .then((res) => {
 
-    setRecommend(res.data.results)
+        setRecommend(res.data.results)
 
-   })
+      })
 
-  .catch(error => {
-  
-  })
+      .catch(error => {
 
-}, [])
+      })
+
+  }, [])
 
   const [postCard, setPost] = useState([])
 
   const [postLoading, setPostLoading] = useState(false)
 
-  const [ poiskvalue, setpoiskvalue] = useState('')
+  const [poiskvalue, setpoiskvalue] = useState('')
 
 
 
@@ -94,14 +94,14 @@ useEffect(() => {
     event.preventDefault()
 
 
-    axios.get(`https://tyteda.ru/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
+    axios.get(`http://127.0.0.1:8000/api/goods/?title=&description=&compound=&weight=&calories=&price_min=&price_max=&type=${poiskvalue}&promotion=&is_favorited=&is_in_shopping_cart=`, {
 
-  })
+    })
 
-  .then(res => {
-     setPost(res.data.results)
-     setPostLoading(true)
-   })
+      .then(res => {
+        setPost(res.data.results)
+        setPostLoading(true)
+      })
 
   }
 
@@ -113,340 +113,340 @@ useEffect(() => {
     setPostLoading(false);
   };
 
-  useEffect(() => throwOff, [] )
+  useEffect(() => throwOff, [])
   const tokenTwo = localStorage.getItem('token')
 
-    return (
+  return (
 
-        <>
-        
-    <Swiper
+    <>
+
+      <Swiper
         pagination={{
           type: "fraction",
         }}
         navigation={true}
         modules={[Pagination, Navigation, Autoplay]}
         className={s.home__swiper}
-        
+
         autoplay={{
-            delay: 3000,
+          delay: 3000,
         }}
-        
+
 
       >
 
         <SwiperSlide className={s.home__swiper_slide1}>
-            
-            <div className={s.container}>
 
-                <div className={s.home__content__one}>
-                    
+          <div className={s.container}>
 
-                    <p className={s.home__content_text}>
-                    Заказывайте еду быстро, удобно
-                    и просто
-                    </p>
+            <div className={s.home__content__one}>
 
-                    <HashLink to='/#menu' scroll={scrollWithOffset} className={s.home__content_button}>
-                    смотреть меню
-                    </HashLink>
 
-                </div>
+              <p className={s.home__content_text}>
+                Заказывайте еду быстро, удобно
+                и просто
+              </p>
+
+              <HashLink to='/#menu' scroll={scrollWithOffset} className={s.home__content_button}>
+                смотреть меню
+              </HashLink>
 
             </div>
-                    
+
+          </div>
+
         </SwiperSlide>
 
         <SwiperSlide className={s.home__swiper_slide2}>
 
-             <div className={s.container}>
+          <div className={s.container}>
 
-                <div className={s.home__content__two}>
-                    
-                    
+            <div className={s.home__content__two}>
 
-                    <p className={s.home__content_textTwo}>
-                    комбо-обеды
-                    </p>
 
-                    <p className={s.home__content_textTwo}>
-                    c 12:00 до 16:00
-                    </p>
 
-                    <p className={s.home__content_textThree}>
-                       Индивидуальные предложения
-                    </p>
+              <p className={s.home__content_textTwo}>
+                комбо-обеды
+              </p>
 
-                    <Link to={'/combo'} className={s.home__content_button}>
-                    Подробнее 
-                    </Link>
+              <p className={s.home__content_textTwo}>
+                c 12:00 до 16:00
+              </p>
 
-                </div>
+              <p className={s.home__content_textThree}>
+                Индивидуальные предложения
+              </p>
+
+              <Link to={'/combo'} className={s.home__content_button}>
+                Подробнее
+              </Link>
 
             </div>
-            
+
+          </div>
+
         </SwiperSlide>
 
 
         <SwiperSlide className={s.home__swiper_slide3}>
 
-            <div className={s.container}>
+          <div className={s.container}>
 
-                <div className={s.home__content__thee}>
-                    
+            <div className={s.home__content__thee}>
 
-                    <p className={s.home__content_title}>
-                    Детское меню
-                    </p>
 
-                    <p className={s.home__content_subtitle}>
-                    Наше детское меню включает в себя разнообразные блюда, которые не только вкусные, но и питательные. Мы используем только свежие и натуральные ингредиенты, чтобы обеспечить вашего ребенка здоровой пищей
-                    </p>
+              <p className={s.home__content_title}>
+                Детское меню
+              </p>
 
-                     
+              <p className={s.home__content_subtitle}>
+                Наше детское меню включает в себя разнообразные блюда, которые не только вкусные, но и питательные. Мы используем только свежие и натуральные ингредиенты, чтобы обеспечить вашего ребенка здоровой пищей
+              </p>
 
-                    <Link to={'/kidsmenu'} className={s.home__content_button}>
-                    Подробнее 
-                    </Link>
 
-                </div>
+
+              <Link to={'/kidsmenu'} className={s.home__content_button}>
+                Подробнее
+              </Link>
 
             </div>
+
+          </div>
 
         </SwiperSlide>
         <SwiperSlide className={s.home__swiper_slide4}>
-            
-            <div className={s.container}>
 
-                <div className={s.home__content__four}>
-                    
+          <div className={s.container}>
 
-                    <p className={s.home__content_titleThree}>
-                    Доставим всё
-                    </p>
+            <div className={s.home__content__four}>
 
-                    <p className={s.home__content_textThree}>
-                    для шашлыка и <br /> пикника
-                    </p>
 
-                    <Link to={'https://шашландия.рф/'} className={s.home__content_button}>
-                    Подробнее 
-                    </Link>
+              <p className={s.home__content_titleThree}>
+                Доставим всё
+              </p>
 
-                </div>
+              <p className={s.home__content_textThree}>
+                для шашлыка и <br /> пикника
+              </p>
+
+              <Link to={'https://шашландия.рф/'} className={s.home__content_button}>
+                Подробнее
+              </Link>
 
             </div>
+
+          </div>
 
         </SwiperSlide>
 
         <SwiperSlide className={s.home__swiper_slide5}>
-            
-            <div className={s.container}>
 
-                <div className={s.home__content__five}>
-                    
+          <div className={s.container}>
 
-                    <p className={s.home__content_titleThree}>
-                     кейтеринг
-                    </p>
+            <div className={s.home__content__five}>
 
-                    <p className={s.home__content_textThree}>
-                    доставка еды <br />
-                    для вашего мероприятия
-                    </p>
 
-                    <button className={s.home__content_button}>
-                    Подробнее 
-                    </button>
+              <p className={s.home__content_titleThree}>
+                кейтеринг
+              </p>
 
-                </div>
+              <p className={s.home__content_textThree}>
+                доставка еды <br />
+                для вашего мероприятия
+              </p>
+
+              <button className={s.home__content_button}>
+                Подробнее
+              </button>
 
             </div>
+
+          </div>
 
         </SwiperSlide>
 
         <SwiperSlide className={s.home__swiper_slide6}>
-            
-            <div className={s.container}>
 
-                <div className={s.home__content__six}>
-                    
+          <div className={s.container}>
 
-                    <p className={s.home__content_titleThree}>
-                     корпоративное <br /> питание
-                    </p>
+            <div className={s.home__content__six}>
 
-                    <p className={s.home__content_textThree}>
-                    доставка еды <br />
-д                   для ваших сотрудников
-                    </p>
 
-                    <Link to={'https://corp-pitanie.tyteda.ru/'} className={s.home__content_button}>
-                    Подробнее 
-                    </Link>
+              <p className={s.home__content_titleThree}>
+                корпоративное <br /> питание
+              </p>
 
-                </div>
+              <p className={s.home__content_textThree}>
+                доставка еды <br />
+                д                   для ваших сотрудников
+              </p>
+
+              <Link to={'https://corp-pitanie.tyteda.ru/'} className={s.home__content_button}>
+                Подробнее
+              </Link>
 
             </div>
+
+          </div>
 
         </SwiperSlide>
-        
-    </Swiper>
+
+      </Swiper>
 
 
-    <ContentLogo Title='Рекомендуем' />
+      <ContentLogo Title='Рекомендуем' />
 
-    <section className={s.section__mycard}>
-         <div className={h.container}>
-            
-            <div className={s.mycard}>
+      <section className={s.section__mycard}>
+        <div className={h.container}>
 
-               {Recommend.map( (info , index) => {
-                return <Card 
+          <div className={s.mycard}>
 
-                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive}
+            {Recommend.map((info, index) => {
+              return <Card
 
-                />
-               } )}
-                
-            </div>
+                addBasket={addBasket} isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive}
 
-         </div>
-    </section>
+              />
+            })}
 
+          </div>
 
-    <section className={s.section__filter}>
-            <div className={h.container}>
-                
-                <form className={s.filter} onSubmit={PoiskCard}>
-                    
-                    <p className={s.filter__title}>
-                    Выберите тип блюдa
-                    </p>
-
-                    <form className={s.filter__form}>
-
-                    <select className={s.filter__form__select}
-
-                    value={poiskvalue} onChange={(event) => setpoiskvalue(event.target.value)}
-                    
-                    >
-
-                        <option value="Выбрать">Выбрать</option>
-                        <option value="first_dish">Первые блюда</option>
-                        <option value="hot_dishes">Горячие блюда</option>
-                        <option value="paste">Паста</option>
-                        <option value="cold_snacks">Холодные закуски</option>
-                        <option value="hot_snacks">Горячие закуски</option>
-                        <option value="seasonal_dishes">Сезонные блюда</option>
-                        <option value="salads">Салаты</option>
-                        <option value="side_dishes">Гарниры</option>
-                        <option value="pizza">Пицца</option>
-                        <option value="burgers">Бургеры</option>
-                        <option value="dessert">Десерты</option>
-                        <option value="drinks">Напитки</option>
-                        <option value="khachapuri">Хачапури</option>
-                        <option value="ossetian_pies">Осетинские пироги</option>
-                        <option value="sauces">Соусы</option>
-                        <option value="dishes_grill">Блюда на мангале</option>
-                        <option value="rolls">Роллы</option>
-                        <option value="beer_snacks">Пивные закуски</option>
-                        <option value="bread">Хлеб</option>
-                        <option value="wok">Вок</option>
-
-                    </select>
-
-<button className={s.filter__button} onClick={PoiskCard}>
-Применить
-</button>
-
-
-<button className={s.filter__button} onClick={(event) => throwOff(event)}>
-Сбросить
-</button>
-
-                    </form>
-
-
-
-                </form>
-
-            </div>
-        </section>
-
-<section className={s.section__mycard} id='menu'>
-  <div className={h.container}>
-    <div className={s.mycard}>
-      {postLoading ? (
-        postCard.map((info, index) => {
-          return (
-            <Card
-              {...info}
-              addBasket={addBasket}
-              isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
-              key={index}
-              isActive={isActive}
-            />
-          );
-        })
-      ) : (
-        Goods.map((info, index) => {
-          return (
-            <Card
-              {...info}
-              addBasket={addBasket}
-              isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
-              key={index}
-              isActive={isActive}
-            />
-          );
-        })
-      )}
-    </div>
-  </div>
-</section>
-
-<ContentLogo Title='Акции' />
-
-<section className={s.section__mycard}>
-     <div className={h.container}>
-        
-        <div className={s.mycard}>
-
-        {Promotion.map( (info , index) => {
-                return <Card {...info}
-
-                addBasket={addBasket}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive}
-
-                />
-        } )}
-            
         </div>
-
-     </div>
-</section>
+      </section>
 
 
+      <section className={s.section__filter}>
+        <div className={h.container}>
 
-<ContentLogo Title='Варианты оплаты' />
+          <form className={s.filter} onSubmit={PoiskCard}>
 
-<Payment />
+            <p className={s.filter__title}>
+              Выберите тип блюдa
+            </p>
 
-<ContentLogo Title='Доставка' />
+            <form className={s.filter__form}>
 
-<Delivery /> 
+              <select className={s.filter__form__select}
 
-<ContentLogo Title='Отзывы' />
+                value={poiskvalue} onChange={(event) => setpoiskvalue(event.target.value)}
 
-<Reviews />
+              >
+
+                <option value="Выбрать">Выбрать</option>
+                <option value="first_dish">Первые блюда</option>
+                <option value="hot_dishes">Горячие блюда</option>
+                <option value="paste">Паста</option>
+                <option value="cold_snacks">Холодные закуски</option>
+                <option value="hot_snacks">Горячие закуски</option>
+                <option value="seasonal_dishes">Сезонные блюда</option>
+                <option value="salads">Салаты</option>
+                <option value="side_dishes">Гарниры</option>
+                <option value="pizza">Пицца</option>
+                <option value="burgers">Бургеры</option>
+                <option value="dessert">Десерты</option>
+                <option value="drinks">Напитки</option>
+                <option value="khachapuri">Хачапури</option>
+                <option value="ossetian_pies">Осетинские пироги</option>
+                <option value="sauces">Соусы</option>
+                <option value="dishes_grill">Блюда на мангале</option>
+                <option value="rolls">Роллы</option>
+                <option value="beer_snacks">Пивные закуски</option>
+                <option value="bread">Хлеб</option>
+                <option value="wok">Вок</option>
+
+              </select>
+
+              <button className={s.filter__button} onClick={PoiskCard}>
+                Применить
+              </button>
+
+
+              <button className={s.filter__button} onClick={(event) => throwOff(event)}>
+                Сбросить
+              </button>
+
+            </form>
 
 
 
-        
-        </>
-        
+          </form>
+
+        </div>
+      </section>
+
+      <section className={s.section__mycard} id='menu'>
+        <div className={h.container}>
+          <div className={s.mycard}>
+            {postLoading ? (
+              postCard.map((info, index) => {
+                return (
+                  <Card
+                    {...info}
+                    addBasket={addBasket}
+                    isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
+                    key={index}
+                    isActive={isActive}
+                  />
+                );
+              })
+            ) : (
+              Goods.map((info, index) => {
+                return (
+                  <Card
+                    {...info}
+                    addBasket={addBasket}
+                    isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
+                    key={index}
+                    isActive={isActive}
+                  />
+                );
+              })
+            )}
+          </div>
+        </div>
+      </section>
+
+      <ContentLogo Title='Акции' />
+
+      <section className={s.section__mycard}>
+        <div className={h.container}>
+
+          <div className={s.mycard}>
+
+            {Promotion.map((info, index) => {
+              return <Card {...info}
+
+                addBasket={addBasket} isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive}
+
+              />
+            })}
+
+          </div>
+
+        </div>
+      </section>
 
 
 
-    )
+      <ContentLogo Title='Варианты оплаты' />
+
+      <Payment />
+
+      <ContentLogo Title='Доставка' />
+
+      <Delivery />
+
+      <ContentLogo Title='Отзывы' />
+
+      <Reviews />
+
+
+
+
+    </>
+
+
+
+
+  )
 }

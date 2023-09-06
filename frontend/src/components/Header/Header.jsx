@@ -3,22 +3,22 @@ import { Link, useLocation } from 'react-router-dom'
 import h from './Header.module.scss'
 
 import logo from './img/header__logo.svg'
-import poisk  from './img/nav__poisk.svg'
+import poisk from './img/nav__poisk.svg'
 
-import love  from './img/love.svg'
-import karzina  from './img/karzina.svg'
-import admin  from './img/admin.svg'
+import love from './img/love.svg'
+import karzina from './img/karzina.svg'
+import admin from './img/admin.svg'
 import { useEffect, useState } from 'react'
 
-import admin1  from './img/admin1.svg'
-import admin2  from './img/admin2.svg'
-import admin3  from './img/admin3.svg'
-import admin4  from './img/admin4.svg'
+import admin1 from './img/admin1.svg'
+import admin2 from './img/admin2.svg'
+import admin3 from './img/admin3.svg'
+import admin4 from './img/admin4.svg'
 
-import del  from './img/del.svg'
-import FotoKar  from './img/karFoto.svg'
-import X  from './img/Vector.svg'
-import plus  from './img/plus.svg'
+import del from './img/del.svg'
+import FotoKar from './img/karFoto.svg'
+import X from './img/Vector.svg'
+import plus from './img/plus.svg'
 import location from './img/location.svg'
 import { HashLink } from 'react-router-hash-link';
 import axios from 'axios'
@@ -26,28 +26,28 @@ import { useFavoritesContext } from '../../FavoritesContext'
 import HeaderCard from '../HeaderCard'
 import MyZakazItem from '../MyzakazItem'
 
-export default function Header ({isActive, setIsActive, token}) {
+export default function Header({ isActive, setIsActive, token }) {
 
 
 
-    const [header , setHeader] = useState(false)
+    const [header, setHeader] = useState(false)
 
-    const [adminka , setAdminka] = useState(false)
+    const [adminka, setAdminka] = useState(false)
 
-    const [karzinka , setkarzinka] = useState(false)
+    const [karzinka, setkarzinka] = useState(false)
 
-    const [danniy , setDanniy] = useState(false)
+    const [danniy, setDanniy] = useState(false)
 
-    const [danniyTwo , setDanniyTwo] = useState(false)
+    const [danniyTwo, setDanniyTwo] = useState(false)
 
     const [address, setAddress] = useState(false)
 
     const [changes, setChanges] = useState(false)
 
-    const [ zakaz, setZakaz ] = useState(false)
+    const [zakaz, setZakaz] = useState(false)
 
-    const [ loveOn, setLovaOn ] = useState(false)
-    
+    const [loveOn, setLovaOn] = useState(false)
+
 
 
 
@@ -64,7 +64,7 @@ export default function Header ({isActive, setIsActive, token}) {
         setAddress(false)
         setZakaz(false)
         setLovaOn(false)
-        
+
         setDanniyTwo(false)
     }
 
@@ -80,7 +80,7 @@ export default function Header ({isActive, setIsActive, token}) {
 
     }
 
-      const handleKarzinka = () => {
+    const handleKarzinka = () => {
         setkarzinka(!karzinka)
         setAdminka(false)
         setDanniy(false)
@@ -90,12 +90,12 @@ export default function Header ({isActive, setIsActive, token}) {
         setDanniyTwo(false)
         setLovaOn(false)
 
-      };
+    };
 
 
-      //избранное
+    //избранное
 
-      const handleLove = () => {
+    const handleLove = () => {
         setLovaOn(!loveOn)
 
         setAdminka(false)
@@ -105,50 +105,50 @@ export default function Header ({isActive, setIsActive, token}) {
         setAddress(false)
         setZakaz(false)
         setDanniyTwo(false)
-      }
+    }
 
-      const handleDanniy = () => {
+    const handleDanniy = () => {
         setAdminka(false)
         setDanniyTwo(true)
-      }
+    }
 
-      const handleDanniyPath = () => {
+    const handleDanniyPath = () => {
         setDanniyTwo(false)
         setDanniy(true)
 
-      }
+    }
 
-      const handleAddress = () => {
+    const handleAddress = () => {
         setAdminka(false)
         setAddress(true)
-      }
+    }
 
-      const handleChanges = () => {
+    const handleChanges = () => {
         setAddress(false)
         setChanges(true)
-      }
+    }
 
-      const handleZakaz = () => {
+    const handleZakaz = () => {
         setAdminka(false)
         setZakaz(true)
-      }
+    }
 
-      // кнопка закрыть
-      const handleDanniyExit = () => {
+    // кнопка закрыть
+    const handleDanniyExit = () => {
         setDanniy(false)
         setAddress(false)
         setChanges(false)
         setZakaz(false)
         setAdminka(true)
         setDanniyTwo(false)
-      }
+    }
 
 
 
-    const [HeaderScroll , setHeaderScroll] = useState (false)
+    const [HeaderScroll, setHeaderScroll] = useState(false)
 
     const changeBackground = () => {
-       
+
 
         if (window.scrollY >= 800) {
 
@@ -159,7 +159,7 @@ export default function Header ({isActive, setIsActive, token}) {
             setHeaderScroll(false)
 
         }
-    } 
+    }
 
     useEffect(() => {
 
@@ -167,39 +167,39 @@ export default function Header ({isActive, setIsActive, token}) {
 
         window.addEventListener("scroll", changeBackground)
 
-      })
+    })
 
-      const closeWindowsOnScroll = () => {
-        
+    const closeWindowsOnScroll = () => {
+
         if (window.scrollY >= 800) {
-          setAdminka(false);
-          setkarzinka(false);
-          setDanniy(false)
-          setZakaz(false)
-          setLovaOn(false)
-          setDanniyTwo(false)
-          
+            setAdminka(false);
+            setkarzinka(false);
+            setDanniy(false)
+            setZakaz(false)
+            setLovaOn(false)
+            setDanniyTwo(false)
+
 
         }
-      };
-    
-      useEffect(() => {
+    };
+
+    useEffect(() => {
 
         changeBackground();
-        
+
         window.addEventListener('scroll', changeBackground);
-        window.addEventListener('scroll', closeWindowsOnScroll);   
+        window.addEventListener('scroll', closeWindowsOnScroll);
 
 
         return () => {
 
-          window.removeEventListener('scroll', changeBackground);
-          
-          window.removeEventListener('scroll', closeWindowsOnScroll);
+            window.removeEventListener('scroll', changeBackground);
+
+            window.removeEventListener('scroll', closeWindowsOnScroll);
 
         };
 
-      }, []);
+    }, []);
 
     let scrollWithOffset = (el) => {
 
@@ -207,153 +207,153 @@ export default function Header ({isActive, setIsActive, token}) {
 
         const yOffset = -150;
 
-        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' }); 
+        window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
 
     }
 
-      const locationn = useLocation ()
+    const locationn = useLocation()
 
-      const signOut = () => {
+    const signOut = () => {
         setIsActive(false);
         setAdminka(false);
         localStorage.setItem('isAuthorized', 'false');
         localStorage.setItem('token', '') // Сохраняем состояние в localStorage
-    
-      };
 
-      const [meuser, setMeUser] = useState([])
-  
-      
-  
-      useEffect(() => {
+    };
+
+    const [meuser, setMeUser] = useState([])
+
+
+
+    useEffect(() => {
         // Проверяем наличие токена
         if (tokenTwo) {
-            axios.get('https://tyteda.ru/api/users/me/', {
+            axios.get('http://127.0.0.1:8000/api/users/me/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${tokenTwo}`
                 }
             })
-            .then((res) => {
-                setMeUser(res.data);
-            })
-            .catch((error) => {
-                // Обработка ошибки авторизации
-                console.error("Ошибка при выполнении GET-запроса:", error);
-            });
+                .then((res) => {
+                    setMeUser(res.data);
+                })
+                .catch((error) => {
+                    // Обработка ошибки авторизации
+                    console.error("Ошибка при выполнении GET-запроса:", error);
+                });
         } else {
             // Действия, если нет токена
             console.log("Пользователь не авторизован");
         }
     }, []);
 
-      const [phoneTel, setPhoneTel] = useState('')
+    const [phoneTel, setPhoneTel] = useState('')
 
-      const [firstName, setFirstName] = useState('')
+    const [firstName, setFirstName] = useState('')
 
-      const [lastName, setLastName] = useState('')
+    const [lastName, setLastName] = useState('')
 
-      const [emailPo, setEmailPo] = useState('')
+    const [emailPo, setEmailPo] = useState('')
 
 
-      const PreapUsers = () => {    
-  
-    
-        axios.patch('https://tyteda.ru/api/users/me/', {
+    const PreapUsers = () => {
 
-        email: emailPo,
-        first_name: firstName,
-        last_name: lastName,
-        phone: phoneTel,
-            
+
+        axios.patch('http://127.0.0.1:8000/api/users/me/', {
+
+            email: emailPo,
+            first_name: firstName,
+            last_name: lastName,
+            phone: phoneTel,
+
         },
-        
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'authorization': `Token ${tokenTwo}`
-            }  
 
-        }
-        
-        
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Token ${tokenTwo}`
+                }
+
+            }
+
+
         )
 
-        .then(res => {   
-            window.location.reload()
-            setDanniyTwo(true)
-            // setDanniy(false)
-            
-        })
+            .then(res => {
+                window.location.reload()
+                setDanniyTwo(true)
+                // setDanniy(false)
 
-      }
+            })
 
-      const tokenTwo = localStorage.getItem('token')
+    }
 
-      const { favorites } = useFavoritesContext();
+    const tokenTwo = localStorage.getItem('token')
 
-
-      const [HeaderTovar, setHeaderTovar] = useState([])
-
-      const [titleItem, setTitleItem] = useState('')
+    const { favorites } = useFavoritesContext();
 
 
-      const PoiskItem = (event) => {
-        
+    const [HeaderTovar, setHeaderTovar] = useState([])
+
+    const [titleItem, setTitleItem] = useState('')
+
+
+    const PoiskItem = (event) => {
+
         const inputValue = event.target.value;
 
         setTitleItem(inputValue);
 
         if (inputValue.length === 0) {
-          setShowInfo(false);
+            setShowInfo(false);
 
         } else {
-          setShowInfo(true);
+            setShowInfo(true);
         }
 
         event.preventDefault()
-  
-        axios.get(`https://tyteda.ru/api/goods/?title=${titleItem}`, {
-  
-        // headers: {
-        //     'Content-Type': 'application/json',
-        //     authorization: `Token ${localStorage.getItem('token')}`,
-        // },
-  
-      })
-  
-      .then(res => {
-         setHeaderTovar(res.data.results)
-       })
-  
-      }
 
-      const [showInfo, setShowInfo] = useState(false);
+        axios.get(`http://127.0.0.1:8000/api/goods/?title=${titleItem}`, {
 
-      const [MyZakaz, setMyZakaz] = useState([])
+            // headers: {
+            //     'Content-Type': 'application/json',
+            //     authorization: `Token ${localStorage.getItem('token')}`,
+            // },
 
-      const [MyZakazCard, setMyZakazCard] = useState([])
+        })
 
-      useEffect(() => {
+            .then(res => {
+                setHeaderTovar(res.data.results)
+            })
+
+    }
+
+    const [showInfo, setShowInfo] = useState(false);
+
+    const [MyZakaz, setMyZakaz] = useState([])
+
+    const [MyZakazCard, setMyZakazCard] = useState([])
+
+    useEffect(() => {
         // Проверяем наличие токена
         if (tokenTwo) {
-            axios.get('https://tyteda.ru/api/goods/order_history/', {
+            axios.get('http://127.0.0.1:8000/api/goods/order_history/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${tokenTwo}`
                 }
             })
-            
-            .then((res) => {
 
-                setMyZakaz(res.data);
-                // setMyZakazCard(res.data[0].items)
-        
-               })
-            .catch((error) => {
-                // Обработка ошибки авторизации
-                console.error("Ошибка при выполнении GET-запроса:", error);
-            });
+                .then((res) => {
+
+                    setMyZakaz(res.data);
+                    // setMyZakazCard(res.data[0].items)
+
+                })
+                .catch((error) => {
+                    // Обработка ошибки авторизации
+                    console.error("Ошибка при выполнении GET-запроса:", error);
+                });
         } else {
             // Действия, если нет токена
             console.log("Пользователь не авторизован");
@@ -362,314 +362,314 @@ export default function Header ({isActive, setIsActive, token}) {
 
     return (
 
-    <>
-    
-    {locationn.pathname === "/register" || locationn.pathname === "/login" ?
-    
-        ''
-    
-        :
-    
         <>
-    
-        <header
-        className={ HeaderScroll ? [h.header, h.header_active].join(' ') : [h.header] }
-        >
-            
-            <div className={h.container}>
-            
-            <nav className={h.nav}>
-    
-                <Link to='/'>
-    
-               <img src={logo} alt="svg" className={h.nav__logo} />
-    
-                </Link>
-                
-    
-        
-    
-                <form className={h.nav__form} onChange={PoiskItem}>
 
-                    <img src={poisk} alt="svg" className={h.nav__form_svg} />
+            {locationn.pathname === "/register" || locationn.pathname === "/login" ?
 
-      <input
-        type="text"
-        className={h.nav__form_poisk}
-        placeholder="Наименование блюда"
-        value={titleItem}
-        onChange={(event) => setTitleItem(event.target.value)}
-        // onBlur={() => setShowInfo(false)} 
-      />
+                ''
 
-                    
-                    {showInfo && (
+                :
 
-                    <div className={h.nav__form__info}>
+                <>
 
-                        <div className={h.basketTovar}>
+                    <header
+                        className={HeaderScroll ? [h.header, h.header_active].join(' ') : [h.header]}
+                    >
 
-                        {HeaderTovar.length === 0 ? (
+                        <div className={h.container}>
 
-                            <p className={h.basketTovar__text}>Искать на TYTEDA</p>
+                            <nav className={h.nav}>
 
-                            ) : (
+                                <Link to='/'>
 
-                                HeaderTovar.map((info, index) => {
-                                    return (
-                                        <HeaderCard  setShowInfo={setShowInfo} {...info} key={index} />
-                                    );
-                                })                                
+                                    <img src={logo} alt="svg" className={h.nav__logo} />
 
-                        )}
+                                </Link>
+
+
+
+
+                                <form className={h.nav__form} onChange={PoiskItem}>
+
+                                    <img src={poisk} alt="svg" className={h.nav__form_svg} />
+
+                                    <input
+                                        type="text"
+                                        className={h.nav__form_poisk}
+                                        placeholder="Наименование блюда"
+                                        value={titleItem}
+                                        onChange={(event) => setTitleItem(event.target.value)}
+                                    // onBlur={() => setShowInfo(false)} 
+                                    />
+
+
+                                    {showInfo && (
+
+                                        <div className={h.nav__form__info}>
+
+                                            <div className={h.basketTovar}>
+
+                                                {HeaderTovar.length === 0 ? (
+
+                                                    <p className={h.basketTovar__text}>Искать на TYTEDA</p>
+
+                                                ) : (
+
+                                                    HeaderTovar.map((info, index) => {
+                                                        return (
+                                                            <HeaderCard setShowInfo={setShowInfo} {...info} key={index} />
+                                                        );
+                                                    })
+
+                                                )}
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                    )}
+
+                                </form>
+
+
+
+
+
+                                <div className={h.nav__right}>
+
+                                    <div className={header ? [h.nav__links, h.nav__links_active].join(' ') : [h.nav__links]} >
+
+                                        <Link to='/about' onClick={burgerClose} className={h.nav__links_link}>О нас</Link>
+
+                                        <Link to='/combo' onClick={burgerClose} className={h.nav__links_link}>Комбо-обеды</Link>
+
+                                        <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>Детское меню</Link>
+
+
+
+                                        <HashLink to='/#footer' scroll={scrollWithOffset} onClick={burgerClose} className={h.nav__links_link}
+                                        >
+                                            Контакты
+
+                                        </HashLink>
+
+
+                                    </div>
+
+                                    {!isActive ?
+
+                                        <>
+
+                                            <div className={h.nav__admin}>
+
+                                                <Link to={'/register'} className={h.nav__admin__login}> Регистрация </Link>
+
+                                            </div>
+
+                                            <div onClick={burgerActive} className={header ? [h.burger, h.burger_active_burger].join(' ') : [h.burger]}>
+                                                <span></span>
+                                            </div>
+
+
+                                        </>
+
+                                        :
+
+                                        <div className={h.nav__admin}>
+
+                                            <Link to={'/tovar'} onClick={handleLove} className={h.nav__admin_box} >
+                                                <img src={love} alt="svg" />
+                                            </Link>
+
+
+
+                                            <Link to={'/basket'}
+                                                onClick={handleKarzinka}
+                                                className={!karzinka ? h.nav__admin_box : h.nav__admin_box__active}
+
+                                            >
+                                                <img src={karzina} alt="svg" />
+                                            </Link>
+
+                                            <div onClick={adminkaActive}
+                                                className={!adminka ? h.nav__admin_box : h.nav__admin_box__active}
+
+                                            >
+                                                <img src={admin} alt="svg" />
+                                            </div>
+
+                                            <div onClick={burgerActive} className={header ? [h.burger, h.burger_active_burger].join(' ') : [h.burger]}>
+                                                <span></span>
+                                            </div>
+
+                                        </div>
+
+                                    }
+
+
+                                </div>
+
+
+                            </nav>
+
 
                         </div>
 
+                    </header>
+
+                    <div >
+
+                        <div className={h.container}>
+
+                            <div className={h.user}>
+
+                                <div className={adminka ? [h.nav__user, h.nav__user__active].join(' ') : [h.nav__user]}
+
+                                >
+
+                                    <div className={h.nav__user__admin}>
+                                        <p>Иван Иванов</p>
+                                    </div>
+
+                                    <div className={h.nav__user__nav} onClick={handleDanniy}>
+                                        <img src={admin1} alt="" />
+                                        <p>Мои данные</p>
+                                    </div>
+
+                                    <div className={h.nav__user__nav}
+                                        onClick={handleZakaz}
+                                    >
+                                        <img src={admin3} alt="" />
+                                        <p>Мои заказы</p>
+                                    </div>
+
+                                    <div className={h.nav__user__nav} onClick={signOut}>
+                                        <img src={admin4} alt="" />
+                                        <p>Выйти</p>
+                                    </div>
+
+                                </div>
+
+                                <div className={danniyTwo ? [h.nav__danniyTwo, h.nav__danniyTwo__active].join(' ') : [h.nav__danniyTwo]}>
+
+                                    <div className={h.nav__danniy__header}>
+
+                                        <div className={h.nav__danniy__header__info}>
+
+                                            <img src={admin1} alt="" />
+
+                                            <p className={h.nav__danniy__header__info__title}>
+                                                Мои данные
+                                            </p>
 
 
-                    </div>
+                                        </div>
 
-                    ) }
+                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
-                </form>
+                                    </div>
 
+                                    <div className={h.nav__danniyTwo__info}>
 
-    
-    
-    
-               <div className={h.nav__right}>
-    
-               <div className={ header ? [h.nav__links , h.nav__links_active].join(' ') : [h.nav__links] } >
-                
-                <Link to='/about' onClick={burgerClose} className={h.nav__links_link}>О нас</Link>
-    
-                <Link to='/combo' onClick={burgerClose} className={h.nav__links_link}>Комбо-обеды</Link>
-    
-                <Link to='/kidsmenu' onClick={burgerClose} className={h.nav__links_link}>Детское меню</Link>
-                
-    
-                
-                <HashLink to='/#footer' scroll={scrollWithOffset} onClick={burgerClose} className={h.nav__links_link}
-                >
-                    Контакты
-                    
-                </HashLink>
-    
-    
-               </div>
-    
-               { !isActive ?
+                                        <p className={h.nav__danniyTwo__info__text}>
+                                            Имя: {meuser.first_name}
+                                        </p>
 
-               <>
-               
-               <div className={h.nav__admin}>
-    
-                   <Link to={'/register'} className={h.nav__admin__login}> Регистрация </Link>
-    
-               </div>
-
-               <div onClick={burgerActive} className={ header ? [h.burger , h.burger_active_burger].join(' ') : [h.burger] }>
-                    <span></span>
-                </div>
+                                        <p className={h.nav__danniyTwo__info__text}>
+                                            фамилия: {meuser.last_name}
+                                        </p>
 
 
-               </>
-    
-               :
-    
-               <div className={h.nav__admin}>
-                
-                <Link to={'/tovar'}  onClick={handleLove}  className={ h.nav__admin_box} >
-                    <img src={love} alt="svg" />
-                </Link>
+                                        <p className={h.nav__danniyTwo__info__text}>
+                                            Телефон: {meuser.phone}
+                                        </p>
 
-                 
-    
-                <Link to={'/basket'}
-                onClick={handleKarzinka}
-                className={!karzinka ? h.nav__admin_box : h.nav__admin_box__active }
-                
-                >
-                    <img src={karzina} alt="svg" />
-                </Link>
-    
-                <div onClick={adminkaActive}
-                 className={!adminka ? h.nav__admin_box : h.nav__admin_box__active }
-                 
-                >
-                    <img src={admin} alt="svg" />
-                </div>
-    
-                <div onClick={burgerActive} className={ header ? [h.burger , h.burger_active_burger].join(' ') : [h.burger] }>
-                    <span></span>
-                </div>
-    
-               </div>
-    
-               }
-    
-    
-               </div>
-    
-    
-            </nav>
-    
-    
-            </div>
-            
-        </header>
-    
-    <div >
-    
-        <div className={h.container}>
-    
-            <div className={h.user}>
-    
-        <div className={ adminka ? [h.nav__user , h.nav__user__active].join(' ') : [h.nav__user] }
-    
-        >
-            
-            <div className={h.nav__user__admin}>
-                <p>Иван Иванов</p>
-            </div>
-    
-            <div className={h.nav__user__nav} onClick={handleDanniy}>
-                <img src={admin1} alt="" />
-                <p>Мои данные</p>
-            </div>
-    
-            <div className={h.nav__user__nav}
-            onClick={handleZakaz}
-            >
-                <img src={admin3} alt="" />
-                <p>Мои заказы</p>
-            </div>
-    
-            <div className={h.nav__user__nav} onClick={signOut}>
-                <img src={admin4} alt="" />
-                <p>Выйти</p>
-            </div>           
-    
-        </div>
+                                        <p className={h.nav__danniyTwo__info__text}>
+                                            Почта: {meuser.email}
+                                        </p>
 
-        <div className= { danniyTwo ? [h.nav__danniyTwo , h.nav__danniyTwo__active].join(' ') : [h.nav__danniyTwo] }>
-            
-            <div className={h.nav__danniy__header}>
-                
-                <div className={h.nav__danniy__header__info}>
-    
-                    <img src={admin1} alt="" />
-    
-                    <p className={h.nav__danniy__header__info__title}>
-                    Мои данные
-                    </p>
-    
-                    
-                </div>
-    
-                <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
-    
-            </div>
+                                        <button onClick={handleDanniyPath} className={h.nav__danniy__btn}>
+                                            Изменить
+                                        </button>
 
-            <div className={h.nav__danniyTwo__info}>
-                
-                <p className={h.nav__danniyTwo__info__text}>
-                    Имя: {meuser.first_name}
-                </p>
+                                    </div>
 
-                <p className={h.nav__danniyTwo__info__text}>
-                    фамилия: {meuser.last_name}
-                </p>
+                                </div>
+
+                                <div className={danniy ? [h.nav__danniy, h.nav__danniy__active].join(' ') : [h.nav__danniy]}>
+
+                                    <div className={h.nav__danniy__header}>
+
+                                        <div className={h.nav__danniy__header__info}>
+
+                                            <img src={admin1} alt="" />
+
+                                            <p className={h.nav__danniy__header__info__title}>
+                                                Изменения данных
+                                            </p>
 
 
-                <p className={h.nav__danniyTwo__info__text}>
-                    Телефон: {meuser.phone}
-                </p>
+                                        </div>
 
-                <p className={h.nav__danniyTwo__info__text}>
-                    Почта: {meuser.email}
-                </p>
+                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
-                <button onClick={handleDanniyPath} className={h.nav__danniy__btn}>
-                    Изменить
-                </button>
-
-            </div>
-    
-        </div>
-    
-        <div className= { danniy ? [h.nav__danniy , h.nav__danniy__active].join(' ') : [h.nav__danniy] }>
-            
-            <div className={h.nav__danniy__header}>
-                
-                <div className={h.nav__danniy__header__info}>
-    
-                    <img src={admin1} alt="" />
-    
-                    <p className={h.nav__danniy__header__info__title}>
-                    Изменения данных
-                    </p>
-    
-                    
-                </div>
-    
-                <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
-    
-            </div>
-    
-    
-            <form className={h.nav__danniy__form} onSubmit={PreapUsers}>
-                
-                <label className={h.nav__danniy__form__label}>
-                    
-                    <p className={h.nav__danniy__form__label__text}>
-                    Имя
-                    </p>
-    
-                    <input type="text" className={h.nav__danniy__form__label__input}
-                    placeholder='Иван'
-
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
-
-                    />
-    
-                </label>
+                                    </div>
 
 
-                <label className={h.nav__danniy__form__label}>
-                    
-                    <p className={h.nav__danniy__form__label__text}>
-                    Фамилия
-                    </p>
-    
-                    <input type="text" className={h.nav__danniy__form__label__input}
-                    placeholder='Иванов'
+                                    <form className={h.nav__danniy__form} onSubmit={PreapUsers}>
 
-                    value={lastName}
-                    onChange={(event) => setLastName(event.target.value)}
+                                        <label className={h.nav__danniy__form__label}>
 
-                    />
-    
-                </label>
-    
-                <label className={h.nav__danniy__form__label}>
-                    
-                    <p className={h.nav__danniy__form__label__text}>
-                    Телефон
-                    </p>
-    
-                    <input type="tel" className={h.nav__danniy__form__label__input}
-                    placeholder='+7 (999) 123-45-67'
+                                            <p className={h.nav__danniy__form__label__text}>
+                                                Имя
+                                            </p>
 
-                    value={phoneTel}
-                    onChange={(event) => setPhoneTel(event.target.value)}
-                    
-                    />
-    
-                </label>
-    
-                {/* <label className={h.nav__danniy__form__label}>
+                                            <input type="text" className={h.nav__danniy__form__label__input}
+                                                placeholder='Иван'
+
+                                                value={firstName}
+                                                onChange={(event) => setFirstName(event.target.value)}
+
+                                            />
+
+                                        </label>
+
+
+                                        <label className={h.nav__danniy__form__label}>
+
+                                            <p className={h.nav__danniy__form__label__text}>
+                                                Фамилия
+                                            </p>
+
+                                            <input type="text" className={h.nav__danniy__form__label__input}
+                                                placeholder='Иванов'
+
+                                                value={lastName}
+                                                onChange={(event) => setLastName(event.target.value)}
+
+                                            />
+
+                                        </label>
+
+                                        <label className={h.nav__danniy__form__label}>
+
+                                            <p className={h.nav__danniy__form__label__text}>
+                                                Телефон
+                                            </p>
+
+                                            <input type="tel" className={h.nav__danniy__form__label__input}
+                                                placeholder='+7 (999) 123-45-67'
+
+                                                value={phoneTel}
+                                                onChange={(event) => setPhoneTel(event.target.value)}
+
+                                            />
+
+                                        </label>
+
+                                        {/* <label className={h.nav__danniy__form__label}>
                     
                     <p className={h.nav__danniy__form__label__text}>
                     Почта
@@ -684,145 +684,145 @@ export default function Header ({isActive, setIsActive, token}) {
                     />
     
                 </label> */}
-    
-            </form>
-    
-            <button onClick={PreapUsers} className={h.nav__danniy__btn}>
-            Изменить
-            </button>
-    
-        </div>
-    
-        <div className={ address ? [h.nav__address , h.nav__address__active].join(' ') : [h.nav__address] }>
-    
-        <div className={h.nav__danniy__header}>
-                
-                <div className={h.nav__danniy__header__info}>
-    
-                    <img src={admin2} alt="svg" />
-    
-                    <p className={h.nav__danniy__header__info__title}>
-                    Мои адреса
-                    </p>
-                    
-                </div>
-    
-                <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
-    
-        </div>
-    
-        <div className={h.nav__address__info}>
-    
-            <p className={h.nav__address__info__title}>
-            ул. Реутовских Ополченцев, д.14, кв. 552
-            </p>
-    
-            <img src={del} alt="svg" />
-    
-        </div>
-    
-        <div className={h.nav__address__footer} onClick={handleChanges}>
-    
-            <img src={plus} alt="+" />
-    
-            <p className={h.nav__address__info__title}>
-            Добавить новый адрес
-            </p>
-    
-        </div>
-    
-        </div>
-    
-        <div className={ changes ? [h.nav__changes , h.nav__changes__active].join(' ') : [h.nav__changes] }>
-            
-        <div className={h.nav__danniy__header}>
-                
-                <div className={h.nav__danniy__header__info}>
-    
-                    <img src={admin2} alt="svg" />
-    
-                    <p className={h.nav__danniy__header__info__title}>
-                    Мои адреса
-                    </p>
-                    
-                </div>
-    
-                <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
-    
-        </div>
-    
-        <form className={h.nav__changes__form}>
-    
-            <input type="text" className={h.nav__changes__form__input}
-            placeholder='Адрес'
-            />
-            
-            <div className={h.nav__changes__form__flex}>
-                
-            <input type="number" className={h.nav__changes__form__input}
-            placeholder='Этаж'
-            />
-    
-            <input type="text" className={h.nav__changes__form__input}
-            placeholder='Домофон'
-            />
-    
-            </div>
-    
-            <input type="text" className={h.nav__changes__form__input}
-            placeholder='Комментарий'
-            />
-            
-        </form>
-    
-        <button className={h.nav__danniy__btn}>
-        Сохранить изменения
-        </button>
-    
-        </div>
-    
-        <div className={ zakaz ? [h.nav__zakaz , h.nav__zakaz__active].join(' ') : [h.nav__zakaz] }>
-            
-        <div className={h.nav__danniy__header}>
-                
-                <div className={h.nav__danniy__header__info}>
-    
-                    <img src={admin3} alt="svg" />
-    
-                    <p className={h.nav__danniy__header__info__title}>
-                    Мои заказы
-                    </p>
-                    
-                </div>
-    
-                <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
-    
-        </div>
 
-             { MyZakaz.map((info, index) => {
-                    return (
-                        <MyZakazItem MyZakazCard={MyZakazCard} {...info} key={index} />
-                );
-              })   }
-    
-    
-        </div>
-    
-    
-            </div>
-    
-        </div>
-    
-    </div>
-    
-        
+                                    </form>
+
+                                    <button onClick={PreapUsers} className={h.nav__danniy__btn}>
+                                        Изменить
+                                    </button>
+
+                                </div>
+
+                                <div className={address ? [h.nav__address, h.nav__address__active].join(' ') : [h.nav__address]}>
+
+                                    <div className={h.nav__danniy__header}>
+
+                                        <div className={h.nav__danniy__header__info}>
+
+                                            <img src={admin2} alt="svg" />
+
+                                            <p className={h.nav__danniy__header__info__title}>
+                                                Мои адреса
+                                            </p>
+
+                                        </div>
+
+                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+
+                                    </div>
+
+                                    <div className={h.nav__address__info}>
+
+                                        <p className={h.nav__address__info__title}>
+                                            ул. Реутовских Ополченцев, д.14, кв. 552
+                                        </p>
+
+                                        <img src={del} alt="svg" />
+
+                                    </div>
+
+                                    <div className={h.nav__address__footer} onClick={handleChanges}>
+
+                                        <img src={plus} alt="+" />
+
+                                        <p className={h.nav__address__info__title}>
+                                            Добавить новый адрес
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <div className={changes ? [h.nav__changes, h.nav__changes__active].join(' ') : [h.nav__changes]}>
+
+                                    <div className={h.nav__danniy__header}>
+
+                                        <div className={h.nav__danniy__header__info}>
+
+                                            <img src={admin2} alt="svg" />
+
+                                            <p className={h.nav__danniy__header__info__title}>
+                                                Мои адреса
+                                            </p>
+
+                                        </div>
+
+                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+
+                                    </div>
+
+                                    <form className={h.nav__changes__form}>
+
+                                        <input type="text" className={h.nav__changes__form__input}
+                                            placeholder='Адрес'
+                                        />
+
+                                        <div className={h.nav__changes__form__flex}>
+
+                                            <input type="number" className={h.nav__changes__form__input}
+                                                placeholder='Этаж'
+                                            />
+
+                                            <input type="text" className={h.nav__changes__form__input}
+                                                placeholder='Домофон'
+                                            />
+
+                                        </div>
+
+                                        <input type="text" className={h.nav__changes__form__input}
+                                            placeholder='Комментарий'
+                                        />
+
+                                    </form>
+
+                                    <button className={h.nav__danniy__btn}>
+                                        Сохранить изменения
+                                    </button>
+
+                                </div>
+
+                                <div className={zakaz ? [h.nav__zakaz, h.nav__zakaz__active].join(' ') : [h.nav__zakaz]}>
+
+                                    <div className={h.nav__danniy__header}>
+
+                                        <div className={h.nav__danniy__header__info}>
+
+                                            <img src={admin3} alt="svg" />
+
+                                            <p className={h.nav__danniy__header__info__title}>
+                                                Мои заказы
+                                            </p>
+
+                                        </div>
+
+                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+
+                                    </div>
+
+                                    {MyZakaz.map((info, index) => {
+                                        return (
+                                            <MyZakazItem MyZakazCard={MyZakazCard} {...info} key={index} />
+                                        );
+                                    })}
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </>
+
+            }
+
         </>
-    
-    }
-    
-    </>
 
-        
+
 
 
     )

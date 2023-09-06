@@ -11,6 +11,7 @@ import bgTwo from './img/033.png'
 import { MenuJson } from '../../components/Menu/MenuJSON'
 import MenuCard from '../../components/Menu/MenuCard'
 import { HashLink } from 'react-router-hash-link'
+import ComboObed from '../../components/Content/ComoObed'
 
 
 export default function Combo ({
@@ -181,7 +182,14 @@ export default function Combo ({
                 
             </div>
         </section>
-
+        
+        <section>
+            <div>
+                <ComboObed />
+            </div>
+            
+        </section>
+        
 
         <section className={c.section__reklama}>
             
@@ -216,7 +224,7 @@ export default function Combo ({
             <div className={c.menu}>
 
            {MenuJson.map( (info , index) => {
-            return <MenuCard {...info} key={index} />
+            return <MenuCard {...info} key={index} addBasket={addBasket}/>
            } )}
             
 

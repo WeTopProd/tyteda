@@ -5,7 +5,7 @@ import axios from 'axios';
 import Card from '../../components/Content/Card';
 import ContentLogo from '../../components/Content/ContentLogo';
 
-export default function Tovar ({
+export default function Tovar({
 
   isAddedToCart,
   karzinkaTovar,
@@ -13,70 +13,70 @@ export default function Tovar ({
   isActive
 
 }) {
-    
+
   const [Tovar, setTovar] = useState([]);
 
   useEffect(() => {
 
     if (tokenTwo) {
-  
-      axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
 
-      headers: {
-        'content-type': 'application/json',
-        authorization: `Token ${localStorage.getItem('token')}`,
-      },  
-  
+      axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
+
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Token ${localStorage.getItem('token')}`,
+        },
+
       })
-  
-      .then((res) => {
 
-        setTovar(res.data.results)
+        .then((res) => {
 
-       })
+          setTovar(res.data.results)
 
-     }
-  
+        })
+
+    }
+
   }, [])
 
 
   const tokenTwo = localStorage.getItem('token')
 
 
-    return (
+  return (
 
-        <>        
-        <section className={t.section__tovar}>
+    <>
+      <section className={t.section__tovar}>
 
         <ContentLogo Title='Избранные блюда' />
 
-            <div className={h.container}>
+        <div className={h.container}>
 
-                <div className={t.tovar}> 
-                    
-        {Tovar.length === 0 ? (
+          <div className={t.tovar}>
 
-            <p className={t.tovar__text}>Пока что нет избранных товаров.</p>
+            {Tovar.length === 0 ? (
 
-          ) : (
-            
-            Tovar.map((info, index) => {
-              return <Card {...info} key={index}
+              <p className={t.tovar__text}>Пока что нет избранных товаров.</p>
 
-              addBasket={addBasket} isActive={isActive}  isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} 
-              
-              />;
-            })
+            ) : (
 
-        )}
-                    
-                </div>
+              Tovar.map((info, index) => {
+                return <Card {...info} key={index}
 
-            </div>
-        </section>
+                  addBasket={addBasket} isActive={isActive} isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)}
+
+                />;
+              })
+
+            )}
+
+          </div>
+
+        </div>
+      </section>
 
     </>
 
 
-    )
+  )
 }

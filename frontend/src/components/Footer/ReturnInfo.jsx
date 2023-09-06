@@ -6,8 +6,8 @@ import h from '../Header/Header.module.scss'
 import axios from 'axios'
 
 
-export default function ReturnInfo () {
-    
+export default function ReturnInfo() {
+
     const [uslugi, setuslugi] = useState('')
 
     const [Info, setInfo] = useState('')
@@ -23,128 +23,128 @@ export default function ReturnInfo () {
     }
 
 
-        const HandleVozvrat = (e) => { 
+    const HandleVozvrat = (e) => {
 
-            e.preventDefault()
-            
+        e.preventDefault()
 
-        axios.post('https://tyteda.ru/api/send-email/', {
 
-        date: uslugi,
-        description: Info,
-        num_card: Cart,
-        file: File
-            
+        axios.post('http://127.0.0.1:8000/api/send-email/', {
+
+            date: uslugi,
+            description: Info,
+            num_card: Cart,
+            file: File
+
         },
-        
-        {
-            headers : {
-            'Content-Type': 'application/json , multipart/form-data',
-            authorization: `Token ${tokenTwo}`
-            }            
-        }
-    
+
+            {
+                headers: {
+                    'Content-Type': 'application/json , multipart/form-data',
+                    authorization: `Token ${tokenTwo}`
+                }
+            }
+
         )
 
-        .then(res => {
-            
-            setuslugi('')
+            .then(res => {
 
-            setInfo('')
-        
-            setCart('')
-        
-            setFile('')
+                setuslugi('')
 
-            setTextButton(true)
-        
-        })
-            
-        };
+                setInfo('')
 
-        const tokenTwo = localStorage.getItem('token')
+                setCart('')
 
-  
+                setFile('')
+
+                setTextButton(true)
+
+            })
+
+    };
+
+    const tokenTwo = localStorage.getItem('token')
+
+
 
     return (
 
         <>
-        
-        <section className={o.section__oplata}>
-            <div className={h.container}>
-                
-                <p className={o.oplata__title}>
-                Отказ от товаров и возврат
-                </p>
 
-                <div className={o.return}>
-                    
-                    <form className={o.return__item} onSubmit={HandleVozvrat}>
+            <section className={o.section__oplata}>
+                <div className={h.container}>
 
-                    <p className={o.return__text}>Выберите дату заказа</p>    
+                    <p className={o.oplata__title}>
+                        Отказ от товаров и возврат
+                    </p>
 
-                    <input type="date"
-                    value={uslugi} onChange={(event) => setuslugi(event.target.value)}
-                    className={o.return__data}
-                    
-                    />
-                    
+                    <div className={o.return}>
 
-                        <textarea className={o.return__textarea} placeholder='Опишите с чем связан отказ от заказа '
-                        value={Info} onChange={(event) => setInfo(event.target.value)}
-                        >
+                        <form className={o.return__item} onSubmit={HandleVozvrat}>
 
-                        </textarea>
+                            <p className={o.return__text}>Выберите дату заказа</p>
 
-                        <input type="number" className={o.return__cart} placeholder='Напишите номер карты куда вернуть средства'
-                        
-                        value={Cart} onChange={(event) => setCart(event.target.value)} />
+                            <input type="date"
+                                value={uslugi} onChange={(event) => setuslugi(event.target.value)}
+                                className={o.return__data}
 
-                        <div className={o.return__fileApp}>
-                        <input type="file" className={o.ruturn__file} onChange={fotoUpload} />
-                        </div>
+                            />
 
 
-                        <button className={o.return__btn} onClick={HandleVozvrat}> 
+                            <textarea className={o.return__textarea} placeholder='Опишите с чем связан отказ от заказа '
+                                value={Info} onChange={(event) => setInfo(event.target.value)}
+                            >
 
-                        { textButton ?
+                            </textarea>
 
-                            'Отправлено'
+                            <input type="number" className={o.return__cart} placeholder='Напишите номер карты куда вернуть средства'
 
-                            :
+                                value={Cart} onChange={(event) => setCart(event.target.value)} />
 
-                            "Отправить"
+                            <div className={o.return__fileApp}>
+                                <input type="file" className={o.ruturn__file} onChange={fotoUpload} />
+                            </div>
 
-                        }
 
-                        </button>
+                            <button className={o.return__btn} onClick={HandleVozvrat}>
 
-                    </form>
+                                {textButton ?
 
-                    <ul className={o.return__info}> 
-                        <p>Процедура возврата товара регламентируется статьей 26.1 федерального закона «О защите прав потребителей».
-                        </p><br></br>
-                         <li className={o.return__info__text}><p>
-                         • Потребитель вправе отказаться от товара в любое время до его передачи, а после передачи товара - в течение семи дней;</p></li><br></br>
+                                    'Отправлено'
 
-                         <li className={o.return__info__text}>
-                         • При отказе потребителя от товара продавец должен возвратить ему денежную сумму, уплаченную потребителем по договору, за исключением расходов продавца на доставку от потребителя возвращенного товара, не позднее чем через десять дней со дня предъявления потребителем соответствующего требования;
-                         </li><br></br>
+                                    :
 
-                        <li className={o.return__info__text}>
-                         • Потребитель не вправе отказаться от товара надлежащего качества, имеющего индивидуально-определенные свойства, если указанный товар может быть использован исключительно приобретающим его человеком.
-                        </li>
-                        
-                    </ul>
+                                    "Отправить"
 
+                                }
+
+                            </button>
+
+                        </form>
+
+                        <ul className={o.return__info}>
+                            <p>Процедура возврата товара регламентируется статьей 26.1 федерального закона «О защите прав потребителей».
+                            </p><br></br>
+                            <li className={o.return__info__text}><p>
+                                • Потребитель вправе отказаться от товара в любое время до его передачи, а после передачи товара - в течение семи дней;</p></li><br></br>
+
+                            <li className={o.return__info__text}>
+                                • При отказе потребителя от товара продавец должен возвратить ему денежную сумму, уплаченную потребителем по договору, за исключением расходов продавца на доставку от потребителя возвращенного товара, не позднее чем через десять дней со дня предъявления потребителем соответствующего требования;
+                            </li><br></br>
+
+                            <li className={o.return__info__text}>
+                                • Потребитель не вправе отказаться от товара надлежащего качества, имеющего индивидуально-определенные свойства, если указанный товар может быть использован исключительно приобретающим его человеком.
+                            </li>
+
+                        </ul>
+
+
+                    </div>
 
                 </div>
+            </section>
 
-            </div>
-        </section>
-        
         </>
-        
+
 
     )
 

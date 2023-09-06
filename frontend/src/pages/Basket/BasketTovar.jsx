@@ -26,7 +26,7 @@ export default function BasketTovar({
         };
 
         const response = await axios.patch(
-          `https://tyteda.ru/api/goods/${info.id}/shopping_cart/`,
+          `http://127.0.0.1:8000/api/goods/${info.id}/shopping_cart/`,
           updatedCartItem,
           {
             headers: {
@@ -53,13 +53,13 @@ export default function BasketTovar({
         }
       }
     } catch (error) {
-            
-            if (error.response && error.response.status === 401) {
-              // Ничего не делать или выполнить альтернативные действия
 
-            } else {
-              // Обработка других ошибок
-            }
+      if (error.response && error.response.status === 401) {
+        // Ничего не делать или выполнить альтернативные действия
+
+      } else {
+        // Обработка других ошибок
+      }
     }
   };
 

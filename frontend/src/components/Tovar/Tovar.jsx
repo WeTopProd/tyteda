@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useFavoritesContext } from '../../FavoritesContext';
 import { useHeartContext } from '../ProductContainer';
 
-export default function Tovar ({...info}) {
+export default function Tovar({ ...info }) {
 
     const [imageUrls, setImageUrls] = useState([]);
     const { favorites, setFavorites } = useFavoritesContext();
@@ -20,42 +20,42 @@ export default function Tovar ({...info}) {
     useEffect(() => {
         async function fetchGoods() {
             try {
-                const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+                const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
 
-                headers: {
-                    'content-type': 'application/json',
-                    authorization: `Token ${localStorage.getItem('token')}`,
-                  },
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `Token ${localStorage.getItem('token')}`,
+                    },
 
                 });
                 setImageUrls(res.data.results);
             } catch (err) {
             }
         }
-  
+
         fetchGoods();
-  
+
         // Добавим зависимость heart, чтобы useEffect выполнился при каждом изменении heart
     }, [heart]);
-  
-    async function favoritesDelete(id) { 
+
+    async function favoritesDelete(id) {
         setHeart(!heart);
-  
+
         try {
-            await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
+            await axios.delete(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
                 },
             });
-  
-            const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+
+            const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
                 },
             });
-  
+
             setFavorites(res.data.results);
         } catch (err) {
         }
