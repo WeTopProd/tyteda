@@ -52,14 +52,14 @@ function Footer() {
                 <div className={f.footer__info_item_geo}>
                   <img src={Geol} alt="svg" />
                   <p className={f.footer__info_item_geo_text}>
-                  Московская область, г Реутов, ул Гагарина, д. 40
+                  г. Москва, ул. Сталеваров, д. 14, корпус 1
                   </p>
                 </div>
 
                 <div className={f.footer__info_item_contacts}>
                   <div className={f.footer__info_item_contacts_tel}>
                     <img src={tel} alt="svg" />
-                    <Link to="tel:+7(968)091-55-51">+7(968)091-55-51</Link>
+                    <Link to="tel:+7(495)139-64-44">+7(495)139-64-44</Link>
                   </div>
                 </div>
 
@@ -67,8 +67,8 @@ function Footer() {
                   <img src={Mail} alt="svg" />
                   <Link
                     className={f.footer__info_item_mail_text}
-                    to="mailto:frantsuz-shop.ru">
-                    frantsuz-shop.ru
+                    to="mailto:dostavka@tyteda.ru">
+                    dostavka@tyteda.ru
                   </Link>
                 </div>
 
@@ -200,7 +200,7 @@ function Footer() {
             <p className={f.bottom_right}>
               <Link to={'/policy'}> Политика конфиденциальности</Link>
               <span>Не является публичной офертой</span>
-              <span>©Все права защищены</span>
+              <span>© Все права защищены</span>
             </p>
 
             <p className={f.bottom_center}>Сделано WeTop digital agency 2023</p>

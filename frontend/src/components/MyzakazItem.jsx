@@ -35,7 +35,7 @@ export default function MyZakazItem ({MyZakazCard, ...info}) {
 
         { MyZakazBludo.map((info, index) => {
                     return (
-                        <MyZakazCards {...info} key={index} />
+                    <MyZakazCards {...info} key={index} />
                 );
         })   }
 

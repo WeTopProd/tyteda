@@ -90,9 +90,13 @@ function App() {
   const [comboCard, setComboCard] = useState([])
 
 
+  
+
+
   useEffect(() => {
 
     axios.get('http://127.0.0.1:8000/api/goods/', {
+
 
     })
 
@@ -110,6 +114,7 @@ function App() {
       })
 
   }, []);
+  
 
 
   useEffect(() => {
@@ -186,6 +191,10 @@ function App() {
                 addBasket={addBasket}
 
                 setIsAddedToCart={setIsAddedToCart}
+
+                totalCartPrice={totalCartPrice}
+
+                setTotalCartPrice={setTotalCartPrice}
 
               />} />
 
