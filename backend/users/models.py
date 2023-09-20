@@ -38,6 +38,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
+    delivery_address = models.CharField(
+        max_length=255,
+        verbose_name='Улица доставки',
+        blank=True,
+    )
 
     objects = UserManager()
 
