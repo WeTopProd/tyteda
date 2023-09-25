@@ -9,6 +9,11 @@ from .validators import validate_phone_number
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    delivery_address = models.CharField(
+        max_length=255,
+        verbose_name='Улица доставки',
+        blank=True,
+    )
     email = models.EmailField(
         db_index=True,
         max_length=255,
@@ -38,16 +43,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now_add=True)
-    delivery_address = models.CharField(
-        max_length=255,
-        verbose_name='Улица доставки',
-        blank=True,
-    )
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phone', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['phone', 'first_name', 'last_name', 'delivery_address']
 
     class Meta:
         verbose_name = 'Пользователь'
