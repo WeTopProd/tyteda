@@ -1,5 +1,5 @@
 .section__basket{
-    margin-top: 90px !important;
+    margin-top: 130px !important;
 
     display: flex;
     align-items: center;
@@ -278,6 +278,7 @@
         }
 
         &__formTwo{
+            justify-content: end;
             padding: 80px 30px 60px 30px;
             border: 3px solid rgb(255, 187, 61);
             border-radius: 30px;

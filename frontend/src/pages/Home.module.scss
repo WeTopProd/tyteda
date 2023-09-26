@@ -761,27 +761,35 @@
 }
 .forForm{
     display: grid;
+    padding: 0 10px 0 10px;
     
+}
+.forMobile{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px 0 10px;
 }
 .form{
     display: grid;
-    grid-template-columns: repeat(6,175px);
+    grid-template-columns: repeat(6,12%);
     justify-content: space-around;
     align-items: center;
     background-color: #666666;
     width: 100%;
-    gap: 20px;
+    height: 300px;
+    
+    
 }
 .Form_select {
-    height: 100px;
+    height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 5px;
-    padding: 15px;
+    padding: 5px;
     border-radius: 15px;
+   
 }
 .Form_select:hover{
     background-color: #303030;
@@ -795,5 +803,92 @@
     background: linear-gradient(180deg, rgba(255, 168, 0, 1) 10%, rgba(255, 234, 45, 1) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+@media (min-width: 908px) {
+    .h.bottomContainer {
+        display: block;
+
+    }
+
+    .h.nav__right {
+        display: none;
+
+
+    }
+}
+
+
+@media (max-width: 908px) {
+    .h.bottomContainer {
+        display: none;
+
+    }
+
+    .h.nav__right {
+        display: block;
+
+    }
+    .form{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        height: 100%;
+        width: 100%;
+    }
+    .forMobile {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 10px 0 10px;
+        height: 280px;
+        align-items: center;
+    }
+    .Form_select{
+        width: 105px;
+        height: 40px;
+        padding: 30px;
+        white-space: nowrap;
+        padding: 30px !important;
+        margin: 10px !important;
+        color: #e0e0e0;
+        font-size: 16px;
+        
+    }
+    .Form_select:hover{
+        background: linear-gradient(200deg, rgb(255, 255, 255) 100%, rgb(255, 255, 255) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+    }
     
+    
+    .Form_select:hover {
+        background-color:#666666;
+        box-shadow:none;
+    }
+
+    .gradient_text {
+        background: #e0e0e0;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+.gradient_text:hover{
+    text-align: center;
+    background: linear-gradient(180deg, rgba(255, 168, 0, 1) 10%, rgba(255, 234, 45, 1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
+}
+@media (max-width: 800px) {
+    .Form_select {
+            width: 85px;
+            height: 40px;
+            padding: 30px;
+            white-space: nowrap;
+            padding: 30px !important;
+            margin: 10px !important;
+        }
+
+    .gradient_text{
+        font-size: 12px;
+    }
 }

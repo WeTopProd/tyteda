@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom'
-
+import React, { useRef } from 'react';
 import './index.scss';
 import Header from './components/Header/Header';
 import Home from './pages/Home';
@@ -23,280 +23,352 @@ import OplataInfo from './components/Footer/OplataInfo';
 import ReturnInfo from './components/Footer/ReturnInfo';
 import Konfidi from './components/Footer/Konfidi';
 import ProtectedPage from './ProtectedPage';
+import * as Scroll from 'react-scroll';
+import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 
 function App() {
 
+	var scroll = Scroll.scroller;
+	const [isActive, setIsActive] = useState(false)
 
+	useEffect(() => {
 
-  const [isActive, setIsActive] = useState(false)
+		// При монтировании компонента проверяем, есть ли данные об авторизации в localStorage
+		const isUserAuthorized = localStorage.getItem('isAuthorized') === 'true';
+		setIsActive(isUserAuthorized);
 
-  useEffect(() => {
+	}, []);
 
-    // При монтировании компонента проверяем, есть ли данные об авторизации в localStorage
-    const isUserAuthorized = localStorage.getItem('isAuthorized') === 'true';
-    setIsActive(isUserAuthorized);
+	const [token, setToken] = useState('')
 
-  }, []);
+	const [isAddedToCart, setIsAddedToCart] = useState();
 
-  const [token, setToken] = useState('')
+	const [karzinkaTovar, setkarzinkaTovar] = useState([]);
+	
+	const [address, setAddress] = useState('')
 
-  const [isAddedToCart, setIsAddedToCart] = useState();
 
-  const [karzinkaTovar, setkarzinkaTovar] = useState([]);
+	async function addBasket(id) {
 
+		if (!karzinkaTovar.some((item) => item.id === id)) {
 
-  async function addBasket(id) {
+			try {
+				await axios.post(
 
-    if (!karzinkaTovar.some((item) => item.id === id)) {
+					`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`,
+					null,
 
-      try {
-        await axios.post(
+					{
+						headers: {
+							'content-type': 'application/json',
+							authorization: `Token ${tokenTwo}`,
+						},
+					}
 
-          `http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`,
-          null,
+				);
 
-          {
-            headers: {
-              'content-type': 'application/json',
-              authorization: `Token ${tokenTwo}`,
-            },
-          }
+				// ... (другая логика)
+			} catch (error) {
 
-        );
+			}
+		}
 
-        // ... (другая логика)
-      } catch (error) {
+		axios
+			.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+				headers: {
+					'Content-Type': 'application/json , multipart/form-data',
+					authorization: `Token ${tokenTwo}`,
+				},
+			})
 
-      }
-    }
+			.then((res) => {
+				if (Array.isArray(res.data.results)) {
+					setkarzinkaTovar(res.data.results);
+				}
+			})
+	}
 
-    axios
-      .get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
-        headers: {
-          'Content-Type': 'application/json , multipart/form-data',
-          authorization: `Token ${tokenTwo}`,
-        },
-      })
+	const [Goods, setGoods] = useState([])
 
-      .then((res) => {
-        if (Array.isArray(res.data.results)) {
-          setkarzinkaTovar(res.data.results);
-        }
-      })
-  }
+	const [comboCard, setComboCard] = useState([])
 
-  const [Goods, setGoods] = useState([])
 
-  const [comboCard, setComboCard] = useState([])
 
 
-  
 
+	useEffect(() => {
 
-  useEffect(() => {
+		axios.get('http://127.0.0.1:8000/api/goods/', {
 
-    axios.get('http://127.0.0.1:8000/api/goods/', {
 
+		})
 
-    })
+			.then((res) => {
 
-      .then((res) => {
+				const nonComboItems = res.data.results.filter(item => !item.title.startsWith("Комбо"));
 
-        const nonComboItems = res.data.results.filter(item => !item.title.startsWith("Комбо"));
+				const comboItems = res.data.results.filter(item => item.title.startsWith("Комбо"));
 
-        const comboItems = res.data.results.filter(item => item.title.startsWith("Комбо"));
+				const reversedComboItems = comboItems.reverse();
 
-        const reversedComboItems = comboItems.reverse();
+				setComboCard(reversedComboItems);
 
-        setComboCard(reversedComboItems);
+				setGoods(nonComboItems);
+			})
 
-        setGoods(nonComboItems);
-      })
+	}, []);
 
-  }, []);
-  
 
 
-  useEffect(() => {
+	useEffect(() => {
 
-    if (tokenTwo) {
+		if (tokenTwo) {
 
-      axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+			axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
 
-        headers: {
-          'content-type': 'application/json',
-          authorization: `Token ${localStorage.getItem('token')}`,
-        },
+				headers: {
+					'content-type': 'application/json',
+					authorization: `Token ${localStorage.getItem('token')}`,
+				},
 
-      })
+			})
 
-        .then((res) => {
+				.then((res) => {
 
-          if (Array.isArray(res.data.results)) {
-            setkarzinkaTovar(res.data.results);
-          }
+					if (Array.isArray(res.data.results)) {
+						setkarzinkaTovar(res.data.results);
+					}
 
-        })
+				})
 
-    }
+		}
 
-  }, [])
+	}, [])
 
-  const [totalCartPrice, setTotalCartPrice] = useState(0);
+	const [totalCartPrice, setTotalCartPrice] = useState(0);
 
-  const params = useParams()
+	const params = useParams()
 
-  const tokenTwo = localStorage.getItem('token')
+	const tokenTwo = localStorage.getItem('token')
 
-  return (
 
-    <BrowserRouter>
+	const [postCard, SetPostCard] = useState([])
 
-      <FavoritesProvider>
+	const [postLoading, setPostLoading] = useState(false)
 
-        <HeartProvider>
+	const [poiskvalue, setPoiskvalue] = useState('')
 
-          <div className="App">
+	const handlePoiskCard = (searchValue1, searchValue2) => {
 
-            <ScrollToTop />
+		scroll.scrollTo('menu', {
+			duration: 600,
+			delay: 100,
+			smooth: true,
+			offset: -300,
+		});
 
-            <Header token={token} isActive={isActive} setIsActive={setIsActive} />
+		axios.get(`http://127.0.0.1:8000/api/goods/?type=${searchValue1}`)
+			.then(response1 => {
 
-            <Routes>
+				console.log(`Response for ${searchValue1}:`, response1.data);
 
-              <Route path='/' element={<Home
+				SetPostCard(response1.data);
 
-                isAddedToCart={isAddedToCart}
+				if (searchValue2) {
+					axios.get(`http://127.0.0.1:8000/api/goods/?type=${searchValue2}`)
+						.then(response2 => {
+							console.log(`Response for ${searchValue2}:`, response2.data);
+							const combinedData = [...response1.data, ...response2.data];
+							SetPostCard(combinedData);
+							setPostLoading(true);
+						})
+						.catch(error => {
+							console.error(`Error for ${searchValue2}:`, error);
+							setPostLoading(true);
+						});
+				} else {
+					setPostLoading(true);
+				}
+			})
+			.catch(error => {
 
-                karzinkaTovar={karzinkaTovar}
+				console.error(`Error for ${searchValue1}:`, error);
 
-                addBasket={addBasket}
+				setPostLoading(true);
+			});
+	};
+	// console.log(postCard, 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+	
+	
 
-                setIsAddedToCart={setIsAddedToCart}
 
-                Goods={Goods}
+	return (
 
-                isActive={isActive}
+		<BrowserRouter>
 
-              />} />
+			<FavoritesProvider>
 
-              <Route path='/combo' element={<Combo
+				<HeartProvider>
 
-                comboCard={comboCard}
+					<div className="App">
 
-                isAddedToCart={isAddedToCart}
+						<ScrollToTop />
 
-                karzinkaTovar={karzinkaTovar}
+						<Header token={token} isActive={isActive} setIsActive={setIsActive} handlePoiskCard={handlePoiskCard} address={address} setAddress={setAddress}
+						/>
 
-                addBasket={addBasket}
+						<Routes>
 
-                setIsAddedToCart={setIsAddedToCart}
+							<Route path='/' element={<Home
 
-                totalCartPrice={totalCartPrice}
+								isAddedToCart={isAddedToCart}
 
-                setTotalCartPrice={setTotalCartPrice}
+								karzinkaTovar={karzinkaTovar}
 
-              />} />
+								addBasket={addBasket}
 
-              <Route path='/about' element={<About />} />
+								setIsAddedToCart={setIsAddedToCart}
 
-              <Route path='/kidsmenu' element={<KidsMenu
+								Goods={Goods}
 
-                isAddedToCart={isAddedToCart}
+								isActive={isActive}
 
-                karzinkaTovar={karzinkaTovar}
+								setComboCard={setComboCard}
 
-                addBasket={addBasket}
+								postCard={postCard}
 
-                setIsAddedToCart={setIsAddedToCart}
+								SetPostCard={SetPostCard}
 
-              />} />
+								postLoading={postLoading}
 
-              <Route
-                path="/intercard/:userId"
-                element={
-                  <InterCard
+								setPostLoading={setPostLoading}
 
-                    Goods={Goods}
-                    isActive={isActive}
-                    isAddedToCart={karzinkaTovar.some((item) => item.id === +params.userId)}
+								poiskvalue={poiskvalue}
 
-                    karzinkaTovar={karzinkaTovar}
-                    addBasket={addBasket}
-                    setIsAddedToCart={setIsAddedToCart}
-                  />
-                }
-              />
+								setPoiskvalue={setPoiskvalue}
 
+								handlePoiskCard={handlePoiskCard}
 
+							/>} />
 
-              <Route path='/basket' element={<Basket
+							<Route path='/combo' element={<Combo
 
-                isAddedToCart={isAddedToCart}
+								comboCard={comboCard}
 
-                setIsAddedToCart={setIsAddedToCart}
+								isAddedToCart={isAddedToCart}
 
-                karzinkaTovar={karzinkaTovar}
+								karzinkaTovar={karzinkaTovar}
 
-                setkarzinkaTovar={setkarzinkaTovar}
+								addBasket={addBasket}
 
-                addBasket={addBasket}
+								setIsAddedToCart={setIsAddedToCart}
 
-                Goods={Goods}
+								totalCartPrice={totalCartPrice}
 
-                totalCartPrice={totalCartPrice}
+								setTotalCartPrice={setTotalCartPrice}
 
-                setTotalCartPrice={setTotalCartPrice}
+							/>} />
 
-                isActive={isActive}
+							<Route path='/about' element={<About />} />
 
+							<Route path='/kidsmenu' element={<KidsMenu
 
-              />} />
+								isAddedToCart={isAddedToCart}
 
-              <Route path='/tovar' element={<Tovar
+								karzinkaTovar={karzinkaTovar}
 
-                isAddedToCart={isAddedToCart}
+								addBasket={addBasket}
 
-                karzinkaTovar={karzinkaTovar}
+								setIsAddedToCart={setIsAddedToCart}
 
-                addBasket={addBasket}
-                isActive={isActive}
+							/>} />
 
+							<Route
+								path="/intercard/:userId"
+								element={
+									<InterCard
 
-              />} />
+										Goods={Goods}
+										isActive={isActive}
+										isAddedToCart={karzinkaTovar.some((item) => item.id === +params.userId)}
 
-              <Route path='/oplataprav' element={<OplataPrav />} />
+										karzinkaTovar={karzinkaTovar}
+										addBasket={addBasket}
+										setIsAddedToCart={setIsAddedToCart}
+									/>
+								}
+							/>
 
-              <Route path='/oplatainfo' element={<OplataInfo />} />
 
-              <Route path='/returninfo' element={<ReturnInfo />} />
 
-              <Route path='/policy' element={<Konfidi />} />
+							<Route path='/basket' element={<Basket
 
+								isAddedToCart={isAddedToCart}
 
+								setIsAddedToCart={setIsAddedToCart}
 
+								karzinkaTovar={karzinkaTovar}
 
-              <Route path='/register' element={<Reg />} />
+								setkarzinkaTovar={setkarzinkaTovar}
 
-              <Route path='/login' element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
+								addBasket={addBasket}
 
-            </Routes>
+								Goods={Goods}
 
-            <Footer />
+								totalCartPrice={totalCartPrice}
 
+								setTotalCartPrice={setTotalCartPrice}
 
+								isActive={isActive}
+								address={address} setAddress={setAddress}
 
-          </div>
 
-        </HeartProvider>
+							/>} />
 
-      </FavoritesProvider>
+							<Route path='/tovar' element={<Tovar
 
-    </BrowserRouter>
+								isAddedToCart={isAddedToCart}
 
+								karzinkaTovar={karzinkaTovar}
 
+								addBasket={addBasket}
+								isActive={isActive}
 
-  );
+
+							/>} />
+
+							<Route path='/oplataprav' element={<OplataPrav />} />
+
+							<Route path='/oplatainfo' element={<OplataInfo />} />
+
+							<Route path='/returninfo' element={<ReturnInfo />} />
+
+							<Route path='/policy' element={<Konfidi />} />
+
+
+
+
+							<Route path='/register' element={<Reg />} />
+
+							<Route path='/login' element={<Login setToken={setToken} setIsActive={setIsActive} token={token} />} />
+
+						</Routes>
+
+						<Footer />
+
+
+
+					</div>
+
+				</HeartProvider>
+
+			</FavoritesProvider>
+
+		</BrowserRouter>
+
+
+
+	);
 
 }
 

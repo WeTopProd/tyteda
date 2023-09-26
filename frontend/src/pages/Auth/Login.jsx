@@ -1,7 +1,7 @@
 import r from './Reg.module.scss'
 import h from '../../components/Header/Header.module.scss'
 import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
@@ -17,6 +17,8 @@ export default function Login({ setToken, setIsActive, token }) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const [modal, setmodal] = useState(false)
+
+    const [error, setError] = useState(null);
 
     const Login = (e) => {
 
@@ -49,15 +51,22 @@ export default function Login({ setToken, setIsActive, token }) {
                 setToken(res.data.auth_token)
                 localStorage.setItem('token', res.data.auth_token);
                 window.location.reload()
-
+                
+            
             })
 
             .catch(err => {
 
-                err.message === 'Request failed with status code 400' ? setmodal(true) : setmodal(false)
 
+                if (err.response.status === 400) {
+                    setError(err.response.data.message);
+                } else {
+                    setError(err.response.data.message);
+                }
+                setmodal(false);
+                console.log(err,'hhhhhhhhhhhhhhhhhhhhhhhh')
             })
-
+        
     }
 
 
@@ -100,6 +109,7 @@ export default function Login({ setToken, setIsActive, token }) {
                             onChange={(event) => setPassword(event.target.value)}
 
                         />
+                        {error && <p style={{color:'red'}}>{error}</p>}
 
                     </div>
 

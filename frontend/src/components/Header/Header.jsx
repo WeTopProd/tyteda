@@ -10,6 +10,7 @@ import karzina from './img/karzina.svg'
 import admin from './img/admin.svg'
 import { useEffect, useState } from 'react'
 
+
 import admin1 from './img/admin1.svg'
 import admin2 from './img/admin2.svg'
 import admin3 from './img/admin3.svg'
@@ -25,8 +26,11 @@ import axios from 'axios'
 import { useFavoritesContext } from '../../FavoritesContext'
 import HeaderCard from '../HeaderCard'
 import MyZakazItem from '../MyzakazItem'
+import { ChevronDownCircle } from 'lucide-react';
+import Select from 'react-select';
+import './Select.moduls.scss'; //
 
-export default function Header({ isActive, setIsActive, token }) {
+export default function Header({ isActive, setIsActive, token, handlePoiskCard, address, setAddress }) {
 
 
 
@@ -40,7 +44,6 @@ export default function Header({ isActive, setIsActive, token }) {
 
     const [danniyTwo, setDanniyTwo] = useState(false)
 
-    const [address, setAddress] = useState(false)
 
     const [changes, setChanges] = useState(false)
 
@@ -50,46 +53,26 @@ export default function Header({ isActive, setIsActive, token }) {
 
 
 
-
     const burgerActive = () => {
         setHeader(!header)
     }
 
     const burgerClose = () => {
         setHeader(false)
-        setAdminka(false)
-        setkarzinka(false)
-        setDanniy(false)
-        setChanges(false)
-        setAddress(false)
-        setZakaz(false)
-        setLovaOn(false)
+        
 
         setDanniyTwo(false)
     }
 
     const adminkaActive = () => {
         setAdminka(!adminka)
-        setkarzinka(false)
-        setDanniy(false)
-        setChanges(false)
-        setAddress(false)
-        setZakaz(false)
-        setDanniyTwo(false)
-        setLovaOn(false)
+        
 
     }
 
     const handleKarzinka = () => {
-        setkarzinka(!karzinka)
-        setAdminka(false)
-        setDanniy(false)
-        setChanges(false)
-        setAddress(false)
-        setZakaz(false)
-        setDanniyTwo(false)
-        setLovaOn(false)
-
+        setkarzinka(prev => !prev)
+        
     };
 
 
@@ -98,13 +81,7 @@ export default function Header({ isActive, setIsActive, token }) {
     const handleLove = () => {
         setLovaOn(!loveOn)
 
-        setAdminka(false)
-        setkarzinka(false)
-        setDanniy(false)
-        setChanges(false)
-        setAddress(false)
-        setZakaz(false)
-        setDanniyTwo(false)
+       
     }
 
     const handleDanniy = () => {
@@ -118,13 +95,8 @@ export default function Header({ isActive, setIsActive, token }) {
 
     }
 
-    const handleAddress = () => {
-        setAdminka(false)
-        setAddress(true)
-    }
-
+   
     const handleChanges = () => {
-        setAddress(false)
         setChanges(true)
     }
 
@@ -133,14 +105,15 @@ export default function Header({ isActive, setIsActive, token }) {
         setZakaz(true)
     }
 
+    const [togglerPersonalInfo, setTogglerPersonalInfo] = useState(false)
     // кнопка закрыть
     const handleDanniyExit = () => {
         setDanniy(false)
-        setAddress(false)
         setChanges(false)
         setZakaz(false)
         setAdminka(true)
         setDanniyTwo(false)
+        setTogglerPersonalInfo(false)
     }
 
 
@@ -335,7 +308,7 @@ export default function Header({ isActive, setIsActive, token }) {
     const [MyZakazCard, setMyZakazCard] = useState([])
 
     useEffect(() => {
-        // Проверяем наличие токена
+
         if (tokenTwo) {
             axios.get('http://127.0.0.1:8000/api/goods/order_history/', {
                 headers: {
@@ -347,18 +320,106 @@ export default function Header({ isActive, setIsActive, token }) {
                 .then((res) => {
 
                     setMyZakaz(res.data);
-                    // setMyZakazCard(res.data[0].items)
+
 
                 })
                 .catch((error) => {
-                    // Обработка ошибки авторизации
+
                     console.error("Ошибка при выполнении GET-запроса:", error);
                 });
         } else {
-            // Действия, если нет токена
+
             console.log("Пользователь не авторизован");
         }
     }, []);
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 930);
+
+    const [isMobilee, setIsMobilee] = useState(window.innerWidth <= 567);
+
+    useEffect(() => {
+
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 930);
+        };
+
+
+        window.addEventListener('resize', handleResize);
+
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const handleResize = () => {
+        setIsMobilee(window.innerWidth <= 567);
+    };
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const options = [
+        // { label: 'Десерты', eng: 'dessert', action: () => handlehandler(options[0].label) } для себя,
+        { label: 'Десерты', eng: 'dessert', action: () => handlePoiskCard(options[0].eng) },
+        { label: 'Напитки', eng: 'drinks', action: () => handlePoiskCard(options[1].eng) },
+        { label: 'Хачапури ', eng: 'khachapuri', action: () => handlePoiskCard(options[2].eng) },
+        { label: 'Осетинские пироги ', eng: 'ossetian_pies', action: () => handlePoiskCard(options[3].eng) },
+        { label: 'Блюда на мангале ', eng: 'dishes_grill', action: () => handlePoiskCard(options[4].eng) },
+        { label: 'Роллы', eng: 'rolls', action: () => handlePoiskCard(options[5].eng) },
+        { label: 'Пивные закуски', eng: 'beer_snacks', action: () => handlePoiskCard(options[6].eng) },
+        { label: 'Хлеб', eng: 'bread', action: () => handlePoiskCard(options[7].eng) },
+        { label: 'Вок', eng: 'wok', action: () => handlePoiskCard(options[8].eng) },
+    ];
+
+    // function handlehandler (label){
+    //  const eng = options.map(el => el.label == label ? el.eng:null)
+    //     handlePoiskCard(eng)
+    // } для себя
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleSelectOption = (option) => {
+        setSelectedOption(option);
+        option.action(); // Выполнение выбранной функции
+        setIsOpen(false);
+    };
+
+    const handleCall = () => {
+        window.location.href = '+74951396444';
+    };
+
+    const [deliveryAddress, setDeliveryAddress] = useState(null);
+
+    
+
+
+
+    // 
+
+    const fetchDeliveryAddress = async () => {
+        try {
+
+            const response = await axios.get('http://127.0.0.1:8000/api/users/me/', {
+                headers: {
+                    'Authorization': `Token ${tokenTwo}`
+                }
+            });
+            // Получение адреса доставки из сервера
+            const address = response.data.delivery_address;
+            
+
+        } catch (error) {
+            console.error('Ошибка запроса', error);
+            
+        }
+    };
+
+    useEffect(() => {
+        fetchDeliveryAddress()
+    },[]);
 
     return (
 
@@ -385,22 +446,37 @@ export default function Header({ isActive, setIsActive, token }) {
                                     <img src={logo} alt="svg" className={h.nav__logo} />
 
                                 </Link>
+                                <div style={{display:'flex'}}>
+                                    <svg className={h.sssvg}  width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M4.42041 3.81944C5.11277 3.1718 5.93625 2.65769 6.84346 2.3067C7.75067 1.9557 8.72369 1.77476 9.70652 1.77428C11.6881 1.77428 13.5899 2.50903 14.9926 3.81944C16.3974 5.1334 17.1853 6.90999 17.1842 8.76137C17.1842 11.9584 15.2749 14.8523 13.2858 16.9889C12.4476 17.8849 11.5389 18.7218 10.5671 19.4928C10.0627 19.8945 9.35058 19.8942 8.84596 19.4928C7.87416 18.7218 6.9654 17.8849 6.1272 16.9889C4.13813 14.8523 2.22883 11.9584 2.22883 8.76137C2.22883 6.90713 3.01772 5.12984 4.42041 3.81944ZM9.34759 21.339C9.52794 21.1014 9.88509 21.1014 10.0654 21.339C9.96033 21.4075 9.83498 21.4443 9.70652 21.4443C9.57805 21.4443 9.45271 21.4075 9.34759 21.339ZM9.34759 21.339C9.52794 21.1014 9.88509 21.1014 10.0654 21.339L10.0679 21.3378L10.0742 21.3337L10.0929 21.3204L10.1664 21.2713C10.2287 21.2284 10.3197 21.166 10.4343 21.0838C10.6637 20.9207 10.9889 20.6806 11.3772 20.3722C12.3962 19.5635 13.3492 18.6855 14.228 17.7456C16.2894 15.5321 18.4305 12.3727 18.4305 8.76079C18.4305 6.60282 17.512 4.53163 15.8769 3.00427C15.0687 2.24833 14.1074 1.64826 13.0485 1.23859C11.9895 0.828916 10.8537 0.61773 9.70652 0.617188C8.55935 0.617655 7.4236 0.828749 6.36464 1.23832C5.30568 1.64789 4.34442 2.24786 3.53618 3.00369C1.89945 4.53454 0.981445 6.60437 0.982545 8.76137C0.982545 12.3727 3.12366 15.5321 5.18501 17.7456C6.06387 18.6855 7.01678 19.5635 8.03588 20.3722C8.42472 20.6806 8.74937 20.9207 8.97869 21.0838C9.09116 21.1643 9.20479 21.2434 9.31954 21.321L9.33949 21.3337L9.34287 21.3362C9.34435 21.3373 9.34593 21.3382 9.34759 21.339ZM7.21395 8.71682C7.21395 8.10306 7.47656 7.51444 7.94401 7.08045C8.41145 6.64646 9.04545 6.40264 9.70652 6.40264C10.3676 6.40264 11.0016 6.64646 11.469 7.08045C11.9365 7.51444 12.1991 8.10306 12.1991 8.71682C12.1991 9.33058 11.9365 9.9192 11.469 10.3532C11.0016 10.7872 10.3676 11.031 9.70652 11.031C9.04545 11.031 8.41145 10.7872 7.94401 10.3532C7.47656 9.9192 7.21395 9.33058 7.21395 8.71682ZM9.70652 5.24555C8.71491 5.24555 7.76392 5.61127 7.06275 6.26226C6.36158 6.91325 5.96767 7.79619 5.96767 8.71682C5.96767 9.63746 6.36158 10.5204 7.06275 11.1714C7.76392 11.8224 8.71491 12.1881 9.70652 12.1881C10.6981 12.1881 11.6491 11.8224 12.3503 11.1714C13.0514 10.5204 13.4454 9.63746 13.4454 8.71682C13.4454 7.79619 13.0514 6.91325 12.3503 6.26226C11.6491 5.61127 10.6981 5.24555 9.70652 5.24555Z" fill="#303030" />
+                                    </svg>
 
-
-
+                                    <input
+                                        type='text'
+                                        placeholder='Реутовских Ополченцев д 14, кв. 551'
+                                        className={h.address__form__input}
+                                        value={address} onChange={(e) => setAddress(e.target.value)}
+                                    />
+                                </div>
 
                                 <form className={h.nav__form} onChange={PoiskItem}>
 
-                                    <img src={poisk} alt="svg" className={h.nav__form_svg} />
 
-                                    <input
-                                        type="text"
-                                        className={h.nav__form_poisk}
-                                        placeholder="Наименование блюда"
-                                        value={titleItem}
-                                        onChange={(event) => setTitleItem(event.target.value)}
-                                    // onBlur={() => setShowInfo(false)} 
-                                    />
+
+                                    <div className={h.address__form}>
+
+                                        
+
+                                        <img src={poisk} alt="svg" className={h.nav__form_svg} />
+                                        <input
+                                            type="text"
+                                            className={h.nav__form_poisk}
+                                            placeholder="Блюда"
+                                            value={titleItem}
+                                            onChange={(event) => setTitleItem(event.target.value)}
+                                        // onBlur={() => setShowInfo(false)} 
+                                        />
+                                    </div>
 
 
                                     {showInfo && (
@@ -517,6 +593,106 @@ export default function Header({ isActive, setIsActive, token }) {
 
                         </div>
 
+                        <div className={isMobile ? 'h.nav__right' : 'h.bottomContainer'}>
+                            {isMobile ? (
+                                /* тут рендер телефона */
+                                <div className="h.nav__right">
+                                    <div className={h.nav__rightt}>
+
+                                        <div className={h.mobail_menu} onClick={() => handlePoiskCard('')}>
+                                            <p>Меню</p>
+                                        </div>
+
+                                        <div className={h.Box_mobail} >
+
+                                            <Link to='/about' onClick={burgerClose} style={{ color: '#D9D9D9', fontSize: '18px', whiteSpace: 'nowrap' }} className={h.nav__links_link}>О нас</Link>
+
+                                            <Link to='/combo' onClick={burgerClose} style={{ color: '#D9D9D9', fontSize: '18px', whiteSpace: 'nowrap' }} className={h.nav__links_link}>Комбо-обеды</Link>
+
+                                            <Link to='/kidsmenu' onClick={burgerClose} style={{ color: '#D9D9D9', fontSize: '18px', whiteSpace: 'nowrap' }} className={h.nav__links_link}>Детское меню</Link>
+
+
+
+                                            <HashLink to='/#footer' scroll={scrollWithOffset} style={{ color: '#D9D9D9', fontSize: '18px', whiteSpace: 'nowrap' }} onClick={burgerClose} className={h.nav__links_link}
+                                            >
+                                                Контакты
+
+                                            </HashLink>
+
+
+                                        </div>
+                                        <div className={h.mobail_icon} >
+                                            <form className={h.search} onChange={PoiskItem}>
+
+                                                <img src={poisk} alt="svg" className={h.nav__form_svg} />
+
+                                                <input
+                                                    type="text"
+                                                    className={h.nav__form_poisk}
+                                                    placeholder=" Блюда"
+                                                    value={titleItem}
+                                                    onChange={(event) => setTitleItem(event.target.value)}
+                                                // onBlur={() => setShowInfo(false)} 
+                                                />
+
+                                            </form>
+
+                                            <svg className={h.bottomContainer__phone__svg} onClick={handleCall} width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.04709 18C0.747923 18 0.498615 17.9 0.299169 17.7C0.0997229 17.5 0 17.25 0 16.95V12.9C0 12.6667 0.0747921 12.4623 0.224377 12.287C0.373961 12.1117 0.565097 11.9993 0.797784 11.95L4.23823 11.25C4.47091 11.2167 4.70792 11.2377 4.94925 11.313C5.19058 11.3883 5.38571 11.5007 5.53463 11.65L7.87812 14C9.14127 13.2333 10.2964 12.325 11.3435 11.275C12.3906 10.225 13.2632 9.1 13.9612 7.9L11.5679 5.45C11.4183 5.3 11.3225 5.129 11.2807 4.937C11.2388 4.745 11.2348 4.53267 11.2687 4.3L11.9169 0.8C11.9501 0.566667 12.0582 0.375 12.241 0.225C12.4238 0.0749999 12.6316 0 12.8643 0H16.903C17.2022 0 17.4515 0.0999999 17.651 0.3C17.8504 0.5 17.9501 0.75 17.9501 1.05C17.9501 3.2 17.4721 5.296 16.5161 7.338C15.5601 9.38 14.297 11.1883 12.7266 12.763C11.1563 14.3377 9.35302 15.6043 7.31668 16.563C5.28033 17.5217 3.19047 18.0007 1.04709 18Z" fill="white" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                /* тут рендер десктопа */
+                                <div className="h.bottomContainer">
+                                    <div className={h.bottomContainer}>
+                                        <div style={{ display: "flex", gap: '2%', width: '100%', justifyContent: 'space-between' }}>
+                                            <div className={h.bottomContainer__boxText}>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('hot_dishes')}>Горячие блюда
+
+                                                </p>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('first_dish')}>Супы
+                                                </p>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('paste')}>Паста</p>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('hot_snacks', 'cold_snacks')}>Закуски</p>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('salads')}>Салаты</p>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('pizza')}>Пицца</p>
+                                                <p className={h.bottomContainer__boxText__text} onClick={() => handlePoiskCard('burgers')}>Бургеры</p>
+                                                <div className={`dropdown-container ${isOpen ? 'open' : ''}`}>
+                                                    <div className="dropdown-header" onClick={toggleDropdown}>
+                                                        {/* {selectedOption ? selectedOption.label : 'Другое '} */}
+                                                        {'Другое'}
+                                                        <ChevronDownCircle className={`arrow-icon ${isOpen ? 'rotate' : ''}`} />
+                                                    </div>
+                                                    {isOpen && (
+                                                        <ul className="options-list">
+                                                            {options.map((option, index) => (
+                                                                <li key={index} onClick={() => handleSelectOption(option)}>
+                                                                    {option.label}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    )}
+                                                </div>
+                                            </div>
+                                            <div className={h.bottomContainer__phone} onClick={handleCall}>
+                                                <svg className={h.svg} width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M1.04709 18C0.747923 18 0.498615 17.9 0.299169 17.7C0.0997229 17.5 0 17.25 0 16.95V12.9C0 12.6667 0.0747921 12.4623 0.224377 12.287C0.373961 12.1117 0.565097 11.9993 0.797784 11.95L4.23823 11.25C4.47091 11.2167 4.70792 11.2377 4.94925 11.313C5.19058 11.3883 5.38571 11.5007 5.53463 11.65L7.87812 14C9.14127 13.2333 10.2964 12.325 11.3435 11.275C12.3906 10.225 13.2632 9.1 13.9612 7.9L11.5679 5.45C11.4183 5.3 11.3225 5.129 11.2807 4.937C11.2388 4.745 11.2348 4.53267 11.2687 4.3L11.9169 0.8C11.9501 0.566667 12.0582 0.375 12.241 0.225C12.4238 0.0749999 12.6316 0 12.8643 0H16.903C17.2022 0 17.4515 0.0999999 17.651 0.3C17.8504 0.5 17.9501 0.75 17.9501 1.05C17.9501 3.2 17.4721 5.296 16.5161 7.338C15.5601 9.38 14.297 11.1883 12.7266 12.763C11.1563 14.3377 9.35302 15.6043 7.31668 16.563C5.28033 17.5217 3.19047 18.0007 1.04709 18Z" fill="white" />
+                                                </svg>
+
+
+                                                <p className={h.bottomContainer__phone__text} >8 (495) 139-64-44</p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
                     </header>
 
                     <div >
@@ -530,7 +706,7 @@ export default function Header({ isActive, setIsActive, token }) {
                                 >
 
                                     <div className={h.nav__user__admin}>
-                                        <p>Иван Иванов</p>
+                                        <p>{meuser.last_name} {meuser.first_name} </p>
                                     </div>
 
                                     <div className={h.nav__user__nav} onClick={handleDanniy}>
@@ -693,7 +869,7 @@ export default function Header({ isActive, setIsActive, token }) {
 
                                 </div>
 
-                                <div className={address ? [h.nav__address, h.nav__address__active].join(' ') : [h.nav__address]}>
+                                <div className={togglerPersonalInfo ? [h.nav__address, h.nav__address__active].join(' ') : [h.nav__address]}>
 
                                     <div className={h.nav__danniy__header}>
 

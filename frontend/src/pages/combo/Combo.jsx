@@ -203,12 +203,6 @@ export default function Combo({
                 <div className={h.container}>
 
                     <div className={c.combocard}>
-
-                        {/* {comboCard.map((info, index) => {
-                            return <ComboCard addBasket={addBasket} isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} countInfo={countInfo}
-                            setCountInfo={setCountInfo} />
-                        })} */}
-
                         {combos.map((info, index) => {
                             return <ComboObed addBasket={addBasket} isAddedToCart={karzinkaTovar.some((item) => item.id === info.id)} {...info} key={index} isActive={isActive} setTotalCartPrice={setTotalCartPrice} className={c.flex} />
                         })}

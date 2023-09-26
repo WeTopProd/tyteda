@@ -26,7 +26,7 @@ export default function Basket({
     Goods,
 
     totalCartPrice, setTotalCartPrice,
-    isActive
+    isActive, address, setAddress
 
 }) {
 
@@ -81,7 +81,7 @@ export default function Basket({
 
     const [mail, setMail] = useState('')
 
-    const [adress, setAdress] = useState('')
+    // const [address, setAddress] = useState('')
 
     const [delTime, setDelTime] = useState('')
 
@@ -91,41 +91,104 @@ export default function Basket({
 
     const deliveryTime = delTime + " " + delTimeSum;
 
-    const OplataTotalSum = (e) => {
+    const tokenTwo = localStorage.getItem('token')
 
-        e.preventDefault()
+    const [lastName, setLastName] = useState('')
 
-        axios.post(`http://127.0.0.1:8000/api/goods/create_order/`,
 
-            {
-                total_price: totalCartPrice,
-                cutlery: instrumentation,
-                delivery_cost: delivery_amount,
-                fio: name,
-                email: mail,
-                address: adress,
-                delivery_time: deliveryTime,
-                payment_method: oplata
-            },
 
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: `Token ${localStorage.getItem('token')}`,
+    
+
+    const [error, setError] = useState('');
+    const [modal, setmodal] = useState(false)
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        axios
+            .post(
+                'http://127.0.0.1:8000/api/goods/create_order/',
+                {
+                    total_price: totalCartPrice,
+                    cutlery: instrumentation,
+                    delivery_cost: delivery_amount,
+                    fio: name,
+                    email: mail,
+                    address: address,
+                    delivery_time: deliveryTime,
+                    payment_method: oplata,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Token ${localStorage.getItem('token')}`,
+                    },
                 }
-
-            }
-
-        )
-
-            .then(res => {
-                window.location.reload()
+            )
+            .then((res) => {
+                setAddress(address); // Обновите состояние адреса доставки
+                window.location.reload();
             })
-
+            .then((res) => {
+                axios.patch(
+                    'http://127.0.0.1:8000/api/users/me/',
+                    {
+                        delivery_address: address // Обновление адреса доставки в модели пользователя
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Token ${localStorage.getItem('token')}`,
+                        },
+                    }
+                )
+                    .then((userResponse) => {
+                        setAddress(address); // Обновите состояние адреса доставки
+                        window.location.reload();
+                    })
+                    .catch((userError) => {
+                        console.error('Ошибка при обновлении адреса пользователя', userError);
+                    });
+            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    const errorResponse = err.response.data.error;
+                    setError(errorResponse || null);
+                    
+                } else {
+                    setError('Произошла неизвестная ошибка.');
+                }
+                setmodal(false);
+            });
     }
+    console.log(error,'sddddddddddddddddddddddddd')
+    const fetchDeliveryAddress = async () => {
+        try {
+
+            const response = await axios.get('http://127.0.0.1:8000/api/users/me/', {
+                headers: {
+                    'Authorization': `Token ${tokenTwo}`
+                }
+            });
+            const address = response.data.delivery_address;
+            const name = response.data.first_name;
+            const mail = response.data.email;
+            // Получение адреса доставки из сервера
+            setAddress(address);
+            setName(name);
+            setMail(mail)
 
 
+        } catch (error) {
+            console.error('Ошибка запроса', error);
 
+        }
+    };
+
+    useEffect(() => {
+        fetchDeliveryAddress()
+
+    }, []);
 
     return (
 
@@ -133,7 +196,7 @@ export default function Basket({
             <section className={b.section__basket}>
                 <div className={h.container}>
 
-                    <form className={b.basket} onSubmit={OplataTotalSum}>
+                    <form className={b.basket} onSubmit={handleSubmit}>
 
                         <div className={b.basket__item}>
 
@@ -146,10 +209,10 @@ export default function Basket({
                                 <label className={b.basket__item__form__label}>
 
                                     <p className={b.basket__item__form__label__text}>
-                                        Ф.И
+                                        Имя
                                     </p>
 
-                                    <input type="text" placeholder='Иванов Иван' className={b.basket__item__form__label__inp}
+                                    <input type="text" placeholder="ФИО" className={b.basket__item__form__label__inp}
 
                                         value={name}
                                         onChange={(event) => setName(event.target.value)}
@@ -164,7 +227,7 @@ export default function Basket({
                                         Почта
                                     </p>
 
-                                    <input type="text" placeholder='ivanov.ivan@mal.ru' className={b.basket__item__form__label__inp}
+                                    <input type="text" placeholder="example@mail.ru" className={b.basket__item__form__label__inp}
 
                                         value={mail}
                                         onChange={(event) => setMail(event.target.value)}
@@ -181,8 +244,8 @@ export default function Basket({
 
                                     <input type="text" placeholder='Реутовских Ополченцев д 14, кв. 551' className={b.basket__item__form__label__inp}
 
-                                        value={adress}
-                                        onChange={(event) => setAdress(event.target.value)}
+                                        value={address}
+                                        onChange={(event) => setAddress(event.target.value)}
 
                                     />
 
@@ -243,7 +306,7 @@ export default function Basket({
                                         >
 
                                             <option value="">Выберете опцию</option>
-                                            <option value="Оптала онлайн">Оптала онлайн</option>
+                                            <option value="Оптала онлайн">Оплата онлайн</option>
                                             <option value="Оплата картой курьеру">Оплата картой курьеру</option>
                                             <option value="Оплата наличными курьеру">Оплата наличными курьеру</option>
 
@@ -334,17 +397,21 @@ export default function Basket({
                                         {totalCartPrice} руб.
                                     </p>
 
-                                    <button className={b.basket__item__footer__button} onClick={OplataTotalSum}>
+                                    <button className={b.basket__item__footer__button} onClick={handleSubmit}>
                                         Заказать
                                     </button>
-
+                                   
                                 </div>
-
+                                <div style={{width:'100%',display:'flex',justifyContent:'end'
+                                    , padding:'10px'}}>
+                                    {error && <p style={{ color: 'red', fontSize: '16px', padding: '0 15px' }}>{error}</p>}
+                                </div>
+                                
                             </div>
 
-
+                                     
                         </div>
-
+                                      
                     </form>
 
                 </div>

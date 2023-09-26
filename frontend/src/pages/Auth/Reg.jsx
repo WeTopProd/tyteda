@@ -24,6 +24,15 @@ export default function Reg() {
 
     const [modal, setmodal] = useState(false)
 
+    const [error, setError] = useState(null);
+
+    const[errorEmail, setErrorEmail] = useState(''); 
+    const [errorPhone, setErrorPhone] = useState(''); 
+    const [errorPassword, setErrorPassword] = useState('');
+    const [errorFirstName, setErrorFirstName] = useState('');
+    const[errorLastName , setErrorLastName] = useState('');
+    
+
     const hanClickReg = () => {
 
         // e.preventDefault()
@@ -51,11 +60,20 @@ export default function Reg() {
 
             })
 
-            .catch(err => {
-
-                err.message === 'Request failed with status code 400' ? setmodal(true) : setmodal(false)
-
-            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    const errorResponse = err.response.data;
+                    setErrorEmail(errorResponse.email || null);
+                    setErrorPhone(errorResponse.phone || null);
+                    setErrorPassword(errorResponse.password || null);
+                    setErrorFirstName(errorResponse.first_name || null);
+                    setErrorLastName(errorResponse.last_name || null);
+                } else {
+                    setError('Произошла неизвестная ошибка.');
+                }
+                setmodal(false);
+                
+            });
 
     }
 
@@ -90,58 +108,67 @@ export default function Reg() {
 
                         <div className={r.reg__item}>
 
-                            <input type="text" className={r.reg__item__inp} placeholder='Почта'
+                            <div>
+                                <input type="text" className={r.reg__item__inp} placeholder='Почта'
 
-                                value={Mail}
-                                onChange={(event) => setMail(event.target.value)}
+                                    value={Mail}
+                                    onChange={(event) => setMail(event.target.value)}
 
-                            />
+                                />
+                                {errorEmail && <p style={{ color: 'red', fontSize:'12px', padding:'0 15px' }}>{errorEmail}</p>}
+                            </div>
+                            
 
-                            <input type="password" className={r.reg__item__inp} placeholder='Пароль'
+                            <div>
+                                <input type="password" className={r.reg__item__inp} placeholder='Пароль'
 
-                                value={Password}
-                                onChange={(event) => setPassword(event.target.value)}
+                                    value={Password}
+                                    onChange={(event) => setPassword(event.target.value)}
 
-                            />
+                                />
+                                {errorPassword && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorPassword}</p>}
+                            </div>
+                            
+                            <div>
+                                <input type="password" className={r.reg__item__inp} placeholder='Повторить пароль'
 
+                                    value={PasswordReap}
+                                    onChange={(event) => setPasswordReap(event.target.value)}
 
-                            <input type="password" className={r.reg__item__inp} placeholder='Повторить пароль'
-
-                                value={PasswordReap}
-                                onChange={(event) => setPasswordReap(event.target.value)}
-
-                            />
-
-
-
+                                />
+                                {errorPassword && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorPassword}</p>}
+                            </div>
                         </div>
 
                         <div className={r.reg__item}>
 
-                            <input type="text" className={r.reg__item__inp} placeholder='Имя'
+                            <div>
+                                <input type="text" className={r.reg__item__inp} placeholder='Имя'
 
-                                value={Name}
-                                onChange={(event) => setName(event.target.value)}
+                                    value={Name}
+                                    onChange={(event) => setName(event.target.value)}
 
-                            />
+                                />
+                                {errorFirstName && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorFirstName}</p>}
+                            </div>
+                            <div>
+                                <input type="text" className={r.reg__item__inp} placeholder='Фамилия'
 
-                            <input type="text" className={r.reg__item__inp} placeholder='Фамилия'
+                                    value={Surname}
+                                    onChange={(event) => setSurname(event.target.value)}
 
-                                value={Surname}
-                                onChange={(event) => setSurname(event.target.value)}
+                                />
+                                {errorLastName && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorLastName}</p>}
+                            </div>
+                            <div>
+                                <input type="tel" className={r.reg__item__inp} placeholder='Телефон'
 
-                            />
+                                    value={Number}
+                                    onChange={(event) => setNumber(event.target.value)}
 
-
-                            <input type="tel" className={r.reg__item__inp} placeholder='Телефон'
-
-                                value={Number}
-                                onChange={(event) => setNumber(event.target.value)}
-
-                            />
-
-
-
+                                />
+                                {errorPhone && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorPhone}</p>}
+                            </div>
                         </div>
 
                     </div>
