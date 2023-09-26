@@ -55,7 +55,7 @@ function App() {
 			try {
 				await axios.post(
 
-					`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`,
+					`https://tyteda.ru/api/goods/${id}/shopping_cart/`,
 					null,
 
 					{
@@ -74,7 +74,7 @@ function App() {
 		}
 
 		axios
-			.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+			.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
 				headers: {
 					'Content-Type': 'application/json , multipart/form-data',
 					authorization: `Token ${tokenTwo}`,
@@ -98,7 +98,7 @@ function App() {
 
 	useEffect(() => {
 
-		axios.get('http://127.0.0.1:8000/api/goods/', {
+		axios.get('https://tyteda.ru/api/goods/', {
 
 
 		})
@@ -124,7 +124,7 @@ function App() {
 
 		if (tokenTwo) {
 
-			axios.get('http://127.0.0.1:8000/api/goods/?is_in_shopping_cart=true', {
+			axios.get('https://tyteda.ru/api/goods/?is_in_shopping_cart=true', {
 
 				headers: {
 					'content-type': 'application/json',
@@ -167,7 +167,7 @@ function App() {
 			offset: -300,
 		});
 
-		axios.get(`http://127.0.0.1:8000/api/goods/?type=${searchValue1}`)
+		axios.get(`https://tyteda.ru/api/goods/?type=${searchValue1}`)
 			.then(response1 => {
 
 				console.log(`Response for ${searchValue1}:`, response1.data);
@@ -175,7 +175,7 @@ function App() {
 				SetPostCard(response1.data);
 
 				if (searchValue2) {
-					axios.get(`http://127.0.0.1:8000/api/goods/?type=${searchValue2}`)
+					axios.get(`https://tyteda.ru/api/goods/?type=${searchValue2}`)
 						.then(response2 => {
 							console.log(`Response for ${searchValue2}:`, response2.data);
 							const combinedData = [...response1.data, ...response2.data];
