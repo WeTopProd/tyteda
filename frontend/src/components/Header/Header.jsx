@@ -30,6 +30,7 @@ import { ChevronDownCircle } from 'lucide-react';
 import Select from 'react-select';
 import './Select.moduls.scss'; //
 
+
 export default function Header({ isActive, setIsActive, token, handlePoiskCard, address, setAddress }) {
 
 
@@ -59,20 +60,20 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
     const burgerClose = () => {
         setHeader(false)
-        
+
 
         setDanniyTwo(false)
     }
 
     const adminkaActive = () => {
         setAdminka(!adminka)
-        
+
 
     }
 
     const handleKarzinka = () => {
         setkarzinka(prev => !prev)
-        
+
     };
 
 
@@ -81,7 +82,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     const handleLove = () => {
         setLovaOn(!loveOn)
 
-       
+
     }
 
     const handleDanniy = () => {
@@ -95,7 +96,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
     }
 
-   
+
     const handleChanges = () => {
         setChanges(true)
     }
@@ -393,7 +394,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
     const [deliveryAddress, setDeliveryAddress] = useState(null);
 
-    
+
 
 
 
@@ -409,17 +410,17 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
             });
             // Получение адреса доставки из сервера
             const address = response.data.delivery_address;
-            
+
 
         } catch (error) {
             console.error('Ошибка запроса', error);
-            
+
         }
     };
 
     useEffect(() => {
         fetchDeliveryAddress()
-    },[]);
+    }, []);
 
     return (
 
@@ -446,8 +447,8 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
                                     <img src={logo} alt="svg" className={h.nav__logo} />
 
                                 </Link>
-                                <div style={{display:'flex'}}>
-                                    <svg className={h.sssvg}  width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <div style={{ display: 'flex' }}>
+                                    <svg className={h.sssvg} width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M4.42041 3.81944C5.11277 3.1718 5.93625 2.65769 6.84346 2.3067C7.75067 1.9557 8.72369 1.77476 9.70652 1.77428C11.6881 1.77428 13.5899 2.50903 14.9926 3.81944C16.3974 5.1334 17.1853 6.90999 17.1842 8.76137C17.1842 11.9584 15.2749 14.8523 13.2858 16.9889C12.4476 17.8849 11.5389 18.7218 10.5671 19.4928C10.0627 19.8945 9.35058 19.8942 8.84596 19.4928C7.87416 18.7218 6.9654 17.8849 6.1272 16.9889C4.13813 14.8523 2.22883 11.9584 2.22883 8.76137C2.22883 6.90713 3.01772 5.12984 4.42041 3.81944ZM9.34759 21.339C9.52794 21.1014 9.88509 21.1014 10.0654 21.339C9.96033 21.4075 9.83498 21.4443 9.70652 21.4443C9.57805 21.4443 9.45271 21.4075 9.34759 21.339ZM9.34759 21.339C9.52794 21.1014 9.88509 21.1014 10.0654 21.339L10.0679 21.3378L10.0742 21.3337L10.0929 21.3204L10.1664 21.2713C10.2287 21.2284 10.3197 21.166 10.4343 21.0838C10.6637 20.9207 10.9889 20.6806 11.3772 20.3722C12.3962 19.5635 13.3492 18.6855 14.228 17.7456C16.2894 15.5321 18.4305 12.3727 18.4305 8.76079C18.4305 6.60282 17.512 4.53163 15.8769 3.00427C15.0687 2.24833 14.1074 1.64826 13.0485 1.23859C11.9895 0.828916 10.8537 0.61773 9.70652 0.617188C8.55935 0.617655 7.4236 0.828749 6.36464 1.23832C5.30568 1.64789 4.34442 2.24786 3.53618 3.00369C1.89945 4.53454 0.981445 6.60437 0.982545 8.76137C0.982545 12.3727 3.12366 15.5321 5.18501 17.7456C6.06387 18.6855 7.01678 19.5635 8.03588 20.3722C8.42472 20.6806 8.74937 20.9207 8.97869 21.0838C9.09116 21.1643 9.20479 21.2434 9.31954 21.321L9.33949 21.3337L9.34287 21.3362C9.34435 21.3373 9.34593 21.3382 9.34759 21.339ZM7.21395 8.71682C7.21395 8.10306 7.47656 7.51444 7.94401 7.08045C8.41145 6.64646 9.04545 6.40264 9.70652 6.40264C10.3676 6.40264 11.0016 6.64646 11.469 7.08045C11.9365 7.51444 12.1991 8.10306 12.1991 8.71682C12.1991 9.33058 11.9365 9.9192 11.469 10.3532C11.0016 10.7872 10.3676 11.031 9.70652 11.031C9.04545 11.031 8.41145 10.7872 7.94401 10.3532C7.47656 9.9192 7.21395 9.33058 7.21395 8.71682ZM9.70652 5.24555C8.71491 5.24555 7.76392 5.61127 7.06275 6.26226C6.36158 6.91325 5.96767 7.79619 5.96767 8.71682C5.96767 9.63746 6.36158 10.5204 7.06275 11.1714C7.76392 11.8224 8.71491 12.1881 9.70652 12.1881C10.6981 12.1881 11.6491 11.8224 12.3503 11.1714C13.0514 10.5204 13.4454 9.63746 13.4454 8.71682C13.4454 7.79619 13.0514 6.91325 12.3503 6.26226C11.6491 5.61127 10.6981 5.24555 9.70652 5.24555Z" fill="#303030" />
                                     </svg>
 
@@ -465,7 +466,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
                                     <div className={h.address__form}>
 
-                                        
+
 
                                         <img src={poisk} alt="svg" className={h.nav__form_svg} />
                                         <input
@@ -625,15 +626,46 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
                                             <form className={h.search} onChange={PoiskItem}>
 
                                                 <img src={poisk} alt="svg" className={h.nav__form_svg} />
+                                                <div>
 
-                                                <input
-                                                    type="text"
-                                                    className={h.nav__form_poisk}
-                                                    placeholder=" Блюда"
-                                                    value={titleItem}
-                                                    onChange={(event) => setTitleItem(event.target.value)}
-                                                // onBlur={() => setShowInfo(false)} 
-                                                />
+                                                    <input
+                                                        type="text"
+                                                        className={h.nav__form_poisk}
+                                                        placeholder=" Блюда"
+                                                        value={titleItem}
+                                                        onChange={(event) => setTitleItem(event.target.value)}
+                                                    // onBlur={() => setShowInfo(false)} 
+                                                    />
+                                                </div>
+
+                                                {showInfo && (
+
+                                                    <div className={`${h.nav__form__info} nav_form_info`}>
+
+                                                        <div className={h.basketTovar}>
+
+                                                            {HeaderTovar.length === 0 ? (
+
+                                                                <p className={h.basketTovar__text}>Искать на TYTEDA</p>
+
+                                                            ) : (
+
+                                                                HeaderTovar.map((info, index) => {
+                                                                    return (
+                                                                        <HeaderCard setShowInfo={setShowInfo} {...info} key={index} />
+                                                                    );
+                                                                })
+
+                                                            )}
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+                                                )}
+
 
                                             </form>
 
@@ -695,157 +727,157 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
                     </header>
 
-                    
 
-                        <div className={h.container}>
 
-                            <div className={h.user}>
+                    <div className={h.container}>
 
-                                <div className={adminka ? [h.nav__user, h.nav__user__active].join(' ') : [h.nav__user]}
+                        <div className={h.user}>
 
+                            <div className={adminka ? [h.nav__user, h.nav__user__active].join(' ') : [h.nav__user]}
+
+                            >
+
+                                <div className={h.nav__user__admin}>
+                                    <p>{meuser.last_name} {meuser.first_name} </p>
+                                </div>
+
+                                <div className={h.nav__user__nav} onClick={handleDanniy}>
+                                    <img src={admin1} alt="" />
+                                    <p>Мои данные</p>
+                                </div>
+
+                                <div className={h.nav__user__nav}
+                                    onClick={handleZakaz}
                                 >
+                                    <img src={admin3} alt="" />
+                                    <p>Мои заказы</p>
+                                </div>
 
-                                    <div className={h.nav__user__admin}>
-                                        <p>{meuser.last_name} {meuser.first_name} </p>
-                                    </div>
+                                <div className={h.nav__user__nav} onClick={signOut}>
+                                    <img src={admin4} alt="" />
+                                    <p>Выйти</p>
+                                </div>
 
-                                    <div className={h.nav__user__nav} onClick={handleDanniy}>
+                            </div>
+
+                            <div className={danniyTwo ? [h.nav__danniyTwo, h.nav__danniyTwo__active].join(' ') : [h.nav__danniyTwo]}>
+
+                                <div className={h.nav__danniy__header}>
+
+                                    <div className={h.nav__danniy__header__info}>
+
                                         <img src={admin1} alt="" />
-                                        <p>Мои данные</p>
+
+                                        <p className={h.nav__danniy__header__info__title}>
+                                            Мои данные
+                                        </p>
+
+
                                     </div>
 
-                                    <div className={h.nav__user__nav}
-                                        onClick={handleZakaz}
-                                    >
-                                        <img src={admin3} alt="" />
-                                        <p>Мои заказы</p>
-                                    </div>
-
-                                    <div className={h.nav__user__nav} onClick={signOut}>
-                                        <img src={admin4} alt="" />
-                                        <p>Выйти</p>
-                                    </div>
+                                    <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
                                 </div>
 
-                                <div className={danniyTwo ? [h.nav__danniyTwo, h.nav__danniyTwo__active].join(' ') : [h.nav__danniyTwo]}>
+                                <div className={h.nav__danniyTwo__info}>
 
-                                    <div className={h.nav__danniy__header}>
+                                    <p className={h.nav__danniyTwo__info__text}>
+                                        Имя: {meuser.first_name}
+                                    </p>
 
-                                        <div className={h.nav__danniy__header__info}>
-
-                                            <img src={admin1} alt="" />
-
-                                            <p className={h.nav__danniy__header__info__title}>
-                                                Мои данные
-                                            </p>
+                                    <p className={h.nav__danniyTwo__info__text}>
+                                        фамилия: {meuser.last_name}
+                                    </p>
 
 
-                                        </div>
+                                    <p className={h.nav__danniyTwo__info__text}>
+                                        Телефон: {meuser.phone}
+                                    </p>
 
-                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+                                    <p className={h.nav__danniyTwo__info__text}>
+                                        Почта: {meuser.email}
+                                    </p>
 
-                                    </div>
-
-                                    <div className={h.nav__danniyTwo__info}>
-
-                                        <p className={h.nav__danniyTwo__info__text}>
-                                            Имя: {meuser.first_name}
-                                        </p>
-
-                                        <p className={h.nav__danniyTwo__info__text}>
-                                            фамилия: {meuser.last_name}
-                                        </p>
-
-
-                                        <p className={h.nav__danniyTwo__info__text}>
-                                            Телефон: {meuser.phone}
-                                        </p>
-
-                                        <p className={h.nav__danniyTwo__info__text}>
-                                            Почта: {meuser.email}
-                                        </p>
-
-                                        <button onClick={handleDanniyPath} className={h.nav__danniy__btn}>
-                                            Изменить
-                                        </button>
-
-                                    </div>
+                                    <button onClick={handleDanniyPath} className={h.nav__danniy__btn}>
+                                        Изменить
+                                    </button>
 
                                 </div>
 
-                                <div className={danniy ? [h.nav__danniy, h.nav__danniy__active].join(' ') : [h.nav__danniy]}>
+                            </div>
 
-                                    <div className={h.nav__danniy__header}>
+                            <div className={danniy ? [h.nav__danniy, h.nav__danniy__active].join(' ') : [h.nav__danniy]}>
 
-                                        <div className={h.nav__danniy__header__info}>
+                                <div className={h.nav__danniy__header}>
 
-                                            <img src={admin1} alt="" />
+                                    <div className={h.nav__danniy__header__info}>
 
-                                            <p className={h.nav__danniy__header__info__title}>
-                                                Изменения данных
-                                            </p>
+                                        <img src={admin1} alt="" />
 
+                                        <p className={h.nav__danniy__header__info__title}>
+                                            Изменения данных
+                                        </p>
 
-                                        </div>
-
-                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
                                     </div>
 
+                                    <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
-                                    <form className={h.nav__danniy__form} onSubmit={PreapUsers}>
-
-                                        <label className={h.nav__danniy__form__label}>
-
-                                            <p className={h.nav__danniy__form__label__text}>
-                                                Имя
-                                            </p>
-
-                                            <input type="text" className={h.nav__danniy__form__label__input}
-                                                placeholder='Иван'
-
-                                                value={firstName}
-                                                onChange={(event) => setFirstName(event.target.value)}
-
-                                            />
-
-                                        </label>
+                                </div>
 
 
-                                        <label className={h.nav__danniy__form__label}>
+                                <form className={h.nav__danniy__form} onSubmit={PreapUsers}>
 
-                                            <p className={h.nav__danniy__form__label__text}>
-                                                Фамилия
-                                            </p>
+                                    <label className={h.nav__danniy__form__label}>
 
-                                            <input type="text" className={h.nav__danniy__form__label__input}
-                                                placeholder='Иванов'
+                                        <p className={h.nav__danniy__form__label__text}>
+                                            Имя
+                                        </p>
 
-                                                value={lastName}
-                                                onChange={(event) => setLastName(event.target.value)}
+                                        <input type="text" className={h.nav__danniy__form__label__input}
+                                            placeholder='Иван'
 
-                                            />
+                                            value={firstName}
+                                            onChange={(event) => setFirstName(event.target.value)}
 
-                                        </label>
+                                        />
 
-                                        <label className={h.nav__danniy__form__label}>
+                                    </label>
 
-                                            <p className={h.nav__danniy__form__label__text}>
-                                                Телефон
-                                            </p>
 
-                                            <input type="tel" className={h.nav__danniy__form__label__input}
-                                                placeholder='+7 (999) 123-45-67'
+                                    <label className={h.nav__danniy__form__label}>
 
-                                                value={phoneTel}
-                                                onChange={(event) => setPhoneTel(event.target.value)}
+                                        <p className={h.nav__danniy__form__label__text}>
+                                            Фамилия
+                                        </p>
 
-                                            />
+                                        <input type="text" className={h.nav__danniy__form__label__input}
+                                            placeholder='Иванов'
 
-                                        </label>
+                                            value={lastName}
+                                            onChange={(event) => setLastName(event.target.value)}
 
-                                        {/* <label className={h.nav__danniy__form__label}>
+                                        />
+
+                                    </label>
+
+                                    <label className={h.nav__danniy__form__label}>
+
+                                        <p className={h.nav__danniy__form__label__text}>
+                                            Телефон
+                                        </p>
+
+                                        <input type="tel" className={h.nav__danniy__form__label__input}
+                                            placeholder='+7 (999) 123-45-67'
+
+                                            value={phoneTel}
+                                            onChange={(event) => setPhoneTel(event.target.value)}
+
+                                        />
+
+                                    </label>
+
+                                    {/* <label className={h.nav__danniy__form__label}>
                     
                     <p className={h.nav__danniy__form__label__text}>
                     Почта
@@ -861,138 +893,138 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     
                 </label> */}
 
-                                    </form>
+                                </form>
 
-                                    <button onClick={PreapUsers} className={h.nav__danniy__btn}>
-                                        Изменить
-                                    </button>
+                                <button onClick={PreapUsers} className={h.nav__danniy__btn}>
+                                    Изменить
+                                </button>
 
-                                </div>
+                            </div>
 
-                                <div className={togglerPersonalInfo ? [h.nav__address, h.nav__address__active].join(' ') : [h.nav__address]}>
+                            <div className={togglerPersonalInfo ? [h.nav__address, h.nav__address__active].join(' ') : [h.nav__address]}>
 
-                                    <div className={h.nav__danniy__header}>
+                                <div className={h.nav__danniy__header}>
 
-                                        <div className={h.nav__danniy__header__info}>
+                                    <div className={h.nav__danniy__header__info}>
 
-                                            <img src={admin2} alt="svg" />
+                                        <img src={admin2} alt="svg" />
 
-                                            <p className={h.nav__danniy__header__info__title}>
-                                                Мои адреса
-                                            </p>
-
-                                        </div>
-
-                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
-
-                                    </div>
-
-                                    <div className={h.nav__address__info}>
-
-                                        <p className={h.nav__address__info__title}>
-                                            ул. Реутовских Ополченцев, д.14, кв. 552
-                                        </p>
-
-                                        <img src={del} alt="svg" />
-
-                                    </div>
-
-                                    <div className={h.nav__address__footer} onClick={handleChanges}>
-
-                                        <img src={plus} alt="+" />
-
-                                        <p className={h.nav__address__info__title}>
-                                            Добавить новый адрес
+                                        <p className={h.nav__danniy__header__info__title}>
+                                            Мои адреса
                                         </p>
 
                                     </div>
 
+                                    <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+
                                 </div>
 
-                                <div className={changes ? [h.nav__changes, h.nav__changes__active].join(' ') : [h.nav__changes]}>
+                                <div className={h.nav__address__info}>
 
-                                    <div className={h.nav__danniy__header}>
+                                    <p className={h.nav__address__info__title}>
+                                        ул. Реутовских Ополченцев, д.14, кв. 552
+                                    </p>
 
-                                        <div className={h.nav__danniy__header__info}>
+                                    <img src={del} alt="svg" />
 
-                                            <img src={admin2} alt="svg" />
+                                </div>
 
-                                            <p className={h.nav__danniy__header__info__title}>
-                                                Мои адреса
-                                            </p>
+                                <div className={h.nav__address__footer} onClick={handleChanges}>
 
-                                        </div>
+                                    <img src={plus} alt="+" />
 
-                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+                                    <p className={h.nav__address__info__title}>
+                                        Добавить новый адрес
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <div className={changes ? [h.nav__changes, h.nav__changes__active].join(' ') : [h.nav__changes]}>
+
+                                <div className={h.nav__danniy__header}>
+
+                                    <div className={h.nav__danniy__header__info}>
+
+                                        <img src={admin2} alt="svg" />
+
+                                        <p className={h.nav__danniy__header__info__title}>
+                                            Мои адреса
+                                        </p>
 
                                     </div>
 
-                                    <form className={h.nav__changes__form}>
-
-                                        <input type="text" className={h.nav__changes__form__input}
-                                            placeholder='Адрес'
-                                        />
-
-                                        <div className={h.nav__changes__form__flex}>
-
-                                            <input type="number" className={h.nav__changes__form__input}
-                                                placeholder='Этаж'
-                                            />
-
-                                            <input type="text" className={h.nav__changes__form__input}
-                                                placeholder='Домофон'
-                                            />
-
-                                        </div>
-
-                                        <input type="text" className={h.nav__changes__form__input}
-                                            placeholder='Комментарий'
-                                        />
-
-                                    </form>
-
-                                    <button className={h.nav__danniy__btn}>
-                                        Сохранить изменения
-                                    </button>
+                                    <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
                                 </div>
 
-                                <div className={zakaz ? [h.nav__zakaz, h.nav__zakaz__active].join(' ') : [h.nav__zakaz]}>
+                                <form className={h.nav__changes__form}>
 
-                                    <div className={h.nav__danniy__header}>
+                                    <input type="text" className={h.nav__changes__form__input}
+                                        placeholder='Адрес'
+                                    />
 
-                                        <div className={h.nav__danniy__header__info}>
+                                    <div className={h.nav__changes__form__flex}>
 
-                                            <img src={admin3} alt="svg" />
+                                        <input type="number" className={h.nav__changes__form__input}
+                                            placeholder='Этаж'
+                                        />
 
-                                            <p className={h.nav__danniy__header__info__title}>
-                                                Мои заказы
-                                            </p>
-
-                                        </div>
-
-                                        <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
+                                        <input type="text" className={h.nav__changes__form__input}
+                                            placeholder='Домофон'
+                                        />
 
                                     </div>
 
-                                    {MyZakaz.map((info, index) => {
-                                        return (
-                                            <MyZakazItem MyZakazCard={MyZakazCard} {...info} key={index} />
-                                        );
-                                    })}
+                                    <input type="text" className={h.nav__changes__form__input}
+                                        placeholder='Комментарий'
+                                    />
 
+                                </form>
+
+                                <button className={h.nav__danniy__btn}>
+                                    Сохранить изменения
+                                </button>
+
+                            </div>
+
+                            <div className={zakaz ? [h.nav__zakaz, h.nav__zakaz__active].join(' ') : [h.nav__zakaz]}>
+
+                                <div className={h.nav__danniy__header}>
+
+                                    <div className={h.nav__danniy__header__info}>
+
+                                        <img src={admin3} alt="svg" />
+
+                                        <p className={h.nav__danniy__header__info__title}>
+                                            Мои заказы
+                                        </p>
+
+                                    </div>
+
+                                    <img src={X} className={h.nav__danniy__header__exit} alt="exit" onClick={handleDanniyExit} />
 
                                 </div>
+
+                                {MyZakaz.map((info, index) => {
+                                    return (
+                                        <MyZakazItem MyZakazCard={MyZakazCard} {...info} key={index} />
+                                    );
+                                })}
 
 
                             </div>
 
+
                         </div>
 
-                    </>
+                    </div>
+
+                </>
 
 
-                
+
 
             }
 

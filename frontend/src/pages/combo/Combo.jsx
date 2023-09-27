@@ -46,7 +46,7 @@ export default function Combo({
 
     useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods/?type=combo', {
+        axios.get('http://127.0.0.1:8000/api/goods/?type=combo', {
 
 
         })
@@ -59,7 +59,7 @@ export default function Combo({
 
                 const reversedComboItems = comboItems.reverse();
 
-                setCombos(nonComboItems);
+                setCombos(comboItems);
             })
 
     }, []);
