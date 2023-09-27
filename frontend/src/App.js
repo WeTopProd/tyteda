@@ -25,6 +25,7 @@ import Konfidi from './components/Footer/Konfidi';
 import ProtectedPage from './ProtectedPage';
 import * as Scroll from 'react-scroll';
 import { Link, Button, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
+// import './app.css'
 
 function App() {
 

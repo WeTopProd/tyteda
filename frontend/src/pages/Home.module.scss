@@ -32,6 +32,7 @@
 
 .home{
     
+    
     padding: 0 !important;
 
     &__content__one{
@@ -130,8 +131,9 @@
             @media screen and (max-width: 550px ){
                 font-size: 25px;
                 max-width: 370px;
-               
+               margin-top: 175px !important;
             } 
+            
         }
 
         &_titleThree{
@@ -891,4 +893,8 @@
     .gradient_text{
         font-size: 12px;
     }
+}
+
+@media (max-hight: 596px) {
+    body{padding-top: 3000px !important;}
 }

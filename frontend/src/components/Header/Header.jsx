@@ -695,7 +695,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
                     </header>
 
-                    <div >
+                    
 
                         <div className={h.container}>
 
@@ -989,10 +989,10 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
                         </div>
 
-                    </div>
+                    </>
 
 
-                </>
+                
 
             }
 

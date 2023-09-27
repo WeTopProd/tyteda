@@ -130,7 +130,8 @@ export default function Home({
 
       >
 
-        <SwiperSlide className={s.home__swiper_slide1}>
+        <SwiperSlide  className={s.home__swiper_slide1}>
+          
 
           <div className={s.container}>
 
