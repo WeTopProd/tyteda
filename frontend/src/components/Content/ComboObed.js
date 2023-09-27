@@ -7,7 +7,7 @@ import CardKarzina from './img/cardKarzina.svg'
 import CardKarzinaAdd from './img/cardKarzinaAdd.svg';
 import h from '../Header/Header.module.scss'
 import b from '../../pages/Basket/Basket.module.scss'
-const ComboObed = ({
+const  ComboObed = ({
     addBasket,
     isAddedToCart,
     setkarzinkaTovar,
@@ -23,7 +23,7 @@ const ComboObed = ({
             <div className="Combo">
                 <div className="ComboPhoto">
                     {info && info.images && info.images[0] && info.images[0].images ? (
-                        <img src={info.images[0].images} alt="img" />
+                        <img src={info.images[0].images} alt="img" style={{width:'325px'}}/>
                     ) : (
                         <p>No image available</p>
                     )}

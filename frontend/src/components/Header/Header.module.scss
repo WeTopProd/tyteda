@@ -1673,10 +1673,7 @@
 
 @media (max-width: 660px) {
     .mobail_icon {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        width: 200px;
+        display: none;
     }
     .search{
         display: block;
@@ -1793,6 +1790,7 @@
         &__input {
             display: none; 
        }
+        
     }
     @media screen and (max-width:835px) {
         display: none;
@@ -1829,6 +1827,13 @@
         height: 35px;
 
     }
+}
+@media (max-width: 450px) {
+
+    .sssvg {
+       display: none;
+    }
+    
 }
 
 
