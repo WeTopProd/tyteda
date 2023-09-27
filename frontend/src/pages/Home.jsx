@@ -53,7 +53,7 @@ export default function Home({
 
   useEffect(() => {
 
-    axios.get('http://127.0.0.1:8000/api/goods/?promotion=promotion', {
+    axios.get('https://tyteda.ru/api/goods/?promotion=promotion', {
 
     })
 
@@ -71,7 +71,7 @@ export default function Home({
 
   useEffect(() => {
 
-    axios.get('http://127.0.0.1:8000/api/goods/?promotion=recommend', {
+    axios.get('https://tyteda.ru/api/goods/?promotion=recommend', {
 
     })
 
