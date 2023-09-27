@@ -46,18 +46,15 @@ export default function Combo({
 
     useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods/?type=combo', {
+        axios.get('https://tyteda.ru/api/goods', {
 
 
         })
 
             .then((res) => {
 
-                const nonComboItems = res.data.results.filter(item => !item.title.startsWith("Комбо"));
 
-                const comboItems = res.data.results.filter(item => item.title.startsWith("Комбо"));
-
-                const reversedComboItems = comboItems.reverse();
+                const comboItems = res.data.results.filter(item => item.type == "combo");
 
                 setCombos(comboItems);
             })
