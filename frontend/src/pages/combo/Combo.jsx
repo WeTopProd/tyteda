@@ -46,18 +46,15 @@ export default function Combo({
 
     useEffect(() => {
 
-        axios.get('http://127.0.0.1:8000/api/goods/?type=combo', {
+        axios.get('http://127.0.0.1:8000/api/goods', {
 
 
         })
 
             .then((res) => {
 
-                const nonComboItems = res.data.results.filter(item => !item.title.startsWith("Комбо"));
 
-                const comboItems = res.data.results.filter(item => item.title.startsWith("Комбо"));
-
-                const reversedComboItems = comboItems.reverse();
+                const comboItems = res.data.results.filter(item => item.type == "combo");
 
                 setCombos(comboItems);
             })
