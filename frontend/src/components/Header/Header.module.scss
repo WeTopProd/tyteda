@@ -159,6 +159,7 @@
         flex: 1 1 27%;
         width: 100%;
         position: relative;
+        flex-grow: 1;
 
         @media screen and (max-width: 1250px ) {
      
@@ -311,7 +312,7 @@
         width: 440px;
         
 
-        @media screen and (max-width: 1310px ) {
+        @media screen and (max-width: 1355px ) {
             display: none;
             position: absolute; 
             animation: fade .7s;
@@ -1396,7 +1397,7 @@
     z-index: 999 !important;
 
 
-    @media screen and (max-width: 1310px ) {
+    @media screen and (max-width: 1355px ) {
      
        display: flex;       
       } 
