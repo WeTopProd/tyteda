@@ -456,7 +456,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
                                         type='text'
                                         placeholder='Реутовских Ополченцев д 14, кв. 551'
                                         className={h.address__form__input}
-                                        value={address} onChange={(e) => setAddress(e.target.value)}
+                                        value={address} onChange={(e) => setAddress(e.targept.value)}
                                     />
                                 </div>
 
