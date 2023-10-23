@@ -92,25 +92,29 @@ def send_email(request):
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
 def payment(request):
-    # Логин и пароль от личного кабинета PayKeeper
     user = "admin"
-    password = "268cb05d892c"
+    password = "2a0bc5f99012"
     base64_auth = base64.b64encode(f"{user}:{password}".encode()).decode()
     headers = {
         'Content-Type': 'application/x-www-form-urlencoded',
         'Authorization': f'Basic {base64_auth}'
     }
-    server_paykeeper = "https://reiting.server.paykeeper.ru"
+    server_paykeeper = "https://tyteda-1.server.paykeeper.ru"
 
-    price = int(request.data.get('price', ''))
+    price = request.data.get('price')
     num_order = request.data.get('num_order', '')
     user_data = request.user
     client_id = user_data.last_name + ' ' + user_data.first_name
     client_email = user_data.email
     service_name = request.data.get('service_name', '')
     client_phone = user_data.phone
+    if not price or not num_order or not service_name:
+        return Response(
+            {'error': 'Отсутствуют обязательные поля в запросе'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
     payment_data = {
-        "pay_amount": price,
+        "pay_amount": int(price),
         "clientid": client_id,
         "orderid": num_order,
         "client_email": client_email,
