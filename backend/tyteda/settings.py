@@ -142,13 +142,8 @@ REST_FRAMEWORK = {
 }
 
 CORS_URLS_REGEX = r'^/api/.*$'
-if DEBUG:
-    CORS_ORIGIN_ALLOW_ALL = True
-else:
-    CORS_ALLOWED_ORIGINS = [
-        'http://127.0.0.1:8000',
-        'https://89.108.79.12:3000',
-    ]
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 DJOSER = {
     'LOGIN_FIELD': 'email',

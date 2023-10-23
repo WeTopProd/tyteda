@@ -15,6 +15,6 @@ urlpatterns = [
         TokenCreateByPhoneView.as_view(),
         name='token_phone'
     ),
-    path('send-email/', send_email, name='send_email'),
+    path('send-order/', send_email, name='send_order'),
     path('payment/', payment, name='payment'),
 ]

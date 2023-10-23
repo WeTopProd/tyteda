@@ -1,8 +1,11 @@
 import base64
+import locale
 
+from datetime import datetime
 import requests
+from django.conf import settings
 from django.contrib.auth import authenticate
-from django.core.mail import EmailMessage, send_mail
+from django.core.mail import send_mail
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
@@ -14,6 +17,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .backends import PhoneBackend
+from goods.models import Goods
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -49,43 +53,39 @@ class TokenCreateByPhoneView(APIView):
 @permission_classes([IsAuthenticated])
 def send_email(request):
     user = request.user
-    date = request.data.get('date', '')
+    now = datetime.now()
+    locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
+    date = now.strftime("%d %B %Y, %A %H:%M")
     description = request.data.get('description', '')
-    num_card = request.data.get('num_card', '')
+    goods_ids = request.data.get('goods_id', [])
+    count_goods = request.data.get('count_goods', [])
+    price_goods = request.data.get('price_goods', [])
+    final_price = request.data.get('final_price', '')
+    goods_list = Goods.objects.filter(pk__in=goods_ids)
+
     first_name = user.first_name
     last_name = user.last_name
     phone = user.phone
     email_user = user.email
-    if not description or not date or not num_card:
-        return Response({'error': 'Отсутствуют обязательные поля в запросе'},
-                        status=status.HTTP_400_BAD_REQUEST)
 
-    if 'file' in request.FILES:
-        file = request.FILES['file']
-        message = (f"Заявка на возврат от {last_name} {first_name}\n"
-                   f"Дата заказа пользователем: {date}\n"
-                   f"Номер телефона: {phone}\nПочта: {email_user}\n\n"
-                   f"Сообщение от пользователя:\n{description}\nФайлы: {file}")
-        email = EmailMessage(
-            f"Заявка на возврат от {last_name} {first_name}",
-            message,
-            'info@tyteda.ru',
-            ['info@tyteda.ru'],
-            reply_to=[email_user],
-        )
-        email.attach(file.name, file.read(), file.content_type)
-        email.send()
-    else:
-        message = (f"Заявка на возврат от {last_name} {first_name}\n"
-                   f"Номер телефона: {phone}\nПочта: {email_user}\n\n"
-                   f"Сообщение от пользователя:\n{description}")
-        send_mail(
-            f"Заявка на возврат от {last_name} {first_name}",
-            message,
-            'info@tyteda.ru',
-            ['info@tyteda.ru'],
-            fail_silently=False,
-        )
+    message = (f"ЗАКАЗ ОТ {last_name} {first_name}\n\n"
+               f"НОМЕР ТЕЛЕФОНА: {phone}\nПОЧТА: {email_user}\n\n"
+               f"КОММЕНТАРИЙ ОТ ПОЛЬЗОВАТЕЛЯ:\n{description}\n\n"
+               f"ЗАКАЗ:\nДАТА ЗАКАЗА: {date}\n\n")
+
+    for i, goods in enumerate(goods_list):
+        message += (f"ТОВАР {i + 1}:\n"
+                    f"НАЗВАНИЕ: {goods.title}\n"
+                    f"КОЛИЧЕСТВО: {count_goods[i]}\n"
+                    f"ЦЕНА: {price_goods[i]}\n\n")
+    message += f"ОБЩАЯ СУММА: {final_price}"
+    send_mail(
+        f"ЗАКАЗ ОТ {last_name} {first_name}",
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [settings.DEFAULT_FROM_EMAIL],
+        fail_silently=False,
+    )
     return Response({'success': 'Сообщение успешно отправлено'})
 
 
