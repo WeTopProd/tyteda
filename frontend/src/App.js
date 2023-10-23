@@ -93,10 +93,6 @@ function App() {
 
 	const [comboCard, setComboCard] = useState([])
 
-
-
-
-
 	useEffect(() => {
 
 		axios.get('https://tyteda.ru/api/goods/', {

@@ -107,16 +107,13 @@ export default function Basket({
 
         axios
             .post(
-                'https://tyteda.ru/api/goods/create_order/',
+                'https://tyteda.ru/api/send_order/',
                 {
-                    total_price: totalCartPrice,
-                    cutlery: instrumentation,
-                    delivery_cost: delivery_amount,
-                    fio: name,
-                    email: mail,
-                    address: address,
-                    delivery_time: deliveryTime,
-                    payment_method: oplata,
+                    final_price: totalCartPrice,
+                    goods_id: [1, 2],
+                    count_goods: [1, 2],
+                    price_goods:[1,2],
+                    
                 },
                 {
                     headers: {
@@ -161,7 +158,7 @@ export default function Basket({
                 setmodal(false);
             });
     }
-    console.log(error,'sddddddddddddddddddddddddd')
+    
     const fetchDeliveryAddress = async () => {
         try {
 
@@ -187,7 +184,8 @@ export default function Basket({
 
     useEffect(() => {
         fetchDeliveryAddress()
-
+        
+        console.log(handleSubmit,'djffdhfj')
     }, []);
 
     return (
