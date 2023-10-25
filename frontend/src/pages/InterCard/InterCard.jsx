@@ -2,7 +2,7 @@
 
 import i from './interCard.module.scss' 
 import h from '../../components/Header/Header.module.scss' 
-import s from '../Home.module.scss' 
+import s from '../../Home.module.scss' 
 import CardKarzinaAdd from '../../components/Content/img/cardKarzinaAdd.svg';
 import CardKarzina from '../../components/Content/img/cardKarzina.svg';
 

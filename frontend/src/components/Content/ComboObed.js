@@ -1,12 +1,11 @@
-import { useState, useEffect } from "react";
+
 import { Link, useNavigate } from 'react-router-dom';
 import "./Combo.scss"
-import axios from 'axios'
-import s from '../../pages/Home.module.scss';
+import s from '../../Home.module.scss';
 import CardKarzina from './img/cardKarzina.svg'
 import CardKarzinaAdd from './img/cardKarzinaAdd.svg';
-import h from '../Header/Header.module.scss'
-import b from '../../pages/Basket/Basket.module.scss'
+// import h from '../Header/Header.module.scss'
+// import b from '../../pages/Basket/Basket.module.scss'
 const  ComboObed = ({
     addBasket,
     isAddedToCart,

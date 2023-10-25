@@ -1,6 +1,6 @@
 
 import c from './comboCard.module.scss'
-import s from '../../pages/Home.module.scss'
+import s from '../../Home.module.scss'
 
 import CardKarzina from '../Content/img/cardKarzina.svg'
 import CardKarzinaAdd from '../Content/img/cardKarzinaAdd.svg';

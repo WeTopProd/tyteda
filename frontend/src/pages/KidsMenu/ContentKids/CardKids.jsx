@@ -1,4 +1,4 @@
-import s from '../../Home.module.scss'
+import s from '../../../Home.module.scss'
 import CardKarzina from './img/cardKarzina.svg'
 import CardKarzinaAdd from '../../../components/Content/img/cardKarzinaAdd.svg'
 

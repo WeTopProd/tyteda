@@ -1,0 +1,332 @@
+.section__combo {
+  background-image: url("./img/comboBG.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+}
+@media screen and (max-width: 1200px) {
+  .section__combo {
+    background-image: url("./img/comboPL.png");
+    background-position: right;
+  }
+}
+@media screen and (max-width: 992px) {
+  .section__combo {
+    background-image: url("./img/comboTL.png");
+    background-position: center;
+    margin: 70px 0px !important;
+  }
+}
+@media screen and (max-width: 550px) {
+  .section__combo {
+    background-image: url("./img/comboPH.png");
+    margin: 0px 0px 40px 0px !important;
+  }
+}
+
+.combo {
+  max-width: 600px;
+}
+@media screen and (max-width: 992px) {
+  .combo {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 520px) {
+  .combo {
+    transform: translateY(-30px);
+  }
+}
+.combo__flex {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100vh;
+  margin: 70px 0px !important;
+  width: 100%;
+}
+@media screen and (max-width: 992px) {
+  .combo__flex {
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 520px) {
+  .combo__flex {
+    margin: 0px !important;
+  }
+}
+.combo__title {
+  color: #000;
+  font-size: 62px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 140%;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 992px) {
+  .combo__title {
+    font-size: 30px;
+    margin: 0 auto !important;
+  }
+}
+.combo__subtitle {
+  color: #000;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
+  margin: 40px 0px !important;
+  max-width: 600px;
+}
+@media screen and (max-width: 992px) {
+  .combo__subtitle {
+    text-align: left;
+  }
+}
+@media screen and (max-width: 770px) {
+  .combo__subtitle {
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .combo__subtitle {
+    margin: 20px 0px 40px 0px !important;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+.combo__button {
+  color: var(--unnamed, #000);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  text-transform: uppercase;
+  border-radius: 15px;
+  background: var(--unnamed, linear-gradient(180deg, #FFA800 0%, #FFEA2D 100%));
+  box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.15);
+  padding: 10px 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all ease 0.3s;
+  text-decoration: none;
+}
+.combo__button:hover {
+  box-shadow: 0px 4px 70px 0px rgba(0, 0, 0, 0.45);
+}
+
+.section__banner {
+  padding: 105px 0px;
+  background-image: url("./img/bannerBG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 50px !important;
+}
+
+.banner {
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(20.5px);
+          backdrop-filter: blur(20.5px);
+  padding: 100px 80px;
+}
+@media screen and (max-width: 1300px) {
+  .banner {
+    padding: 100px 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .banner {
+    padding: 100px 10px;
+  }
+}
+.banner__title {
+  color: #000;
+  font-size: 54px;
+  font-style: normal;
+  font-weight: 800;
+  text-align: center;
+  line-height: 170%;
+}
+@media screen and (max-width: 1300px) {
+  .banner__title {
+    font-size: 32px;
+  }
+}
+@media screen and (max-width: 770px) {
+  .banner__title {
+    font-size: 24px;
+    line-height: 140%;
+  }
+}
+
+.section__combocard {
+  padding: 80px 0px;
+  position: relative;
+  overflow: hidden;
+}
+
+.combocard {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+@media screen and (max-width: 1300px) {
+  .combocard {
+    justify-content: center;
+  }
+}
+.combocard__one {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-width: 270px;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+}
+.combocard__two {
+  position: absolute;
+  top: -260px;
+  right: 0;
+  max-width: 200px;
+  width: 100%;
+  height: auto;
+}
+@media screen and (max-width: 900px) {
+  .combocard__two {
+    max-width: 150px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .combocard__two {
+    max-width: 100px;
+    top: 250px;
+  }
+}
+
+.section__reklama {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #FFBB38;
+  background-image: url("../../components/Delivery/del.svg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.reklama__title {
+  color: #000;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  text-transform: uppercase;
+  margin-bottom: 30px !important;
+}
+@media screen and (max-width: 480px) {
+  .reklama__title {
+    font-size: 17px;
+    margin-bottom: 25px !important;
+  }
+}
+.reklama__subtitle {
+  color: var(--white, #FFF);
+  text-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.25) !important;
+  font-size: 52px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 120%;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 1300px) {
+  .reklama__subtitle {
+    font-size: 35px;
+  }
+}
+@media screen and (max-width: 770px) {
+  .reklama__subtitle {
+    font-size: 20px;
+  }
+}
+
+.section__menu {
+  padding-bottom: 40px;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.menu__item {
+  flex: 0 1 23% !important;
+  width: 100%;
+  border-radius: 15px;
+  background: var(--white, #FFF);
+  box-shadow: 0px 3px 40px 0px rgba(0, 0, 0, 0.15);
+}
+@media screen and (max-width: 1200px) {
+  .menu__item {
+    flex: 0 1 31% !important;
+  }
+}
+@media screen and (max-width: 900px) {
+  .menu__item {
+    flex: 0 1 47% !important;
+  }
+}
+@media screen and (max-width: 550px) {
+  .menu__item {
+    flex: 0 0 100% !important;
+  }
+}
+.menu__item__title {
+  color: #000;
+  text-align: center;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #666;
+}
+.menu__item__ul {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.menu__item__ul__li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  list-style-type: disc;
+}
+.menu__item__ul__li p {
+  color: #000;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}/*# sourceMappingURL=Combo.module.css.map */

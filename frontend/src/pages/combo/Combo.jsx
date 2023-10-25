@@ -1,7 +1,7 @@
 
 import c from './Combo.module.scss'
 import h from '../../components/Header/Header.module.scss'
-import s from '../../pages/Home.module.scss'
+import s from '../../Home.module.scss'
 import ContentLogo from '../../components/Content/ContentLogo'
 // import comboJson from '../../components/comboCard/comboJson'
 import ComboCard from '../../components/comboCard/comboCard'
@@ -46,7 +46,7 @@ export default function Combo({
 
     useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods', {
+        axios.get('http://127.0.1:8000/api/goods', {
 
 
         })

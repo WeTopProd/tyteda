@@ -1,6 +1,6 @@
 import k from './KidsMenu.module.scss'
 import h from '../../components/Header/Header.module.scss'
-import s from '../Home.module.scss'
+import s from '../../Home.module.scss'
 import CardInfoKids from './ContentKids/CardInfoKids'
 import CardKids from './ContentKids/CardKids'
 import { useEffect, useState } from 'react'
@@ -19,7 +19,7 @@ export default function KidsMenu({
 
     useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods/?type=children_menu', {
+        axios.get('http://127.0.1:8000/api/goods/?type=children_menu', {
 
         })
 

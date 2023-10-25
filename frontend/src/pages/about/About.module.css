@@ -1,0 +1,107 @@
+.section__about {
+  padding: 150px 0px;
+}
+@media screen and (max-width: 770px) {
+  .section__about {
+    padding: 150px 0px 70px 0px;
+  }
+}
+
+.about {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+}
+@media screen and (max-width: 1400px) {
+  .about {
+    flex-direction: column;
+  }
+}
+.about__flex {
+  display: flex;
+  flex-direction: column;
+  gap: 65px;
+}
+.about__item {
+  flex: 0 1 48%;
+  max-width: 100%;
+  width: 100%;
+}
+.about__item__img {
+  width: 100%;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.4392156863);
+  border-radius: 35px;
+}
+@media screen and (max-width: 1400px) {
+  .about__item__img {
+    max-width: 700px;
+  }
+}
+.about__item__text {
+  color: #000;
+  leading-trim: both;
+  text-edge: cap;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 136%;
+  margin-top: 80px !important;
+}
+.about__item__desc {
+  color: #000;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
+  margin-bottom: 25px !important;
+}
+.about__item__header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+@media screen and (max-width: 770px) {
+  .about__item__header {
+    flex-direction: column;
+  }
+}
+.about__item__header__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+@media screen and (max-width: 770px) {
+  .about__item__header__info {
+    width: 100%;
+  }
+}
+.about__item__header__info__title {
+  flex: 0 1 30%;
+  width: 100%;
+  color: var(--unnamed, #666);
+  font-size: 68px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  padding: 12px;
+  background: #000;
+  border-radius: 15px;
+  background: #D9D9D9;
+  display: flex;
+  justify-content: center;
+}
+@media screen and (max-width: 770px) {
+  .about__item__header__info__title {
+    flex: 0 0 100%;
+    width: 100%;
+    font-size: 30px;
+  }
+}
+.about__item__header__info__subtitle {
+  color: #000;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 800;
+}/*# sourceMappingURL=About.module.css.map */

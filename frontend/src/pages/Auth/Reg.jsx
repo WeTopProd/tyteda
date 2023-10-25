@@ -26,17 +26,17 @@ export default function Reg() {
 
     const [error, setError] = useState(null);
 
-    const[errorEmail, setErrorEmail] = useState(''); 
-    const [errorPhone, setErrorPhone] = useState(''); 
+    const [errorEmail, setErrorEmail] = useState('');
+    const [errorPhone, setErrorPhone] = useState('');
     const [errorPassword, setErrorPassword] = useState('');
     const [errorFirstName, setErrorFirstName] = useState('');
-    const[errorLastName , setErrorLastName] = useState('');
-    
+    const [errorLastName, setErrorLastName] = useState('');
+
 
     const hanClickReg = () => {
 
         // e.preventDefault()
-        axios.post('https://tyteda.ru/api/users/', {
+        axios.post('http://127.0.1:8000/api/users/', {
 
             phone: Number,
             first_name: Name,
@@ -72,7 +72,7 @@ export default function Reg() {
                     setError('Произошла неизвестная ошибка.');
                 }
                 setmodal(false);
-                
+
             });
 
     }
@@ -115,9 +115,9 @@ export default function Reg() {
                                     onChange={(event) => setMail(event.target.value)}
 
                                 />
-                                {errorEmail && <p style={{ color: 'red', fontSize:'12px', padding:'0 15px' }}>{errorEmail}</p>}
+                                {errorEmail && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorEmail}</p>}
                             </div>
-                            
+
 
                             <div>
                                 <input type="password" className={r.reg__item__inp} placeholder='Пароль'
@@ -128,7 +128,7 @@ export default function Reg() {
                                 />
                                 {errorPassword && <p style={{ color: 'red', fontSize: '12px', padding: '0 15px' }}>{errorPassword}</p>}
                             </div>
-                            
+
                             <div>
                                 <input type="password" className={r.reg__item__inp} placeholder='Повторить пароль'
 

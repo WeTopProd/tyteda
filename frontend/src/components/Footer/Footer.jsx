@@ -52,7 +52,7 @@ function Footer() {
                 <div className={f.footer__info_item_geo}>
                   <img src={Geol} alt="svg" />
                   <p className={f.footer__info_item_geo_text}>
-                  г. Москва, ул. Сталеваров, д. 14, корпус 1
+                    г. Москва, ул. Сталеваров, д. 14, корпус 1
                   </p>
                 </div>
 
@@ -67,12 +67,12 @@ function Footer() {
                   <img src={Mail} alt="svg" />
                   <Link
                     className={f.footer__info_item_mail_text}
-                    to="mailto:dostavka@tyteda.ru">
-                    dostavka@tyteda.ru
+                    to="mailto:dostavka@http://127.0.1:8000/api">
+                    dostavka@http://127.0.1:8000/api
                   </Link>
                 </div>
 
-                
+
               </div>
 
               <div className={f.footer__info_port}>
@@ -103,7 +103,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="https://corp-pitanie.tyteda.ru/">
+                  <Link to="https://corp-pitanie.http://127.0.1:8000/api/">
                     <img
                       src={img8}
                       alt="img"
@@ -222,7 +222,7 @@ function Footer() {
 
             </div>
 
-            
+
           </div>
         </div>
       </div>

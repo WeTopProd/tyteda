@@ -1,4 +1,4 @@
-import s from '../../pages/Home.module.scss'
+import s from '../../Home.module.scss'
 import h from '../Header/Header.module.scss'
 
 export default function Payment () {

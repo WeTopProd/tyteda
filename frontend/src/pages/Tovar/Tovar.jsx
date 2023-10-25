@@ -20,7 +20,7 @@ export default function Tovar({
 
     if (tokenTwo) {
 
-      axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+      axios.get('http://127.0.1:8000/api/goods/?is_favorited=true', {
 
         headers: {
           'content-type': 'application/json',

@@ -2,7 +2,7 @@
 import b from './Basket.module.scss'
 import h from '../../components/Header/Header.module.scss'
 import i from '../InterCard/interCard.module.scss'
-import s from '../Home.module.scss'
+import s from '../../Home.module.scss'
 
 import { useEffect, useState } from 'react'
 import BasketTovar from './BasketTovar'
@@ -34,7 +34,7 @@ export default function Basket({
 
     async function removeBasket(id) {
         try {
-            await axios.delete(`https://tyteda.ru/api/goods/${id}/shopping_cart/`, {
+            await axios.delete(`http://127.0.1:8000/api/goods/${id}/shopping_cart/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${localStorage.getItem('token')}`,
@@ -95,40 +95,73 @@ export default function Basket({
 
     const [lastName, setLastName] = useState('')
 
-
-
-    
-
     const [error, setError] = useState('');
+
     const [modal, setmodal] = useState(false)
+
+    const [finalPrice, setFinalPrice] = useState('')
+
+    const [goodDisc, setGoodsDisc] = useState('')
+
+    const [goodId, setGoodId] = useState([])
+
+    const [countGood, setCountGood] = useState([])
+
+    const [priceGood, setPriceGood] = useState([])
+
+    const totalPriceOneItem = countGood * priceGood
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios
-            .post(
-                'https://tyteda.ru/api/send_order/',
-                {
-                    final_price: totalCartPrice,
-                    goods_id: [1, 2],
-                    count_goods: [1, 2],
-                    price_goods:[1,2],
-                    
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Token ${localStorage.getItem('token')}`,
+        axios.request({
+            url: 'http://127.0.1:8000/api/send-order/',
+            data: {
+                decription: `${goodDisc}`,
+                goods_id: goodId,
+                count_goods: countGood,
+                price_goods: priceGood,
+                final_price: String(finalPrice.reduce((prev, count) => prev + count, 0) + 200),
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Token ${tokenTwo}`,
+            },
+            method: 'POST',
+
+        })
+            .then(response => {
+                return axios.request({
+                    url: 'http://127.0.1:8000/api/payment/',
+                    method: 'POST',
+                    data: {
+                        "service_name": `${goodDisc}`,
+                        "num_order": goodId,
+                        "price": String(finalPrice.reduce((prev, count) => prev + count, 0) + 200)
                     },
+                    headers: {
+                        'Authorization': `Token ${tokenTwo}`,
+                        'Content-Type': 'application/json',
+                    },
+                })
+            })
+            .then(response => {
+                console.log(response)
+                const redirectUrl = response.data.success;
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                } else {
+                    
                 }
-            )
+            })
+            
             .then((res) => {
                 setAddress(address); // Обновите состояние адреса доставки
-                window.location.reload();
+                // window.location.reload();
             })
             .then((res) => {
                 axios.patch(
-                    'https://tyteda.ru/api/users/me/',
+                    'http://127.0.1:8000/api/users/me/',
                     {
                         delivery_address: address // Обновление адреса доставки в модели пользователя
                     },
@@ -139,9 +172,9 @@ export default function Basket({
                         },
                     }
                 )
-                    .then((userResponse) => {
+                    .then(() => {
                         setAddress(address); // Обновите состояние адреса доставки
-                        window.location.reload();
+                        // window.location.reload();
                     })
                     .catch((userError) => {
                         console.error('Ошибка при обновлении адреса пользователя', userError);
@@ -151,18 +184,29 @@ export default function Basket({
                 if (err.response.status === 400) {
                     const errorResponse = err.response.data.error;
                     setError(errorResponse || null);
-                    
+
                 } else {
                     setError('Произошла неизвестная ошибка.');
                 }
                 setmodal(false);
+                console.log(err);
             });
+
     }
-    
+    useEffect(() => {
+
+        setGoodsDisc(karzinkaTovar.map(el => el.title))
+        setGoodId(karzinkaTovar.map(el => el.id))
+        setCountGood(karzinkaTovar.map(el => el.count))
+        setPriceGood(karzinkaTovar.map(el => el.price * el.count))
+        setFinalPrice(karzinkaTovar.map(el => el.price * el.count))
+    }, [karzinkaTovar])
+
+
     const fetchDeliveryAddress = async () => {
         try {
 
-            const response = await axios.get('https://tyteda.ru/api/users/me/', {
+            const response = await axios.get('http://127.0.1:8000/api/users/me/', {
                 headers: {
                     'Authorization': `Token ${tokenTwo}`
                 }
@@ -180,12 +224,13 @@ export default function Basket({
             console.error('Ошибка запроса', error);
 
         }
+
     };
 
     useEffect(() => {
         fetchDeliveryAddress()
-        
-        console.log(handleSubmit,'djffdhfj')
+
+
     }, []);
 
     return (
@@ -303,10 +348,9 @@ export default function Basket({
 
                                         >
 
-                                            <option value="">Выберете опцию</option>
+
                                             <option value="Оптала онлайн">Оплата онлайн</option>
-                                            <option value="Оплата картой курьеру">Оплата картой курьеру</option>
-                                            <option value="Оплата наличными курьеру">Оплата наличными курьеру</option>
+
 
                                         </select>
 
@@ -398,18 +442,20 @@ export default function Basket({
                                     <button className={b.basket__item__footer__button} onClick={handleSubmit}>
                                         Заказать
                                     </button>
-                                   
+
                                 </div>
-                                <div style={{width:'100%',display:'flex',justifyContent:'end'
-                                    , padding:'10px'}}>
+                                <div style={{
+                                    width: '100%', display: 'flex', justifyContent: 'end'
+                                    , padding: '10px'
+                                }}>
                                     {error && <p style={{ color: 'red', fontSize: '16px', padding: '0 15px' }}>{error}</p>}
                                 </div>
-                                
+
                             </div>
 
-                                     
+
                         </div>
-                                      
+
                     </form>
 
                 </div>

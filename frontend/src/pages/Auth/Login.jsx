@@ -20,11 +20,15 @@ export default function Login({ setToken, setIsActive, token }) {
 
     const [error, setError] = useState(null);
 
+    const tokenTwo = localStorage.getItem('token')
+
+   
+
     const Login = (e) => {
 
         e.preventDefault()
 
-        axios.post(`https://tyteda.ru/api/auth/${emailRegex.test(ValuePocht) ? 'token-email' : 'token-phone'}/`,
+        axios.post(`http://127.0.1:8000/api/auth/${emailRegex.test(ValuePocht) ? 'token-email' : 'token-phone'}/`,
 
             {
                 email: emailRegex.test(ValuePocht) === true ? ValuePocht : null,
@@ -36,7 +40,7 @@ export default function Login({ setToken, setIsActive, token }) {
                 headers: {
 
                     'Content-Type': 'application/json',
-
+                    
 
                 }
 
@@ -51,8 +55,8 @@ export default function Login({ setToken, setIsActive, token }) {
                 setToken(res.data.auth_token)
                 localStorage.setItem('token', res.data.auth_token);
                 window.location.reload()
-                
-            
+
+
             })
 
             .catch(err => {
@@ -64,12 +68,13 @@ export default function Login({ setToken, setIsActive, token }) {
                     setError(err.response.data.message);
                 }
                 setmodal(false);
-                console.log(err,'hhhhhhhhhhhhhhhhhhhhhhhh')
+                
             })
-        
+
     }
 
-
+   
+   
 
 
     return (
@@ -109,7 +114,7 @@ export default function Login({ setToken, setIsActive, token }) {
                             onChange={(event) => setPassword(event.target.value)}
 
                         />
-                        {error && <p style={{color:'red'}}>{error}</p>}
+                        {error && <p style={{ color: 'red' }}>{error}</p>}
 
                     </div>
 

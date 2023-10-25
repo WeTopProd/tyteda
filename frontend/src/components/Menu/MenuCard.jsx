@@ -3,12 +3,12 @@ import img2 from '../../pages/combo/img/2.svg'
 import img3 from '../../pages/combo/img/3.svg'
 import img4 from '../../pages/combo/img/4.svg'
 import img5 from '../../pages/combo/img/5.svg'
-import { Link } from 'react-router-dom';
-import s from '../../pages/Home.module.scss';
+// import { Link } from 'react-router-dom';
+// import s from '../../Home.module.scss';
 
 import c from '../../pages/combo/Combo.module.scss'
-import CardKarzina from '../Content/img/cardKarzina.svg';
-import CardKarzinaAdd from '../Content/img/cardKarzina.svg';
+// import CardKarzina from '../Content/img/cardKarzina.svg';
+// import CardKarzinaAdd from '../Content/img/cardKarzina.svg';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -31,7 +31,7 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
         setHeart(newHeartState);
 
         try {
-            await axios.post(`https://tyteda.ru/api/goods/${info.id}/favorite/`, null, {
+            await axios.post(`http://127.0.1:8000/api/goods/${info.id}/favorite/`, null, {
 
                 headers: {
                     'content-type': 'application/json',
@@ -40,7 +40,7 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
 
             });
 
-            const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+            const res = await axios.get('http://127.0.1:8000/api/goods/?is_favorited=true', {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
@@ -68,14 +68,14 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
 
         try {
 
-            await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
+            await axios.delete(`http://127.0.1:8000/api/goods/${info.id}/favorite/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
                 },
             });
 
-            const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+            const res = await axios.get('http://127.0.1:8000/api/goods/?is_favorited=true', {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
@@ -105,7 +105,7 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
 
     const divStyle = {
         margin: '5px',
-        padding:'15px'
+        padding: '15px'
     };
 
     return (
@@ -144,9 +144,9 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
                     <p>{info.text5}</p>
 
                 </li>
-                
+
             </div>
-           
+
         </div>
 
     )

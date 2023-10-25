@@ -1,0 +1,80 @@
+.section__menu {
+  background-image: url("./img/kidsBG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  margin: 90px 0px 0px 0px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media screen and (max-width: 850px) {
+  .section__menu {
+    background-image: url("./img/kidsPl.png");
+  }
+}
+@media screen and (max-width: 500px) {
+  .section__menu {
+    background-image: url("./img/kidsApp.png");
+  }
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 860px;
+}
+@media screen and (max-width: 850px) {
+  .menu {
+    max-width: 500px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .menu {
+    margin-top: -100px !important;
+  }
+}
+.menu__title {
+  color: var(--white, #FFF);
+  font-size: 72px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 140%;
+  text-transform: uppercase;
+  margin-bottom: 40px !important;
+}
+@media screen and (max-width: 850px) {
+  .menu__title {
+    font-size: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .menu__title {
+    font-size: 20px;
+    margin-bottom: 20px !important;
+  }
+}
+.menu__subtitle {
+  color: var(--white, #FFF);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 140%;
+}
+@media screen and (max-width: 770px) {
+  .menu__subtitle {
+    font-size: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .menu__subtitle {
+    font-size: 14px;
+  }
+}
+
+.section__mycard {
+  padding: 70px 0px;
+}/*# sourceMappingURL=KidsMenu.module.css.map */

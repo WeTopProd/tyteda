@@ -202,7 +202,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     useEffect(() => {
         // Проверяем наличие токена
         if (tokenTwo) {
-            axios.get('https://tyteda.ru/api/users/me/', {
+            axios.get('http://127.0.1:8000/api/users/me/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${tokenTwo}`
@@ -233,7 +233,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     const PreapUsers = () => {
 
 
-        axios.patch('https://tyteda.ru/api/users/me/', {
+        axios.patch('http://127.0.1:8000/api/users/me/', {
 
             email: emailPo,
             first_name: firstName,
@@ -287,7 +287,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
 
         event.preventDefault()
 
-        axios.get(`https://tyteda.ru/api/goods/?title=${titleItem}`, {
+        axios.get(`http://127.0.1:8000/api/goods/?title=${titleItem}`, {
 
             // headers: {
             //     'Content-Type': 'application/json',
@@ -311,7 +311,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     useEffect(() => {
 
         if (tokenTwo) {
-            axios.get('https://tyteda.ru/api/goods/order_history/', {
+            axios.get('http://127.0.1:8000/api/goods/order_history/', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${tokenTwo}`
@@ -403,7 +403,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     const fetchDeliveryAddress = async () => {
         try {
 
-            const response = await axios.get('https://tyteda.ru/api/users/me/', {
+            const response = await axios.get('http://127.0.1:8000/api/users/me/', {
                 headers: {
                     'Authorization': `Token ${tokenTwo}`
                 }
