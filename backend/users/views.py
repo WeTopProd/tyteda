@@ -56,7 +56,6 @@ def send_email(request):
     now = datetime.now()
     locale.setlocale(locale.LC_TIME, 'ru_RU.UTF-8')
     date = now.strftime("%d %B %Y, %A %H:%M")
-    description = request.data.get('description', '')
     goods_ids = request.data.get('goods_id', [])
     count_goods = request.data.get('count_goods', [])
     price_goods = request.data.get('price_goods', [])
@@ -70,7 +69,6 @@ def send_email(request):
 
     message = (f"ЗАКАЗ ОТ {last_name} {first_name}\n\n"
                f"НОМЕР ТЕЛЕФОНА: {phone}\nПОЧТА: {email_user}\n\n"
-               f"КОММЕНТАРИЙ ОТ ПОЛЬЗОВАТЕЛЯ:\n{description}\n\n"
                f"ЗАКАЗ:\nДАТА ЗАКАЗА: {date}\n\n")
 
     for i, goods in enumerate(goods_list):
