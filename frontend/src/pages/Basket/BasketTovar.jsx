@@ -26,7 +26,7 @@ export default function BasketTovar({
         };
 
         const response = await axios.patch(
-          `http://127.0.1:8000/api/goods/${info.id}/shopping_cart/`,
+          `https://tyteda.ru/api/goods/${info.id}/shopping_cart/`,
           updatedCartItem,
           {
             headers: {
