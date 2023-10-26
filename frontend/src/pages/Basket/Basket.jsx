@@ -132,7 +132,7 @@ export default function Basket({
         })
             .then(response => {
                 return axios.request({
-                    url: 'http://127.0.1:8000/api/payment/',
+                    url: 'https://tyteda.ru/api/payment/',
                     method: 'POST',
                     data: {
                         "service_name": `${goodDisc}`,
@@ -152,14 +152,14 @@ export default function Basket({
                     window.location.href = redirectUrl;
                 }
             })
-            
+
             .then((res) => {
                 setAddress(address); // Обновите состояние адреса доставки
                 // window.location.reload();
             })
             .then((res) => {
                 axios.patch(
-                    'http://127.0.1:8000/api/users/me/',
+                    'https://tyteda.ru/api/users/me/',
                     {
                         delivery_address: address // Обновление адреса доставки в модели пользователя
                     },
@@ -179,16 +179,16 @@ export default function Basket({
                     });
             })
             .catch((err) => {
-            //     if (err.response.status === 400) {
-            //         const errorResponse = err.response.data.error;
-            //         setError(errorResponse || null);
+                //     if (err.response.status === 400) {
+                //         const errorResponse = err.response.data.error;
+                //         setError(errorResponse || null);
 
-            // } else {
-            //     setError('Произошла неизвестная ошибка.');
-            // }
-            setmodal(false);
-            console.log(err);
-        });
+                // } else {
+                //     setError('Произошла неизвестная ошибка.');
+                // }
+                setmodal(false);
+                console.log(err);
+            });
 
     }
     useEffect(() => {
