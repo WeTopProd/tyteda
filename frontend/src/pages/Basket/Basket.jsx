@@ -129,68 +129,66 @@ export default function Basket({
             },
             method: 'POST',
 
+        }).then(response => {
+            return axios.request({
+                url: 'http://127.0.1:8000/api/payment/',
+                method: 'POST',
+                data: {
+                    "service_name": `${goodDisc}`,
+                    "num_order": goodId,
+                    "price": String(finalPrice.reduce((prev, count) => prev + count, 0) + 200)
+                },
+                headers: {
+                    'Authorization': `Token ${tokenTwo}`,
+                    'Content-Type': 'application/json',
+                },
+            })
         })
-            .then(response => {
-                return axios.request({
-                    url: 'http://127.0.1:8000/api/payment/',
-                    method: 'POST',
-                    data: {
-                        "service_name": `${goodDisc}`,
-                        "num_order": goodId,
-                        "price": String(finalPrice.reduce((prev, count) => prev + count, 0) + 200)
-                    },
-                    headers: {
-                        'Authorization': `Token ${tokenTwo}`,
-                        'Content-Type': 'application/json',
-                    },
-                })
-            })
-            .then(response => {
-                console.log(response)
-                const redirectUrl = response.data.success;
-                if (redirectUrl) {
-                    window.location.href = redirectUrl;
-                } else {
-                    
-                }
-            })
-            
-            .then((res) => {
-                setAddress(address); // Обновите состояние адреса доставки
-                // window.location.reload();
-            })
-            .then((res) => {
-                axios.patch(
-                    'http://127.0.1:8000/api/users/me/',
-                    {
-                        delivery_address: address // Обновление адреса доставки в модели пользователя
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Token ${localStorage.getItem('token')}`,
-                        },
-                    }
-                )
-                    .then(() => {
-                        setAddress(address); // Обновите состояние адреса доставки
-                        // window.location.reload();
-                    })
-                    .catch((userError) => {
-                        console.error('Ошибка при обновлении адреса пользователя', userError);
-                    });
-            })
-            .catch((err) => {
-                if (err.response.status === 400) {
-                    const errorResponse = err.response.data.error;
-                    setError(errorResponse || null);
+        .then(response => {
+            console.log(response)
+            const redirectUrl = response.data.success;
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
+            } else {
 
-                } else {
-                    setError('Произошла неизвестная ошибка.');
+            }
+        })
+        .then((res) => {
+            setAddress(address); // Обновите состояние адреса доставки
+            // window.location.reload();
+        })
+        .then((res) => {
+            axios.patch(
+                'http://127.0.1:8000/api/users/me/',
+                {
+                    delivery_address: address // Обновление адреса доставки в модели пользователя
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Token ${localStorage.getItem('token')}`,
+                    },
                 }
-                setmodal(false);
-                console.log(err);
-            });
+            )
+                .then(() => {
+                    setAddress(address); // Обновите состояние адреса доставки
+                    // window.location.reload();
+                })
+                .catch((userError) => {
+                    console.error('Ошибка при обновлении адреса пользователя', userError);
+                }); 
+        })
+        .catch((err) => {
+            if (err.response.status === 400) {
+                const errorResponse = err.response.data.error;
+                setError(errorResponse || null);
+
+            } else {
+                setError('Произошла неизвестная ошибка.');
+            }
+            setmodal(false);
+            console.log(err);
+        });
 
     }
     useEffect(() => {
