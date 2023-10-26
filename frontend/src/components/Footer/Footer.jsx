@@ -67,8 +67,13 @@ function Footer() {
                   <img src={Mail} alt="svg" />
                   <Link
                     className={f.footer__info_item_mail_text}
+<<<<<<< HEAD
                     to="mailto:dostavka@https://tyteda.ru/api">
                     dostavka@https://tyteda.ru/api
+=======
+                    to="mailto:dostavka@tyteda.ru">
+                    dostavka@tyteda.ru
+>>>>>>> 394715ffefa950dd6cf0b1660d144d3d9fc1710b
                   </Link>
                 </div>
 
