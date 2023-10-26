@@ -179,13 +179,13 @@ export default function Basket({
                     });
             })
             .catch((err) => {
-                if (err.response.status === 400) {
-                    const errorResponse = err.response.data.error;
-                    setError(errorResponse || null);
+            //     if (err.response.status === 400) {
+            //         const errorResponse = err.response.data.error;
+            //         setError(errorResponse || null);
 
-            } else {
-                setError('Произошла неизвестная ошибка.');
-            }
+            // } else {
+            //     setError('Произошла неизвестная ошибка.');
+            // }
             setmodal(false);
             console.log(err);
         });
