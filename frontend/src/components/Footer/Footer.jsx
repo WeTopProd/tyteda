@@ -67,8 +67,8 @@ function Footer() {
                   <img src={Mail} alt="svg" />
                   <Link
                     className={f.footer__info_item_mail_text}
-                    to="mailto:dostavka@http://127.0.1:8000/api">
-                    dostavka@http://127.0.1:8000/api
+                    to="mailto:dostavka@https://tyteda.ru/api">
+                    dostavka@https://tyteda.ru/api
                   </Link>
                 </div>
 
@@ -103,7 +103,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="https://corp-pitanie.http://127.0.1:8000/api/">
+                  <Link to="https://corp-pitanie.https://tyteda.ru/api/">
                     <img
                       src={img8}
                       alt="img"

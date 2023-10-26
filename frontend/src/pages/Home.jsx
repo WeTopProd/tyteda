@@ -56,7 +56,7 @@ export default function Home({
 
 	useEffect(() => {
 
-		axios.get('http://127.0.1:8000/api/goods/?promotion=promotion', {
+		axios.get('https://tyteda.ru/api/goods/?promotion=promotion', {
 
 		})
 
@@ -74,7 +74,7 @@ export default function Home({
 
 	useEffect(() => {
 
-		axios.get('http://127.0.1:8000/api/goods/?promotion=recommend', {
+		axios.get('https://tyteda.ru/api/goods/?promotion=recommend', {
 
 		})
 
@@ -290,10 +290,10 @@ export default function Home({
 
 							<p className={s.home__content_textThree}>
 								доставка еды <br />
-								 для ваших сотрудников
+								для ваших сотрудников
 							</p>
 
-							<Link to={'https://corp-pitanie.http://127.0.1:8000/api/'} className={s.home__content_button}>
+							<Link to={'https://corp-pitanie.https://tyteda.ru/api/'} className={s.home__content_button}>
 								Подробнее
 							</Link>
 

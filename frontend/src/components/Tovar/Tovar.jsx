@@ -20,7 +20,7 @@ export default function Tovar({ ...info }) {
     useEffect(() => {
         async function fetchGoods() {
             try {
-                const res = await axios.get('http://127.0.1:8000/api/goods/?is_favorited=true', {
+                const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
 
                     headers: {
                         'content-type': 'application/json',
@@ -42,14 +42,14 @@ export default function Tovar({ ...info }) {
         setHeart(!heart);
 
         try {
-            await axios.delete(`http://127.0.1:8000/api/goods/${info.id}/favorite/`, {
+            await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
                 },
             });
 
-            const res = await axios.get('http://127.0.1:8000/api/goods/?is_favorited=true', {
+            const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,

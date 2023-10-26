@@ -22,13 +22,13 @@ export default function Login({ setToken, setIsActive, token }) {
 
     const tokenTwo = localStorage.getItem('token')
 
-   
+
 
     const Login = (e) => {
 
         e.preventDefault()
 
-        axios.post(`http://127.0.1:8000/api/auth/${emailRegex.test(ValuePocht) ? 'token-email' : 'token-phone'}/`,
+        axios.post(`https://tyteda.ru/api/auth/${emailRegex.test(ValuePocht) ? 'token-email' : 'token-phone'}/`,
 
             {
                 email: emailRegex.test(ValuePocht) === true ? ValuePocht : null,
@@ -40,7 +40,7 @@ export default function Login({ setToken, setIsActive, token }) {
                 headers: {
 
                     'Content-Type': 'application/json',
-                    
+
 
                 }
 
@@ -68,13 +68,13 @@ export default function Login({ setToken, setIsActive, token }) {
                     setError(err.response.data.message);
                 }
                 setmodal(false);
-                
+
             })
 
     }
 
-   
-   
+
+
 
 
     return (
