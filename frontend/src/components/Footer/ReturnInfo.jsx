@@ -28,7 +28,7 @@ export default function ReturnInfo() {
         e.preventDefault()
 
 
-        axios.post('http://127.0.1:8000/api/send-email/', {
+        axios.post('https://tyteda.ru/api/send-email/', {
 
             date: uslugi,
             description: Info,

@@ -34,7 +34,7 @@ export default function Basket({
 
     async function removeBasket(id) {
         try {
-            await axios.delete(`http://127.0.1:8000/api/goods/${id}/shopping_cart/`, {
+            await axios.delete(`https://tyteda.ru/api/goods/${id}/shopping_cart/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${localStorage.getItem('token')}`,
@@ -115,7 +115,7 @@ export default function Basket({
         e.preventDefault();
 
         axios.request({
-            url: 'http://127.0.1:8000/api/send-order/',
+            url: 'https://tyteda.ru/api/send-order/',
             data: {
                 decription: `${goodDisc}`,
                 goods_id: goodId,
@@ -129,59 +129,59 @@ export default function Basket({
             },
             method: 'POST',
 
-        }).then(response => {
-            return axios.request({
-                url: 'http://127.0.1:8000/api/payment/',
-                method: 'POST',
-                data: {
-                    "service_name": `${goodDisc}`,
-                    "num_order": goodId,
-                    "price": String(finalPrice.reduce((prev, count) => prev + count, 0) + 200)
-                },
-                headers: {
-                    'Authorization': `Token ${tokenTwo}`,
-                    'Content-Type': 'application/json',
-                },
-            })
         })
-        .then(response => {
-            console.log(response)
-            const redirectUrl = response.data.success;
-            if (redirectUrl) {
-                window.location.href = redirectUrl;
-            } else {
-
-            }
-        })
-        .then((res) => {
-            setAddress(address); // Обновите состояние адреса доставки
-            // window.location.reload();
-        })
-        .then((res) => {
-            axios.patch(
-                'http://127.0.1:8000/api/users/me/',
-                {
-                    delivery_address: address // Обновление адреса доставки в модели пользователя
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Token ${localStorage.getItem('token')}`,
+            .then(response => {
+                return axios.request({
+                    url: 'http://127.0.1:8000/api/payment/',
+                    method: 'POST',
+                    data: {
+                        "service_name": `${goodDisc}`,
+                        "num_order": goodId,
+                        "price": String(finalPrice.reduce((prev, count) => prev + count, 0) + 200)
                     },
-                }
-            )
-                .then(() => {
-                    setAddress(address); // Обновите состояние адреса доставки
-                    // window.location.reload();
+                    headers: {
+                        'Authorization': `Token ${tokenTwo}`,
+                        'Content-Type': 'application/json',
+                    },
                 })
-                .catch((userError) => {
-                    console.error('Ошибка при обновлении адреса пользователя', userError);
-                }); 
-        })
-        .catch((err) => {
-            if (err.response.status === 400) {
-                const errorResponse = err.response.data.error;
-                setError(errorResponse || null);
+            })
+            .then(response => {
+                console.log(response)
+                const redirectUrl = response.data.success;
+                if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                }
+            })
+            
+            .then((res) => {
+                setAddress(address); // Обновите состояние адреса доставки
+                // window.location.reload();
+            })
+            .then((res) => {
+                axios.patch(
+                    'http://127.0.1:8000/api/users/me/',
+                    {
+                        delivery_address: address // Обновление адреса доставки в модели пользователя
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Token ${localStorage.getItem('token')}`,
+                        },
+                    }
+                )
+                    .then(() => {
+                        setAddress(address); // Обновите состояние адреса доставки
+                        // window.location.reload();
+                    })
+                    .catch((userError) => {
+                        console.error('Ошибка при обновлении адреса пользователя', userError);
+                    });
+            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    const errorResponse = err.response.data.error;
+                    setError(errorResponse || null);
 
             } else {
                 setError('Произошла неизвестная ошибка.');
@@ -204,7 +204,7 @@ export default function Basket({
     const fetchDeliveryAddress = async () => {
         try {
 
-            const response = await axios.get('http://127.0.1:8000/api/users/me/', {
+            const response = await axios.get('https://tyteda.ru/api/users/me/', {
                 headers: {
                     'Authorization': `Token ${tokenTwo}`
                 }
