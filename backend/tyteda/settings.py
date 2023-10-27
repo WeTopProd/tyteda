@@ -6,7 +6,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-*mzje=yktkay8l632q8$h)xzn#0a&218(jz^&17d$w4o1tbl^&'
 
-DEBUG = False
+ DEBUG = True
 
 if DEBUG:
     ALLOWED_HOSTS = [
@@ -14,7 +14,7 @@ if DEBUG:
         '127.0.0.1',
         'localhost',
     ]
-else:
+else :
     ALLOWED_HOSTS = [
         'tyteda.ru',
         '89.108.79.12',

@@ -224,6 +224,7 @@ export default function Basket({
 
                 } else {
                     setError('Произошла неизвестная ошибка.');
+                    console.log(err,'error on payment');
                 }
                 setmodal(false);
 

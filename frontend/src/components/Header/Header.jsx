@@ -389,7 +389,7 @@ export default function Header({ isActive, setIsActive, token, handlePoiskCard, 
     };
 
     const handleCall = () => {
-        window.location.href = '+74951396444';
+        window.location.href = '+7(495)139-64-44';
     };
 
     const [deliveryAddress, setDeliveryAddress] = useState(null);
