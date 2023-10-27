@@ -6,9 +6,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-*mzje=yktkay8l632q8$h)xzn#0a&218(jz^&17d$w4o1tbl^&'
 
-DEBUG = False
+DEBUG = True
 
-if DEBUG:
+if not DEBUG:
     ALLOWED_HOSTS = [
         '*',
         '127.0.0.1',
@@ -73,7 +73,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'tyteda.wsgi.application'
 
 
-if DEBUG:
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
