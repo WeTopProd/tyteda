@@ -113,7 +113,13 @@ export default function Basket({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        console.log({
+            decription: `${goodDisc}`,
+            goods_id: goodId,
+            count_goods: countGood,
+            price_goods: priceGood,
+            final_price: String(finalPrice.reduce((prev, count) => prev + count, 0) + 200),
+        });
         axios.request({
             url: 'https://tyteda.ru/api/send-order/',
             data: {
@@ -121,38 +127,38 @@ export default function Basket({
                 goods_id: goodId,
                 count_goods: countGood,
                 price_goods: priceGood,
-                final_price: String(finalPrice.reduce((prev, count) => prev + count, 0) + 200),
+                final_price: `${finalPrice.reduce((prev, count) => prev + count, 0) + 200}`,
             },
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Token ${tokenTwo}`,
+                authorization: `Token ${tokenTwo}`,
             },
             method: 'POST',
 
         })
             .then(response => {
-                return axios.request({
+                axios.request({
                     url: 'https://tyteda.ru/api/payment/',
                     method: 'POST',
                     data: {
                         "service_name": `${goodDisc}`,
                         "num_order": goodId,
-                        "price": String(finalPrice.reduce((prev, count) => prev + count, 0) + 200)
+                        "price": `${finalPrice.reduce((prev, count) => prev + count, 0) + 200}`
                     },
                     headers: {
-                        'Authorization': `Token ${tokenTwo}`,
+                        authorization: `Token ${tokenTwo}`,
                         'Content-Type': 'application/json',
                     },
                 })
-            })
-            .then(response => {
-                console.log(response)
-                const redirectUrl = response.data.success;
-                if (redirectUrl) {
-                    window.location.href = redirectUrl;
-                } 
-            })
+                    .then(response => {
 
+                        const redirectUrl = response.data.success;
+                        if (redirectUrl) {
+                            window.location.href = redirectUrl;
+                        }
+                    })
+
+            })
             .then((res) => {
                 setAddress(address); // Обновите состояние адреса доставки
                 // window.location.reload();
@@ -166,7 +172,7 @@ export default function Basket({
                     {
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Token ${localStorage.getItem('token')}`,
+                            authorization: `Token ${localStorage.getItem('token')}`,
                         },
                     }
                 )
@@ -179,15 +185,15 @@ export default function Basket({
                     });
             })
             .catch((err) => {
-                //     if (err.response.status === 400) {
-                //         const errorResponse = err.response.data.error;
-                //         setError(errorResponse || null);
+                if (err.response.status === 400) {
+                    const errorResponse = err.response.data.error;
+                    setError(errorResponse || null);
 
-                // } else {
-                //     setError('Произошла неизвестная ошибка.');
-                // }
+                } else {
+                    setError('Произошла неизвестная ошибка.');
+                }
                 setmodal(false);
-                console.log(err);
+
             });
 
     }
@@ -206,7 +212,8 @@ export default function Basket({
 
             const response = await axios.get('https://tyteda.ru/api/users/me/', {
                 headers: {
-                    'Authorization': `Token ${tokenTwo}`
+                    Authorization: `Token ${tokenTwo}`,
+                    'Content-Type': 'application/json',
                 }
             });
             const address = response.data.delivery_address;

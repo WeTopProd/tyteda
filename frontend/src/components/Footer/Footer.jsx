@@ -68,7 +68,7 @@ function Footer() {
                   <Link
                     className={f.footer__info_item_mail_text}
                     to="">
-                    
+
                   </Link>
                 </div>
 
