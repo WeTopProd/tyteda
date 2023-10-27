@@ -99,8 +99,6 @@ export default function Basket({
 
     const [modal, setmodal] = useState(false)
 
-    const [finalPrice, setFinalPrice] = useState('')
-
     const [goodDisc, setGoodsDisc] = useState('')
 
     const [goodId, setGoodId] = useState([])
@@ -109,17 +107,52 @@ export default function Basket({
 
     const [priceGood, setPriceGood] = useState([])
 
-    const totalPriceOneItem = countGood * priceGood
+    const [finalPrice, setFinalPrice] = useState('')
+
+    const [priceCount, setPriceCount] = useState([])
+
+
+    useEffect(() => {
+
+        setGoodsDisc(karzinkaTovar.map(el => el.title))
+        setGoodId(karzinkaTovar.map(el => el.id))
+        setCountGood(karzinkaTovar.map(el => el.count))
+
+        let priceGood = karzinkaTovar.map(el => el.price * el.count)
+        setPriceGood(priceGood)
+
+        let totalPrice = priceGood.reduce((prev, curr) => prev + curr, 0) + 200
+        setFinalPrice(totalPrice)
+
+
+        // const goodsDisc = karzinkaTovar.map(el => el.title)
+        // const goodId = karzinkaTovar.map(el => el.id)
+        // const countGood = karzinkaTovar.map(el => el.count)
+        // const priceGood = karzinkaTovar.map(el => el.price * el.count)
+
+        // setGoodsDisc(goodsDisc)
+        // setGoodId(goodId)
+        // setCountGood(countGood)
+        // setPriceGood(priceGood)
+
+        // const totalPrice = priceGood.reduce((prev, curr) => prev + curr, 0) + 200
+        // setPriceCount(totalPrice)
+        // setFinalPrice(totalPrice)
+
+        // console.log({
+        //     decription: `${goodDisc}`,
+        //     goods_id: goodId,
+        //     count_goods: countGood,
+        //     price_goods: priceGood,
+        //     final_price: `${finalPrice}`,
+        // });
+    }, [karzinkaTovar])
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({
-            decription: `${goodDisc}`,
-            goods_id: goodId,
-            count_goods: countGood,
-            price_goods: priceGood,
-            final_price: String(finalPrice.reduce((prev, count) => prev + count, 0) + 200),
-        });
+        // https://tyteda.ru
         axios.request({
             url: 'https://tyteda.ru/api/send-order/',
             data: {
@@ -127,7 +160,7 @@ export default function Basket({
                 goods_id: goodId,
                 count_goods: countGood,
                 price_goods: priceGood,
-                final_price: `${finalPrice.reduce((prev, count) => prev + count, 0) + 200}`,
+                final_price: `${finalPrice}`,
             },
             headers: {
                 'Content-Type': 'application/json',
@@ -143,7 +176,7 @@ export default function Basket({
                     data: {
                         "service_name": `${goodDisc}`,
                         "num_order": goodId,
-                        "price": `${finalPrice.reduce((prev, count) => prev + count, 0) + 200}`
+                        "price": `${finalPrice}`
                     },
                     headers: {
                         authorization: `Token ${tokenTwo}`,
@@ -197,14 +230,7 @@ export default function Basket({
             });
 
     }
-    useEffect(() => {
 
-        setGoodsDisc(karzinkaTovar.map(el => el.title))
-        setGoodId(karzinkaTovar.map(el => el.id))
-        setCountGood(karzinkaTovar.map(el => el.count))
-        setPriceGood(karzinkaTovar.map(el => el.price * el.count))
-        setFinalPrice(karzinkaTovar.map(el => el.price * el.count))
-    }, [karzinkaTovar])
 
 
     const fetchDeliveryAddress = async () => {

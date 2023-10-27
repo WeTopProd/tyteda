@@ -82,6 +82,7 @@ def send_email(request):
         message,
         settings.DEFAULT_FROM_EMAIL,
         [settings.DEFAULT_FROM_EMAIL],
+        # тут
         fail_silently=False,
     )
     return Response({'success': 'Сообщение успешно отправлено'})
