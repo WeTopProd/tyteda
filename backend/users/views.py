@@ -54,6 +54,7 @@ def send_email(request):
     user = request.user
     now = datetime.now()
     date = now.strftime("%d %B %Y, %A %H:%M")
+    address = request.data.get('address', '')
     goods_ids = request.data.get('goods_id', [])
     count_goods = request.data.get('count_goods', [])
     price_goods = request.data.get('price_goods', [])
@@ -67,7 +68,7 @@ def send_email(request):
 
     message = (f"ЗАКАЗ ОТ {last_name} {first_name}\n\n"
                f"НОМЕР ТЕЛЕФОНА: {phone}\nПОЧТА: {email_user}\n\n"
-               f"ЗАКАЗ:\nДАТА ЗАКАЗА: {date}\n\n")
+               f"ЗАКАЗ:\nДАТА ЗАКАЗА: {date}\nАДРЕС ДОСТАВКИ:{address}\n\n")
 
     for i, goods in enumerate(goods_list):
         message += (f"ТОВАР {i + 1}:\n"
