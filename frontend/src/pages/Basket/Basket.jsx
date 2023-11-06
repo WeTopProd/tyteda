@@ -34,7 +34,7 @@ export default function Basket({
 
     async function removeBasket(id) {
         try {
-            await axios.delete(`https://tyteda.ru/api/goods/${id}/shopping_cart/`, {
+            await axios.delete(`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${localStorage.getItem('token')}`,
@@ -80,8 +80,6 @@ export default function Basket({
     const [name, setName] = useState('')
 
     const [mail, setMail] = useState('')
-
-    // const [address, setAddress] = useState('')
 
     const [delTime, setDelTime] = useState('')
 
@@ -146,20 +144,22 @@ export default function Basket({
         //     price_goods: priceGood,
         //     final_price: `${finalPrice}`,
         // });
+        console.log(address, 'address')
     }, [karzinkaTovar])
 
 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // https://tyteda.ru
+
         axios.request({
-            url: 'https://tyteda.ru/api/send-order/',
+            url: 'http://127.0.0.1:8000/api/send-order/',
             data: {
                 decription: `${goodDisc}`,
                 goods_id: goodId,
                 count_goods: countGood,
                 price_goods: priceGood,
+                address: `${address}`,
                 final_price: `${finalPrice}`,
             },
             headers: {
@@ -171,7 +171,7 @@ export default function Basket({
         })
             .then(response => {
                 axios.request({
-                    url: 'https://tyteda.ru/api/payment/',
+                    url: 'http://127.0.0.1:8000/api/payment/',
                     method: 'POST',
                     data: {
                         "service_name": `${goodDisc}`,
@@ -198,7 +198,7 @@ export default function Basket({
             })
             .then((res) => {
                 axios.patch(
-                    'https://tyteda.ru/api/users/me/',
+                    'http://127.0.0.1:8000/api/users/me/',
                     {
                         delivery_address: address // Обновление адреса доставки в модели пользователя
                     },
@@ -224,7 +224,7 @@ export default function Basket({
 
                 } else {
                     setError('Произошла неизвестная ошибка.');
-                    console.log(err,'error on payment');
+                    console.log(err, 'error on payment');
                 }
                 setmodal(false);
 
@@ -237,7 +237,7 @@ export default function Basket({
     const fetchDeliveryAddress = async () => {
         try {
 
-            const response = await axios.get('https://tyteda.ru/api/users/me/', {
+            const response = await axios.get('http://127.0.0.1:8000/api/users/me/', {
                 headers: {
                     Authorization: `Token ${tokenTwo}`,
                     'Content-Type': 'application/json',
@@ -317,7 +317,7 @@ export default function Basket({
                                         Адрес
                                     </p>
 
-                                    <input type="text" placeholder='Реутовских Ополченцев д 14, кв. 551' className={b.basket__item__form__label__inp}
+                                    <input type="text" required placeholder='Реутовских Ополченцев д 14, кв. 551' className={b.basket__item__form__label__inp}
 
                                         value={address}
                                         onChange={(event) => setAddress(event.target.value)}
@@ -377,10 +377,7 @@ export default function Basket({
 
                                             value={oplata}
                                             onChange={(event) => setOplata(event.target.value)}
-
                                         >
-
-
                                             <option value="Оптала онлайн">Оплата онлайн</option>
 
 

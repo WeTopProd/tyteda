@@ -19,7 +19,7 @@ export default function KidsMenu({
 
     useEffect(() => {
 
-        axios.get('https://tyteda.ru/api/goods/?type=children_menu', {
+        axios.get('http://127.0.0.1:8000/api/goods/?type=children_menu', {
 
         })
 

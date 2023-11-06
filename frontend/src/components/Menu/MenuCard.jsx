@@ -31,7 +31,7 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
         setHeart(newHeartState);
 
         try {
-            await axios.post(`https://tyteda.ru/api/goods/${info.id}/favorite/`, null, {
+            await axios.post(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, null, {
 
                 headers: {
                     'content-type': 'application/json',
@@ -40,7 +40,7 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
 
             });
 
-            const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+            const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
@@ -68,14 +68,14 @@ export default function MenuCard({ addBasket, isAddedToCart, isActive, ...info }
 
         try {
 
-            await axios.delete(`https://tyteda.ru/api/goods/${info.id}/favorite/`, {
+            await axios.delete(`http://127.0.0.1:8000/api/goods/${info.id}/favorite/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,
                 },
             });
 
-            const res = await axios.get('https://tyteda.ru/api/goods/?is_favorited=true', {
+            const res = await axios.get('http://127.0.0.1:8000/api/goods/?is_favorited=true', {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${tokenTwo}`,

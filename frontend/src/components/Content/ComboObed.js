@@ -22,7 +22,7 @@ const  ComboObed = ({
             <div className="Combo">
                 <div className="ComboPhoto">
                     {info && info.images && info.images[0] && info.images[0].images ? (
-                        <img src={info.images[0].images} alt="img" style={{width:'325px'}}/>
+                        <img src={info.images[0].image} alt="img" style={{width:'325px'}}/>
                     ) : (
                         <p>No image available</p>
                     )}

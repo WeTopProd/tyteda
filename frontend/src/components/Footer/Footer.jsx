@@ -103,7 +103,7 @@ function Footer() {
                     />
                   </Link>
 
-                  <Link to="https://corp-pitanie.https://tyteda.ru/api/">
+                  <Link to="https://corp-pitanie.http://127.0.0.1:8000/api/">
                     <img
                       src={img8}
                       alt="img"
