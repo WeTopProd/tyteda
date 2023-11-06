@@ -34,7 +34,7 @@ export default function Basket({
 
     async function removeBasket(id) {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/goods/${id}/shopping_cart/`, {
+            await axios.delete(`https://tyteda.ru/api/goods/${id}/shopping_cart/`, {
                 headers: {
                     'content-type': 'application/json',
                     authorization: `Token ${localStorage.getItem('token')}`,
@@ -153,7 +153,7 @@ export default function Basket({
         e.preventDefault();
 
         axios.request({
-            url: 'http://127.0.0.1:8000/api/send-order/',
+            url: 'https://tyteda.ru/api/send-order/',
             data: {
                 decription: `${goodDisc}`,
                 goods_id: goodId,
@@ -171,7 +171,7 @@ export default function Basket({
         })
             .then(response => {
                 axios.request({
-                    url: 'http://127.0.0.1:8000/api/payment/',
+                    url: 'https://tyteda.ru/api/payment/',
                     method: 'POST',
                     data: {
                         "service_name": `${goodDisc}`,
@@ -198,7 +198,7 @@ export default function Basket({
             })
             .then((res) => {
                 axios.patch(
-                    'http://127.0.0.1:8000/api/users/me/',
+                    'https://tyteda.ru/api/users/me/',
                     {
                         delivery_address: address // Обновление адреса доставки в модели пользователя
                     },
@@ -237,7 +237,7 @@ export default function Basket({
     const fetchDeliveryAddress = async () => {
         try {
 
-            const response = await axios.get('http://127.0.0.1:8000/api/users/me/', {
+            const response = await axios.get('https://tyteda.ru/api/users/me/', {
                 headers: {
                     Authorization: `Token ${tokenTwo}`,
                     'Content-Type': 'application/json',

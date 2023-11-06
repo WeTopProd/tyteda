@@ -36,7 +36,7 @@ export default function Reg() {
     const hanClickReg = () => {
 
         // e.preventDefault()
-        axios.post('http://127.0.0.1:8000/api/users/', {
+        axios.post('https://tyteda.ru/api/users/', {
 
             phone: Number,
             first_name: Name,
