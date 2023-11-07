@@ -59,7 +59,6 @@ def send_email(request):
     count_goods = request.data.get('count_goods', [])
     price_goods = request.data.get('price_goods', [])
     final_price = request.data.get('final_price', '')
-    status_pay = request.data.get('status_pay', '')
     goods_list = Goods.objects.filter(pk__in=goods_ids)
 
     first_name = user.first_name
@@ -68,9 +67,8 @@ def send_email(request):
     email_user = user.email
 
     message = (f"ЗАКАЗ ОТ {last_name} {first_name}\n\n"
-               f"Статус оплаты: {status_pay}\nНОМЕР ТЕЛЕФОНА: {phone}\n"
-               f"ПОЧТА: {email_user}\n\nЗАКАЗ:\nДАТА ЗАКАЗА: {date}\n"
-               f"АДРЕС ДОСТАВКИ:{address}\n\n")
+               f"НОМЕР ТЕЛЕФОНА: {phone}\nПОЧТА: {email_user}\n\nЗАКАЗ:\n"
+               f"ДАТА ЗАКАЗА: {date}\nАДРЕС ДОСТАВКИ:{address}\n\n")
 
     for i, goods in enumerate(goods_list):
         message += (f"ТОВАР {i + 1}:\n"

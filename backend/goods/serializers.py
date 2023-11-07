@@ -125,5 +125,6 @@ class OrderSerializer(serializers.ModelSerializer):
             'address',
             'delivery_time',
             'payment_method',
+            'status_order',
             'items'
         )

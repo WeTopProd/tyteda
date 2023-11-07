@@ -158,6 +158,12 @@ class ShoppingCart(models.Model):
 
 
 class Order(models.Model):
+    STATUSES = (
+        ('accepted', 'Принят'),
+        ('cooking', 'Готовится'),
+        ('delivery', 'В доставке'),
+        ('delivered', 'Доставлен')
+    )
     user = models.ForeignKey(
         User,
         verbose_name='Покупатель',
@@ -179,6 +185,12 @@ class Order(models.Model):
     address = models.CharField('Адрес доставки', max_length=255)
     delivery_time = models.CharField('Время доставки', max_length=50)
     payment_method = models.CharField('Метод оплаты', max_length=100)
+    status_order = models.CharField(
+        'Статус заказа',
+        choices=STATUSES,
+        max_length=50,
+        default='accepted'
+    )
 
     class Meta:
         verbose_name = 'Заказ'
