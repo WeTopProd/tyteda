@@ -72,10 +72,6 @@ export default function InterCard ({
                             {mas.weight} г.
                             </p>
 
-                            <p className={i.inter__item__info__title}>
-                            {mas.calories} калл.
-                            </p>
-
                         </div>
 
                         <div className={i.inter__item__info}>
