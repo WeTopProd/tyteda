@@ -155,8 +155,6 @@ export default function Card({ addBasket, isAddedToCart, isActive, ...info }) {
 
       </div>
 
-      <p className={s.mycard__item__info__subtitle}>{info.calories} ккал</p>
-
       <p className={s.mycard__item__subtitle}>{info.compound}</p>
 
       <div className={s.mycard__item__footer}>
